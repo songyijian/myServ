@@ -124,14 +124,15 @@
 		}
 		
 		
-		new Ajax(
+		new Ajax({
 			"url":"./get",				
 			"type":"GET",				
-			"data":"",				//* string || json 请求数据
-			
+			"data":j,
 			"success":function(e){
-				alert()
+				console.log(e)
 			}
+		})
+			
 		
 		console.log(j)
 	}

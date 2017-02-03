@@ -12,7 +12,10 @@ exports.buildershow = (req, res, next) => {
 
 exports.builder = (req, res, next) => {
 	let alldata="";
-	req.addListener("data",function(chunk){
+
+	res.send("sds")
+
+	/*req.addListener("data",function(chunk){
 	    alldata += chunk;
 	});
 
@@ -20,7 +23,7 @@ exports.builder = (req, res, next) => {
 	req.addListener("end",function(){
 	    console.log(alldata.toString());
 	    res.end("success");
-	});
+	});*/
 	
    //res.send("dsfdfdf")
 } 
