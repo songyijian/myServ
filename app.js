@@ -1,23 +1,18 @@
 "use strict"
-/*import fs from "fs";
-import express from "express";
-import router from "./controller";
-*/
 const fs = require("fs");
 const express = require("express");
 const router = require("./controller/router.js");
-
-
-
-
 const app = express();
+
+
 
 app.set("view engine", "ejs");
 //静态服务
 app.use("/jingtai", express.static(__dirname + "/2017"));
 
 //构建
-app.get('/', router.builder)
+app.get('/', router.buildershow)
+app.get('/get', router.builder)
 
 //404
 app.use((req, res) => {
@@ -25,6 +20,7 @@ app.use((req, res) => {
 })
 
 app.listen(80)
+
 
 
 

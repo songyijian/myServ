@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>f2e 前端构建工具</title>
@@ -14,38 +13,130 @@
 	table{border-collapse:collapse;}
 	input,area{ outline:none } 
 	
-	body{ font: 20px/40px "微软雅黑";}
-    form { width: 1024px; background: #FFFFFF; margin: 0 auto;  }
-    span{ display:inline-block; height: 40px; width: 100px; background:yellowgreen; color: #FFFFFF; cursor: pointer; }
+	body{ font: 18px/30px "微软雅黑"; background-color: #fafafa; }
+    form { width:750px; margin:2rem auto; border: 1px solid #d8d8d8;  border-radius: 3px;}
+    form>div{ border-bottom: 1px solid #d8d8d8;  padding: 1rem;}
+    h4{ margin-bottom: 0.3rem;}
+    
+    input[type="button"]{background:no-repeat; cursor: pointer;  background:#eee; border: 1px solid #d8d8d8; color: #000000;  display:inline-block; padding:0.25rem 1rem;  border-radius: 3px;}
+    input[type="button"]:hover{background:#eee; border:1px solid rgba(0, 0, 0, 0.2);}
+    
+    .btn_box>input{margin-right:0.5rem ;}
+    #builder{ font-weight: bold; background: #FFFFFF;}
+    #path{ width: 100%; padding: 0.2rem; box-sizing: border-box; }
+    #yes{ background: red;}
+    
+    
     </style>
 </head>
 
 <body>
-	<p><%= ></p>
-    <form action="#" method="post">
-        <div>
-            <h3>项目名称：</h3>
-            <input type="text" name="name" />
-        </div>
-        <div>
-            <h3>引用模版类型：</h3>
-            <p>
-	            <select name="">
-	            	<option value="">模版一</option>
-	            </select>
-            </p>
-        </div>
-    </form>
+
+<form action="#" method="post">
+    <div>
+        <h4>创建位置：</h4>
+        <input type="text" name="" id="path" value="" />
+    </div>
+    <div>
+        <h4>常规模版：</h4>
+        <p class="btn_box">
+        	<% for(var i=0; i<m1.length; i++){%>
+        		<input type="button" name="" id="" value="<%= m1[i]%>" />
+        	<% }%>
+        </p>
+    </div>
+    <div>
+        <h4>汽车模版：</h4>
+        <p class="btn_box">
+			<% for(var i=0; i<m1.length; i++){%>
+        		<input type="button" name="" id="" value="<%= m1[i]%>" />
+        	<% }%>
+        	<input type="button" name="" id="" value="pc模版1" />
+        </p>
+    </div>
     
-    <span id="builder">创建项目</span>
+    <div>
+	    <input type="button" name="" id="builder" value="创建项目" />
+    </div>
+</form>
 
 
-    <script>
-    document.getElementById("builder").onclick = function(){
-    	
-    }
-    </script>
+<script>
+!function(){
+	
+	/*
+	ajax 1.0.1 简易原生ajax封装
+	作者：songyijian 
+	发布：2016.10.20
+	
+	API
+		new Ajax({
+			"url":"",				//* string  请求地址 
+			"type":"",				//string 请求类型只支持POST GOT  ,默认 POST 
+			//"dataType":"json", 	//尚未完成该功能（ 接受数据类型 ）
+			"data":"",				//* string || json 请求数据
+			"encode":false,			//多次编码（处理  react 乱码）
+			"async":true,			//异步
+			"success":function(e){},//成功回调（e 为接收到的数据） 处理业务就在这里
+			"err":function(e){},	// 错误回调 （e 回调的错误码 404 ...）
+			"initFn":function(_this){}//初始化回调（_this === this 可以拿到对象所有的信息）
+		})
+
+*/
+
+!function(){function Ajax(o){this.data={"url":"","type":"POST","dataType":"json","data":"","encode":false,"async":true,"success":function(e){},"err":function(e){},"initFn":function(_this){}};for(var i in o){this.data[i]=o[i]}if(this.data.url===""){return}this.fn={"jsonof":function(obj){var isjson=typeof(obj)=="object"&&Object.prototype.toString.call(obj).toLowerCase()=="[object object]"&&!obj.length;return isjson},"setUrlK":function setUrlK(ojson,encode){var s="",name,key;for(var p in ojson){if(ojson.hasOwnProperty(p)){name=p}key=ojson[p];var value=null;if(encode){s+="&"+name+"="+encodeURI(encodeURI((typeof key=="object"?JSON.stringify(key):key)))}else{s+="&"+name+"="+encodeURI((typeof key=="object"?JSON.stringify(key):key))}}return s.substring(1,s.length)}};this.go_data="";if(this.data.data&&(this.fn.jsonof(this.data.data)||typeof this.data.data==="string")){if(this.fn.jsonof(this.data.data)){this.go_data=this.fn.setUrlK(this.data.data,this.data.encode)}else{this.go_data=this.data.data}}else{return}this.init()}Ajax.prototype.init=function(){this.data.initFn(this);var _this=this;this.oAjax=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");if(this.data.type.toUpperCase()==="GET"){if(this.go_data){this.oAjax.open(this.data.type,this.data.url+"?"+this.go_data,this.data.async)}else{this.oAjax.open(this.data.type,this.data.url,this.data.async)}}if(this.data.type.toUpperCase()==="POST"){this.oAjax.open(this.data.type,this.data.url,this.data.async);this.oAjax.setRequestHeader("Content-type","application/x-www-form-urlencoded; charset=utf-8")}this.oAjax.send(this.data.type.toUpperCase()==="GET"?null:this.go_data);this.oAjax.onreadystatechange=function(){_this.changefn()}};Ajax.prototype.changefn=function(){if(this.oAjax.readyState===4){this.statusCode=this.oAjax.status;if(this.statusCode===200){this.data.success(JSON.parse(this.oAjax.responseText))}else{this.data.err(this.statusCode)}}};window.Ajax=Ajax}();if(typeof(module)!=="undefined"){module.exports=window.Ajax}else{if(typeof define==="function"&&define.amd){define([],function(){return window.Ajax})}};
+	
+	
+	function $(s){return document.querySelector(s)}
+	function _$(s){return document.querySelectorAll(s)}
+	var btnBoxs = _$(".btn_box");
+	let path = $("#path");
+
+	btnBoxs.forEach((items,index)=>{
+		console.log(index,items)
+		items.addEventListener('click', (ev)=>{
+			let _this = ev.target;
+			if(_this.nodeName === "INPUT"){
+				if($("#yes"))$("#yes").id = "";
+			
+				_this.id = "yes";
+			}
+		})
+	})
+	
+	$("#builder").onclick = ()=>{
+		let j={
+			path:null,
+			mold:null
+		}
+		if(path.value){
+			j.path = path.value;
+		}else{
+			alert("请检测创建位置")
+			return;
+		}
+		
+		if($("#yes")){
+			j.mold = $("#yes").value;
+		}else{
+			alert("请选着模版")
+			return;
+		}
+		
+		
+		new Ajax(
+			"url":"./get",				
+			"type":"GET",				
+			"data":"",				//* string || json 请求数据
+			
+			"success":function(e){
+				alert()
+			}
+		
+		console.log(j)
+	}
+}()
+</script>
 
 </body>
-
 </html>
