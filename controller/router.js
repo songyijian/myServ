@@ -1,6 +1,6 @@
 "use strict"
 const file = require("../models/file.js");
-//const file = require("../models/file.js");
+const queryString  = require("querystring");
 
 
 exports.buildershow = (req, res, next) => {
@@ -13,17 +13,25 @@ exports.buildershow = (req, res, next) => {
 exports.builder = (req, res, next) => {
 	let alldata="";
 
-	res.send("sds")
-
-	/*req.addListener("data",function(chunk){
+	req.addListener("data",function(chunk){
 	    alldata += chunk;
 	});
 
 	//全部传输完毕
 	req.addListener("end",function(){
-	    console.log(alldata.toString());
-	    res.end("success");
-	});*/
+		let ajaxData = queryString.parse(alldata);
+		
+		
 	
-   //res.send("dsfdfdf")
+	    res.send({
+			a:"df",
+			b:123
+		})
+	    
+	    
+	    console.log(ajaxData);
+	});
+	
+	
 } 
+
