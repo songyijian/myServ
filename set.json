@@ -14,6 +14,11 @@
                 { "name": "2016", "path": "E:/SVN/2016" },
                 { "name": "2017", "path": "E:/SVN/2017" }
             ]
+        },{
+            "name": "mac",
+            "list": [
+                { "name": "set", "path": "/Users/yjsong/D/fis" }
+            ]
         }
     ],
     "template": [{

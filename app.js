@@ -9,7 +9,6 @@ const builderData = require("./set.json");
 app.set("view engine", "ejs");
 //静态服务
 builderData.ItemType.forEach((item, i) => {
-    console.log(1)
     let www = item.name;
     item.list.forEach((item, i) => {
         app.use(`/${www}/${item.name}`, express.static(`${item.path}`));
@@ -25,7 +24,7 @@ app.use((req, res) => {
     res.status(404).send("404!");
 })
 
-app.listen(80, (err) => {
+app.listen(8000, (err) => {
     if (err) {
         console.log("本地服务的80端口可能被占用")
         console.error(err)

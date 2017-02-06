@@ -12,9 +12,9 @@ exports.builder = (req, res, next) => {
     //全部传输完毕
     req.on("end", function() {
         let ajaxData = queryString.parse(alldata);
-        let cpath = ajaxData.path.split(path.sep)
-        let endData = {};
+        let cpath = ajaxData.path.split(path.sep);
 
+        let endData = {};
         console.log(cpath)
 
         if (ajaxData.type) {
@@ -29,24 +29,41 @@ exports.builder = (req, res, next) => {
                     return false;
                 }
 
+                fs.stat(`${ajaxData.type}/${cpath[0]}`, (err, stats) => {
+                    if (err) {
+                        console.log("不存在可以创建：",`${ajaxData.type}/${cpath[0]}`)
+                        endData = {
+                            "state": -1,
+                            "iofn": `请检查${ajaxData.type}目录是否存在 || set配置是否正确？`
+                        };
+                        
+                        res.send(endData)
+                        return false;
+                    }
+                    // fs.stat(`${ajaxData.type}/${cpath[0]}`, (err, stats) => {
+                    //     if (err) {
+                    //         console.log("不存在可以创建：",`${ajaxData.type}/${cpath[0]}`)
+                    //         endData = {
+                    //             "state": -1,
+                    //             "iofn": `请检查${ajaxData.type}目录是否存在 || set配置是否正确？`
+                    //         };
+                            
+                    //         res.send(endData)
+                    //         return false;
+                    //     }
+                    // })
 
 
-                // fs.stat(`${ajaxData.type}`, (err, stats) => {
-                //     if (err) {
-                //         endData.state = -1;
-                //         endData.err = `找不到${ajaxData.type}目录，请检查一下set的配置是否正确`;
-                //         throw err;
-                //     }
+                    res.send(endData)
 
-                // })
+                })
+
+
 
 
                 res.send(endData)
             })
         }
-
-
-
 
 
         console.log("////", ajaxData);
