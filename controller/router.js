@@ -1,37 +1,15 @@
 "use strict"
 const file = require("../models/file.js");
-const queryString  = require("querystring");
+const queryString = require("querystring");
+const setData = require("../models/buildershow.js");
+const builder = require("../models/builder.js");
 
-
+// 构建UI
 exports.buildershow = (req, res, next) => {
-    res.render("builder", {
-    	m1:["1","2","3"],
-    	m2:["1","2","3"]
-    });
-}
+    res.render("builder", setData.builderData);
+};
 
+// 构建处理
 exports.builder = (req, res, next) => {
-	let alldata="";
-
-	req.addListener("data",function(chunk){
-	    alldata += chunk;
-	});
-
-	//全部传输完毕
-	req.addListener("end",function(){
-		let ajaxData = queryString.parse(alldata);
-		
-		
-	
-	    res.send({
-			a:"df",
-			b:123
-		})
-	    
-	    
-	    console.log(ajaxData);
-	});
-	
-	
-} 
-
+    builder.builder(req, res, next)
+};

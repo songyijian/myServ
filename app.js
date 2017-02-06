@@ -3,12 +3,18 @@ const fs = require("fs");
 const express = require("express");
 const router = require("./controller/router.js");
 const app = express();
-
+const builderData = require("./set.json");
 
 
 app.set("view engine", "ejs");
 //静态服务
-app.use("/jingtai", express.static(__dirname + "/2017"));
+builderData.ItemType.forEach((item, i) => {
+    console.log(1)
+    let www = item.name;
+    item.list.forEach((item, i) => {
+        app.use(`/${www}/${item.name}`, express.static(`${item.path}`));
+    })
+});
 
 //构建
 app.get('/', router.buildershow)
@@ -19,5 +25,9 @@ app.use((req, res) => {
     res.status(404).send("404!");
 })
 
-app.listen(80)
-
+app.listen(80, (err) => {
+    if (err) {
+        console.log("本地服务的80端口可能被占用")
+        console.error(err)
+    }
+})

@@ -1,9 +1,38 @@
-/**
- * @author yjsong
- */
-
-
 {
-	moban:"",
-	mypath:"",
+    "me": "",
+    "ItemType": [{
+            "name": "auto",
+            "list": [
+                { "name": "2016", "path": "E:/SVN/auto/2016" },
+                { "name": "2017", "path": "E:/SVN/auto/2017" }
+            ]
+        },
+        {
+            "name": "go",
+            "list": [
+                { "name": "2015", "path": "E:/SVN/2015" },
+                { "name": "2016", "path": "E:/SVN/2016" },
+                { "name": "2017", "path": "E:/SVN/2017" }
+            ]
+        }
+    ],
+    "template": [{
+        "name": "广告模版1",
+        "mb_id": 1,
+        "structure": [
+            "imgages", "1.json",
+            { "name": "js", "structure": ["main.js"] },
+            { "name": "css", "structure": ["main.css"] },
+            { "name": "index.html", "get": "" }
+        ]
+    }, {
+        "name": "汽车模版1",
+        "mb_id": 2,
+        "structure": [
+            "imgages", "1.json",
+            { "name": "js", "structure": ["main.js"] },
+            { "name": "css", "structure": ["main.css"] },
+            { "name": "index.html", "get": "" }
+        ]
+    }]
 }
