@@ -28,7 +28,7 @@ exports.builder = (req, res, next) => {
                     res.send(endData)
                     return false;
                 }
-                fs.stat(`${ajaxData.type}/${ajaxData.path}`, (err, stats) => {
+                fs.access(`${ajaxData.type}/${ajaxData.path}`, err => {
                     if (err) {
                         mrFn(cpath, req, res)
                         return false;
@@ -49,7 +49,7 @@ exports.builder = (req, res, next) => {
             let y = false;
             array.forEach(function(element, index) {
                 p += element;
-                fs.stat(`${ajaxData.type}/${p}`, (err, stats) => {
+                fs.access(`${ajaxData.type}/${p}`, err => {
                     if (err) {
                         fs.mkdir(`${ajaxData.type}/${p}`, element, err => {
                             if (err) {
