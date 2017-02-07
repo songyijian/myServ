@@ -16,61 +16,69 @@ exports.builder = (req, res, next) => {
         let ajaxData = queryString.parse(alldata);
         let cpath = ajaxData.path.split(path.sep);
         console.log(cpath)
+        if (!ajaxData.type) { return false; }
 
-        if (ajaxData.type) {
-            fs.access(ajaxData.type, err => {
-                if (!err) {
-                    endData = {
-                        "state": -1,
-                        "err": `请检查${ajaxData.type}目录是否存在 || set配置是否正确？`
-                    };
-                    console.error(err);
-                    res.send(endData)
+        fs.access(`${ajaxData.type}`, fs.constants.R_OK | fs.constants.W_OK, err => {
+            if (err) {
+                endData = {
+                    "state": -1,
+                    "err": `请检查${ajaxData.type}目录是否存在 || set配置是否正确？`
+                };
+                console.error(endData, err);
+                res.send(endData)
+                return false;
+            }
+            // console.log(`${ajaxData.type}`,"文件存在")
+
+            fs.access(`${ajaxData.type}/${ajaxData.path}`, fs.constants.R_OK | fs.constants.W_OK, err => {
+                if (err) {
+                    mrFn(cpath, req, res)
+                    console.log(`${ajaxData.type}/${ajaxData.path}`, "文件不存在")
                     return false;
                 }
-                fs.access(`${ajaxData.type}/${ajaxData.path}`, err => {
-                    if (err) {
-                        mrFn(cpath, req, res)
-                        return false;
-                    }
-                    endData = {
-                        "state": -1,
-                        "iofn": `${ajaxData.type}/${ajaxData.path} 该项目已经存在`
-                    };
-                    res.send(endData)
-                })
+
+                console.log(`${ajaxData.type}/${ajaxData.path}`, "文件存在")
+                endData = {
+                    "state": -1,
+                    "iofn": `${ajaxData.type}/${ajaxData.path} 该项目已经存在`
+                };
                 res.send(endData)
             })
-        }
+        })
+
+
         console.log("//", ajaxData);
 
         function mrFn(array, req, res) {
             let p = '';
             let y = false;
-            array.forEach(function(element, index) {
-                p += element;
-                fs.access(`${ajaxData.type}/${p}`, err => {
-                    if (err) {
-                        fs.mkdir(`${ajaxData.type}/${p}`, element, err => {
-                            if (err) {
-                                endData = {
-                                    "state": -1,
-                                    "err": `${ajaxData.type}/${p} 抱歉构建失败 `
-                                };
-                                console.error(err);
-                                res.send(endData)
-                                return false;
-                            }
+            //let i = 0;
+            (function dg(i) {
+                if (i > array.length - 1) {
+                    return false;
+                }
+                p += `/${array[i]}`;
+                console.log(i, `${array[i]}`, `${ajaxData.type}${p}`)
 
-                            endData = {
-                                "state": 1,
-                                "info": `${ajaxData.type}/${p}`
-                            };
-                            res.send(endData)
-                        })
+                fs.access(`${ajaxData.type}${p}`, fs.constants.R_OK | fs.constants.W_OK, err => {
+                    if (err) {
+                        // fs.mkdir(`${ajaxData.type}${array[i]}`, `${array[i]}`, err => {
+                        //     if (err) {
+                        //         endData = {
+                        //             "state": 1,
+                        //             "info": `${ajaxData.type}${array[i]}`
+                        //         };
+                        //         res.send(endData)
+                        //     }
+                        //     dg(i++)
+                        // })
                     }
+                    i++;
+                    dg(i);
                 })
-            }, this);
+            })(0);
+
+
         }
 
     });
