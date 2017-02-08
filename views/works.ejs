@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>f2e 前端构建工具</title>
+    <title>f2e 静态服务</title>
     <style>
     body, div, dl, dt, dd, ul, ol, li,h1, h2, h3, h4, h5, h6, pre, code,form, fieldset, legend, input,button,textarea, p, blockquote, th, td {margin:0;padding:0; } 
 	li{list-style:none;}
@@ -14,10 +14,24 @@
 	input,area{ outline:none } 
 	
 	body{ font: 18px/30px "arial,sans-serif"; background-color: #fafafa; }
+    .panel,form { width:750px; margin:2rem auto; border: 1px solid #d8d8d8;  border-radius: 3px;}
+    .panel>div{ border-bottom: 1px solid #d8d8d8;  padding: 1rem;}
+    h4{ margin-bottom: 0.3rem;}
+    i{ font: 14px/25px "arial,sans-serif"; color:#c00}
+    input[type="button"]{background:no-repeat; cursor: pointer;  background:#eee; border: 1px solid #d8d8d8; color: #000000;  display:inline-block; padding:0.25rem 1rem;  border-radius: 3px;}
+    input[type="button"]:hover{background:#eee; border:1px solid rgba(0, 0, 0, 0.2);}
+    
+    .btn_box>input{margin-right:0.5rem ;}
+    #builder{ font-weight: bold; background: #FFFFFF;}
+    #path{ width: 100%; padding: 0.2rem; box-sizing: border-box; }
+    #mb_yes,#type_yes{ background:#FFFFFF; border-color:#c00; color:#c00;}}
     </style>
 </head>
 <body>
-<form action="#" method="post">
+<h2>http://localhost:8000/mac/set/b/index.html</h2>
+<p>http://localhost:8000/ 仓库 /set/b/index.html</p>
+
+	<div class="panel">
 	<div>
 		<h4>项目仓库：</h4>
 		<% for(var i=0; i<ItemType.length; i++){%>
@@ -28,8 +42,9 @@
 				<% }%>
 			</p>
 		<% }%>
+		</div>
 	</div>
-</form>
+
 
 <script>
 !function(){

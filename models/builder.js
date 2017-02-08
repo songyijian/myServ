@@ -93,7 +93,7 @@ exports.builder = (req, res, next) => {
 
         //构建项目内容
         function mkworkFn(req, res) {
-            let infoOut = ''
+            var infoOut = '';
             let mData = builderData.template.filter((item) => {
                 return item.mb_id == ajaxData.mold
             });
@@ -101,7 +101,12 @@ exports.builder = (req, res, next) => {
 
             (function dg(i) {
                 if (i > md.length - 1) {
-                    res.send(endData)
+                    //res.send(endData)
+                    infoOut = `项目创建完成！`;
+                    res.send({
+                        "state": -1,
+                        "info": infoOut
+                    })
                     return false;
                 }
                 let item = md[i];

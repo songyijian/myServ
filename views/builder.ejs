@@ -15,8 +15,8 @@
 	
 	
 	body{ font: 18px/30px "arial,sans-serif"; background-color: #fafafa; }
-    form { width:750px; margin:2rem auto; border: 1px solid #d8d8d8;  border-radius: 3px;}
-    form>div{ border-bottom: 1px solid #d8d8d8;  padding: 1rem;}
+    .panel,form { width:750px; margin:2rem auto; border: 1px solid #d8d8d8;  border-radius: 3px;}
+    .panel>div{ border-bottom: 1px solid #d8d8d8;  padding: 1rem;}
     h4{ margin-bottom: 0.3rem;}
     i{ font: 14px/25px "arial,sans-serif"; color:#c00}
     input[type="button"]{background:no-repeat; cursor: pointer;  background:#eee; border: 1px solid #d8d8d8; color: #000000;  display:inline-block; padding:0.25rem 1rem;  border-radius: 3px;}
@@ -29,7 +29,7 @@
     </style>
 </head>
 <body>
-<form action="#" method="post">
+<form class="panel">
 	<div>
 		<h4>项目仓库：</h4>
 		<% for(var i=0; i<ItemType.length; i++){%>

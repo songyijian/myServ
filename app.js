@@ -10,14 +10,17 @@ app.set("view engine", "ejs");
 //静态服务
 builderData.ItemType.forEach((item, i) => {
     let www = item.name;
-    item.list.forEach((item, i) => {
-        app.use(`/${www}/${item.name}`, express.static(`${item.path}`));
+    item.list.forEach((it, i) => {
+        app.use(`/${www}/${it.name}`, express.static(`${it.path}`));
     })
 });
 
 //构建
 app.get('/', router.buildershow)
 app.post('/get', router.builder)
+
+app.get('/works', router.worksshow)
+    // app.post('/getworks', router.builder)
 
 //404
 app.use((req, res) => {
