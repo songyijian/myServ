@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>f2e 静态服务</title>
+    <style>
+	body, div, dl, dt, dd, ul, ol, li,h1, h2, h3, h4, h5, h6, pre, code,form, fieldset, legend, input,button,textarea, p, blockquote, th, td {margin:0;padding:0; } 
+	table{border-collapse:collapse;}
+	input,area{ outline:none } 
+	
+	body{ font: 14px/30px "arial,sans-serif"; background-color: #f8f8f8;}
+	a{color:#000;}
+	a:hover{color: #42b983;}
+	a{ margin-right:2rem; font-size:14px;}
+	.panel{ width:750px; margin:1rem auto;  padding:1rem; border: 1px solid #d8d8d8; background-color: #FFFFFF;  border-radius: 3px;}
+    </style>
+</head>
+<body>
+	<div class="panel">
+	<% if(err){ %>
+		<%= err %>
+	<% }else{ %>
+		<% for(var j=0; j<data.length; j++){%>
+			<a href="<%= data[j] %>"><%= data[j] %></a>
+		<% } %>
+	<% } %>
+	</div>
+</body>
+</html>

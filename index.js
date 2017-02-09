@@ -99,11 +99,26 @@ err
 
 
 // //爬虫 ==================
-getDom.getHtml('http://test.go.163.com/go/2017/0106/honor/index.html', (err, data) => {
-    console.log(err, data)
-    let xr = data;
-    console.log(xr)
-    fs.writeFile('E:/SVN/2017/0123/2/index.html', xr, 'utf8', err => {
-        console.log(err)
-    })
+// getDom.getHtml('http://test.go.163.com/go/2017/0106/honor/index.html', (err, data) => {
+//     console.log(err, data)
+//     let xr = data;
+//     console.log(xr)
+//     fs.writeFile('E:/SVN/2017/0123/2/index.html', xr, 'utf8', err => {
+//         console.log(err)
+//     })
+// })
+
+
+//获取get请求的 url 信息
+//let urls = req.url;
+
+// var c = path.join('E:/SVN/auto/2016/0921', "./")
+// console.log(c)
+
+
+fs.readdir('E:/SVN/auto/2016/0921', (err, data) => {
+    if (err) { console.log(err) } else {
+        console.log(data)
+
+    }
 })

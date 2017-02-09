@@ -1,23 +1,26 @@
 {
-    "me": "",
+    "me": "yjsong",
     "ItemType": [{
             "name": "auto",
+            "id": "auto",
             "list": [
-                { "name": "2016", "path": "E:/SVN/auto/2016" },
-                { "name": "2017", "path": "E:/SVN/auto/2017" }
+                { "name": "2016", "id": "2016", "path": "E:/SVN/auto/2016" },
+                { "name": "2017", "id": "2017", "path": "E:/SVN/auto/2017" }
             ]
         },
         {
             "name": "go",
+            "id": "go",
             "list": [
-                { "name": "2015", "path": "E:/SVN/2015" },
-                { "name": "2016", "path": "E:/SVN/2016" },
-                { "name": "2017", "path": "E:/SVN/2017" }
+                { "name": "2015", "id": "2015", "path": "E:/SVN/2015" },
+                { "name": "2016", "id": "2016", "path": "E:/SVN/2016" },
+                { "name": "2017", "id": "2017", "path": "E:/SVN/2017" }
             ]
         }, {
             "name": "mac",
+            "id": "mac",
             "list": [
-                { "name": "set", "path": "/Users/yjsong/D/fis" }
+                { "name": "set", "id": "2017", "path": "/Users/yjsong/D/fis" }
             ]
         }
     ],
