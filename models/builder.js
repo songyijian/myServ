@@ -46,11 +46,11 @@ exports.builder = (req, res, next) => {
                 //console.log('该项目已经存在')
                 res.send({
                     "state": -1,
-                    "info": `${ajaxData.type}/${ajaxData.path} 该项目已经存在`
+                    "info": `该项目已经存在 - ${ajaxData.type}/${ajaxData.path}`
                 })
             })
-        })
-        console.log("//", ajaxData);
+        });
+        //console.log("//", ajaxData);
 
         //构建目录层
         function mkdirFn(arr, req, res) {
@@ -101,11 +101,9 @@ exports.builder = (req, res, next) => {
 
             (function dg(i) {
                 if (i > md.length - 1) {
-                    //res.send(endData)
-                    infoOut = `项目创建完成！`;
                     res.send({
-                        "state": -1,
-                        "info": infoOut
+                        "state": 1,
+                        "info": `${ajaxData.type}/${ajaxData.path}`
                     })
                     return false;
                 }

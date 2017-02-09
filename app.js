@@ -14,11 +14,12 @@ builderData.ItemType.forEach((item, i) => {
         app.use(`/${www}/${it.name}`, express.static(`${it.path}`));
     })
 });
+app.use(`/`, express.static(`views`));
 
 //构建
 app.get('/', router.buildershow)
 app.post('/get', router.builder)
-
+    //静态ui
 app.get('/:typeid/:ckid/*', router.warehouse)
 
 

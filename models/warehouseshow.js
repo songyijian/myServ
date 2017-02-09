@@ -25,6 +25,7 @@ exports.warehouseshow = (req, res, next, fn) => {
     let cky = typey[0].list.filter((item, index) => {
         return item.id == ck;
     })
+
     if (cky.length === 0) {
         next();
         return;

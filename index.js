@@ -69,6 +69,9 @@ err
 //     }
 // })
 
+//判断 点文件 .txt 
+console.log(path.extname("ss.txt"))
+console.log(path.extname(".txt"))
 
 
 //读取目录内容===================
@@ -116,9 +119,9 @@ err
 // console.log(c)
 
 
-fs.readdir('E:/SVN/auto/2016/0921', (err, data) => {
-    if (err) { console.log(err) } else {
-        console.log(data)
+// fs.readdir('E:/SVN/auto/2016/0921', (err, data) => {
+//     if (err) { console.log(err) } else {
+//         console.log(data)
 
-    }
-})
+//     }
+// })
