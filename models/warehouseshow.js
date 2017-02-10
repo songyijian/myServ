@@ -25,7 +25,6 @@ exports.warehouseshow = (req, res, next, fn) => {
     let cky = typey[0].list.filter((item, index) => {
         return item.id == ck;
     })
-
     if (cky.length === 0) {
         next();
         return;
@@ -41,12 +40,29 @@ exports.warehouseshow = (req, res, next, fn) => {
     pathy += curl;
     pathy = slash(pathy)
 
+    if (path.parse(`${pathy}`).ext) {
+        next()
+        return;
+    }
+
     fs.readdir(`${pathy}`, (err, data) => {
         let oerr = null;
-        let yData = {};
+        let yData = { "data": data, 'v': null };
         if (err) {
             oerr = err;
         }
-        fn(oerr, data)
+        //项目根目录判定
+        if (data)
+            data.forEach((item, index) => {
+                if (item === "_.json") {
+                    console.log(`${pathy}/_.json`)
+                    const c = fs.readFileSync(`${pathy}/_.json`)
+                    yData.v = c ? c : null;
+                    return
+                }
+            })
+        console.log(oerr, yData)
+        fn(oerr, yData)
     })
+
 };

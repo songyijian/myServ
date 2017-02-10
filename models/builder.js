@@ -152,8 +152,7 @@ exports.builder = (req, res, next) => {
                                 infoOut += `${ url } 创建失败,`;
                                 endData = { "state": -1, info: infoOut }
                             }
-                            xr = data;
-                            fs.writeFile(`${ url }`, xr, 'utf8', err => {
+                            fs.writeFile(`${ url }`, data, 'utf8', err => {
                                 fn(err)
                             })
                         })

@@ -1,5 +1,4 @@
 "use strict"
-const file = require("../models/file.js");
 const queryString = require("querystring");
 const setData = require("../models/buildershow.js");
 const builder = require("../models/builder.js");

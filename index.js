@@ -2,6 +2,9 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+
+const express = require("express");
+const app = express();
 const queryString = require("querystring");
 const getDom = require("./models/getDom.js");
 
@@ -70,8 +73,8 @@ err
 // })
 
 //判断 点文件 .txt 
-console.log(path.extname("ss.txt"))
-console.log(path.extname(".txt"))
+// console.log(path.extname("ss.txt"))
+// console.log(path.extname(".txt"))
 
 
 //读取目录内容===================
@@ -123,5 +126,18 @@ console.log(path.extname(".txt"))
 //     if (err) { console.log(err) } else {
 //         console.log(data)
 
+//     }
+// })
+
+let ff = path.parse('/home/user/dir/file')
+
+console.log(ff.ext === true)
+
+
+// app.use(express.static("E:/SVN/2017/0101/"));
+// app.listen(9000, (err) => {
+//     if (err) {
+//         console.log("本地服务的9000端口可能被占用")
+//         console.error(err)
 //     }
 // })
