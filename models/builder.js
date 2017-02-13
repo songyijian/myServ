@@ -13,17 +13,17 @@ exports.builder = (req, res, next) => {
     let endData = {};
 
     //get 数据
-    req.on("data", function(chunk) {
-        alldata += chunk;
-    });
+    req.on("data", function(chunk) { alldata += chunk; });
     req.on("end", dataEND);
 
 
     function dataEND() {
         let ajaxData = queryString.parse(alldata);
         let cpath = ajaxData.path.split(path.sep);
-        console.log(cpath)
+
         if (!ajaxData.type) { return false; }
+
+        console.log(ajaxData)
 
         //项目检查
         fs.access(`${ajaxData.type}`, fs.constants.R_OK | fs.constants.W_OK, err => {
@@ -43,7 +43,6 @@ exports.builder = (req, res, next) => {
                     mkdirFn(cpath, req, res)
                     return false;
                 }
-                //console.log('该项目已经存在')
                 res.send({
                     "state": -1,
                     "info": `该项目已经存在 - ${ajaxData.type}/${ajaxData.path}`
@@ -90,7 +89,6 @@ exports.builder = (req, res, next) => {
 
 
 
-
         //构建项目内容
         function mkworkFn(req, res) {
             var infoOut = '';
@@ -101,9 +99,19 @@ exports.builder = (req, res, next) => {
 
             (function dg(i) {
                 if (i > md.length - 1) {
+                    let thisserverurl = null;
+                    builderData.ItemType.forEach((item) => {
+                        if (item.id == ajaxData.ckl) {
+                            item.list.forEach((items) => {
+                                if (items.path == ajaxData.type) {
+                                    thisserverurl = items.id;
+                                }
+                            })
+                        }
+                    })
                     res.send({
                         "state": 1,
-                        "info": `${ajaxData.type}/${ajaxData.path}`
+                        "info": `http://localhost:8000/${ajaxData.ckl}/${thisserverurl}/${ajaxData.path}`
                     })
                     return false;
                 }

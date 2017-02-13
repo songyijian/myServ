@@ -6,7 +6,6 @@ const queryString = require("querystring");
 const builderData = require("../set.json");
 const slash = require('slash');
 
-
 exports.warehouseshow = (req, res, next, fn) => {
     var rendData = {}
     let type = req.params["typeid"];

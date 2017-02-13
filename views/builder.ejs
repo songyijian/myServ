@@ -16,7 +16,7 @@
 			<p class="btn_boxs">
 				<em><%= ItemType[i].name %>：</em>
 				<% for(var j=0; j<ItemType[i].list.length; j++){%>
-					<input type="button" name="<%= ItemType[i].list[j].path %>" id="" value="<%= ItemType[i].list[j].name %>" />
+					<input type="button" name="<%= ItemType[i].list[j].path %>" data-ckl="<%= ItemType[i].id %>" id="" value="<%= ItemType[i].list[j].name %>" />
 				<% }%>
 			</p><br/>
 		<% }%>
@@ -86,6 +86,7 @@
 			return;
 		}
 		jData.type= $("#type_yes").name;
+		jData.ckl= $("#type_yes").dataset.ckl;
 		if(!path.value){
 			alert("滚粗！你这是要创建空气吗？输入项目名称");
 			return;
@@ -99,9 +100,6 @@
 		new Ajax({
 			"url":"./get",
 			"data":jData,
-			initFn:(_this)=>{
-				//console.log(_this.go_data)
-			},
 			"success":function(e){
 				console.log(e)
 				if(e.state>0){
