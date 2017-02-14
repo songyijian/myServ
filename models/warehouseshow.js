@@ -4,7 +4,10 @@ const path = require("path");
 const url = require("url");
 const queryString = require("querystring");
 const builderData = require("../set.json");
+const merge = require("./merge.js");
 const slash = require('slash');
+
+
 
 exports.warehouseshow = (req, res, next, fn) => {
     var rendData = {}
@@ -54,14 +57,31 @@ exports.warehouseshow = (req, res, next, fn) => {
         if (data)
             data.forEach((item, index) => {
                 if (item === "_.json") {
-                    console.log(`${pathy}/_.json`)
-                    const c = fs.readFileSync(`${pathy}/_.json`)
+                    const c = fs.readFileSync(`${pathy}/_.json`, "utf-8")
                     yData.v = c ? c : null;
+                    let getD = JSON.parse(yData.v);
+
+                    if (getD.js.list && getD.js.min) {
+                        getD.js.list.forEach((item, index) => {
+                            merge.mergeJS(`${pathy}/${item}`, `${pathy}/${getD.js.min}`, getD.js.list, `${pathy}`)
+                        })
+                    }
+
+                    if (getD.css.list && getD.css.min) {
+                        getD.css.list.forEach((item, index) => {
+                            merge.mergeCSS(`${pathy}/${item}`, `${pathy}/${getD.css.min}`, getD.css.list, `${pathy}`)
+                        })
+                    }
+
                     return
                 }
             })
-        console.log(oerr, yData)
+
         fn(oerr, yData)
     })
+
+
+
+
 
 };

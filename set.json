@@ -27,10 +27,14 @@
     "template": [{
         "name": "广告模版1",
         "mb_id": 1,
-        "structure": ["_.json", "images", "css", "js", "thisData.json", "main.js", "main.css", { "name": "index.html", "get": "http://test.go.163.com/go/2017/0106/honor/index.html" }]
+        "structure": ["_.json", "images", "css", "js", "thisData.json", "main.js", "main.css", { "name": "index.html", "get": "http://test.go.163.com/go/2017/0228/bTest/" }]
     }, {
         "name": "汽车模版1",
         "mb_id": 1,
-        "structure": ["_.json", "images", "css", "js", "thisData.json", "main.js", "main.css", { "name": "index.html", "get": "http://test.go.163.com/go/2017/0106/honor/index.html" }]
+        "structure": ["_.json", "images",
+            { "name": "css", "chidren": [{ "name": "main.css", "content": "body{border:2px solid red}" }] },
+            { "name": "js", "chidren": [{ "name": "main.js", "content": "console.log('yes_a')" }] },
+            "thisData.json", "main.css", { "name": "index.html", "get": "http://test.go.163.com/go/2017/0228/bTest/" }
+        ]
     }]
 }
