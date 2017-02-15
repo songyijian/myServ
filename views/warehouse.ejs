@@ -4,16 +4,10 @@
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=750,target-densitydpi=device-dpi,user-scalable=no">
     <title>f2e 静态服务</title>
+	<link rel="stylesheet" href="http://localhost:8000/staticfile/css.css">
 	<style>
-    body p {margin: 0;padding: 0;}i,em {font-style: normal;}input,area {outline: none}body {font: 16px/30px "arial,sans-serif";background-color: #f8f8f8;}.panel {width: 750px;margin: 1rem auto;box-sizing: border-box;padding: 1rem;border: 1px solid #d8d8d8;background-color: #FFFFFF;border-radius: 3px;}h4 {margin-bottom: 0.3rem;}a {color: #000;}a:hover {color: #42b983;}.panel>a {margin-right: 2rem;font-size: 14px;}i {font: 14px/25px "arial,sans-serif";color: #c00}
-	div#auto_btn{background: #f0f0f0; box-sizing:border-box; padding:0.5rem; margin-top:2rem}
-	div#auto_btn>span{ border: 1px solid #d8d8d8;
-    cursor: pointer;
-    border-radius: 3px;
-    display: inline-block;
-    padding: 0 1rem;
-    background: #42b983;
-    color: #FFFFFF; }
+  	div#auto_btn{background: #f0f0f0; box-sizing:border-box; padding:0.5rem; margin-top:2rem}
+	div#auto_btn>span{ border: 1px solid #d8d8d8; cursor: pointer; border-radius: 3px;display: inline-block; padding: 0 1rem; background: #42b983;color: #FFFFFF; margin:0 5px }
 	</style>
 </head>
 <body>
@@ -25,29 +19,42 @@
 			<a href="<%= data.data[j] %>"><%= data.data[j] %></a>
 		<% } %>
 		<% if(data.v){ %>
-			<div id="auto_btn" data-v="<%= data.v %>"><span>dsf</span></div>
+			<div id="auto_btn" data-path="<%= data.path %>" data-v="<%= data.v %>"><span id="banyi_btn" >启动实时编译</span><span>svn</span></div>
 		<% } %>
 	<% } %>
 	</div>
+	<script src="http://localhost:8000/staticfile/Ajax.js"></script>
 	<script>
-		!function(){function Ajax(o){this.data={"url":"","type":"POST","dataType":"json","data":"","encode":false,"async":true,"success":function(e){},"err":function(e){},"initFn":function(_this){}};for(var i in o){this.data[i]=o[i]}if(this.data.url===""){return}this.fn={"jsonof":function(obj){var isjson=typeof(obj)=="object"&&Object.prototype.toString.call(obj).toLowerCase()=="[object object]"&&!obj.length;return isjson},"setUrlK":function setUrlK(ojson,encode){var s="",name,key;for(var p in ojson){if(ojson.hasOwnProperty(p)){name=p}key=ojson[p];var value=null;if(encode){s+="&"+name+"="+encodeURI(encodeURI((typeof key=="object"?JSON.stringify(key):key)))}else{s+="&"+name+"="+encodeURI((typeof key=="object"?JSON.stringify(key):key))}}return s.substring(1,s.length)}};this.go_data="";if(this.data.data&&(this.fn.jsonof(this.data.data)||typeof this.data.data==="string")){if(this.fn.jsonof(this.data.data)){this.go_data=this.fn.setUrlK(this.data.data,this.data.encode)}else{this.go_data=this.data.data}}else{return}this.init()}Ajax.prototype.init=function(){this.data.initFn(this);var _this=this;this.oAjax=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");if(this.data.type.toUpperCase()==="GET"){if(this.go_data){this.oAjax.open(this.data.type,this.data.url+"?"+this.go_data,this.data.async)}else{this.oAjax.open(this.data.type,this.data.url,this.data.async)}}if(this.data.type.toUpperCase()==="POST"){this.oAjax.open(this.data.type,this.data.url,this.data.async);this.oAjax.setRequestHeader("Content-type","application/x-www-form-urlencoded; charset=utf-8")}this.oAjax.send(this.data.type.toUpperCase()==="GET"?null:this.go_data);this.oAjax.onreadystatechange=function(){_this.changefn()}};Ajax.prototype.changefn=function(){if(this.oAjax.readyState===4){this.statusCode=this.oAjax.status;if(this.statusCode===200){this.data.success(JSON.parse(this.oAjax.responseText))}else{this.data.err(this.statusCode)}}};window.Ajax=Ajax}();if(typeof(module)!=="undefined"){module.exports=window.Ajax}else{if(typeof define==="function"&&define.amd){define([],function(){return window.Ajax})}};
 	function $(s){return document.querySelector(s)}
 	function _$(s){return document.querySelectorAll(s)}
 	let autoBtn = $("#auto_btn");
+	let banyiBtn = $("#banyi_btn");
+	banyiBtn
 
 	autoBtn.onclick=(ev)=>{
-		let j =null;
+		let _this = ev.target;
+		let j ={v:null,path:null};
 		try{
-			j=JSON.parse(autoBtn.dataset.v);
+			j.v=JSON.parse( autoBtn.dataset.v);
+			j.path = autoBtn.dataset.path;
 		}catch(err){
-			alert("检查当前目录下_.json文件是否存在错误，再次刷新")
+			alert("检查当前目录下_.json格式是否存在错误后再次刷新")
 		}
-
-
-		alert(ev.target.nodeName)
+		if(_this.id === "banyi_btn"){
+			console.log(autoBtn.dataset)
+			new Ajax({
+				"url":' http://localhost:8000/merge',
+				type:"POST",
+				"data":j,
+				initFn:function(_this){
+					console.log(_this.go_data)
+				},
+				success:function(res){
+					console.log(res)
+				}
+			})
+		}
 	}
-
-	
 	</script>
 </body>
 </html>

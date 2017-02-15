@@ -2,12 +2,12 @@
 const fs = require("fs");
 const express = require("express");
 const app = express();
-//const serveStatic = require('./node_modules/express/node_modules/serve-static')
 const router = require("./controller/router.js");
 const builderData = require("./set.json");
 
 app.set("view engine", "ejs");
 //静态服务
+app.use('/staticfile', express.static(`staticfile`));
 builderData.ItemType.forEach((item, i) => {
     let www = item.id;
     item.list.forEach((it, i) => {
@@ -16,10 +16,12 @@ builderData.ItemType.forEach((item, i) => {
 });
 
 //构建
-app.get('/', router.buildershow)
-app.post('/get', router.builder);
+app.get('/', router.buildershow);
+app.post('/builder', router.builder);
 //静态资源UI
-app.get('/:typeid/:ckid/*', router.warehouse)
+app.get('/:typeid/:ckid/*', router.warehouse);
+//编译
+app.post('/merge', router.merge);
 
 
 //404
