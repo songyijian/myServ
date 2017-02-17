@@ -129,9 +129,9 @@ err
 //     }
 // })
 
-let ff = path.parse('/home/user/dir/file')
+// let ff = path.parse('/home/user/dir/file')
 
-console.log(ff.ext === true)
+// console.log(ff.ext === true)
 
 
 // app.use(express.static("E:/SVN/2017/0101/"));
@@ -141,3 +141,68 @@ console.log(ff.ext === true)
 //         console.error(err)
 //     }
 // })
+
+var array = ['C:\\Users\\renke\\Desktop\\sprite\\3.png',
+    'C:\\Users\\renke\\Desktop\\sprite\\1.png',
+    'C:\\Users\\renke\\Desktop\\sprite\\11.png',
+    'C:\\Users\\renke\\Desktop\\sprite\\12.png',
+    'C:\\Users\\renke\\Desktop\\sprite\\13.png',
+    'C:\\Users\\renke\\Desktop\\sprite\\2.png',
+    'C:\\Users\\renke\\Desktop\\sprite\\10.png',
+    'C:\\Users\\renke\\Desktop\\sprite\\4.png',
+    'C:\\Users\\renke\\Desktop\\sprite\\5.png',
+    'C:\\Users\\renke\\Desktop\\sprite\\6.png',
+    'C:\\Users\\renke\\Desktop\\sprite\\7.png',
+    'C:\\Users\\renke\\Desktop\\sprite\\8.png',
+    'C:\\Users\\renke\\Desktop\\sprite\\9.png'
+]
+
+
+
+// let b = []
+// array.forEach((item, index) => {
+//     b[index] = {
+//         "index": index,
+//         "path": item,
+//         "bsI": path.parse(item).base.split(".")[0],
+//         "bs": path.parse(item).base
+//     };
+// })
+
+// let len = b.length;
+// for (var i = 1; i < len; i++) {
+//     let tmp = b[i];
+//     for (var j = i; j > 0 && parseInt(b[j - 1].bsI) > parseInt(tmp.bsI); j--) {
+//         b[j] = b[j - 1];
+//     }
+//     b[j] = tmp;
+// }
+
+
+
+
+function pathP(array) {
+    let b = []
+    array.forEach((item, index) => {
+        b[index] = {
+            "index": index,
+            "path": item,
+            "bsI": path.parse(item).base.split(".")[0],
+            "bs": path.parse(item).base
+        };
+    })
+
+    let len = b.length;
+    for (var i = 1; i < len; i++) {
+        let tmp = b[i];
+        for (var j = i; j > 0 && parseInt(b[j - 1].bsI) > parseInt(tmp.bsI); j--) {
+            b[j] = b[j - 1];
+        }
+        b[j] = tmp;
+    }
+    return b
+}
+
+
+
+console.log(pathP(array))

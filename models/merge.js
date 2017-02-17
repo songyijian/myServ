@@ -27,80 +27,18 @@ exports.mergeFile = (ajaxData, fn) => {
                 console.log(err)
             } else {
                 fs.watchFile(nPath, { persistent: true, interval: 500 }, (curr, prev) => {
-                    console.log(`${nPath}: ${curr.mtime}`);
-                    console.log(`${nPath}: ${prev.mtime}`);
+                    // console.log(`${nPath}: ${curr.mtime}`, `${nPath}: ${prev.mtime}`);
                     if (curr.mtime === prev.mtime) { return }
                     let content = "";
-
                     list.forEach((itemc, index) => {
                         let cPath = path.join(`${pPath}`, `${itemc}`)
-                        content += fs.readFileSync(`${cPath}`)
+                        content += `\n/**下面是${itemc}的内容 */\n` + fs.readFileSync(`${cPath}`, 'utf8');
                     });
-
-
-                    fs.writeFile(path.join(`${pPath}`, `${min}`), content, (err) => {
-                        if (err) console.log(err);
+                    fs.writeFile(path.join(`${pPath}`, `${min}`), content, 'utf8', (err) => {
                         content = '';
                     })
                 })
             }
         })
     }
-
-
-
-
-
-
 }
-
-
-
-
-// exports.mergeJS = (jsPath, minPath, list, path) => {
-//     let content = '';
-//     fs.stat(jsPath, (err, data) => {
-//         if (err) {
-//             console.log(err)
-//         } else {
-//             fs.watchFile(jsPath, (olds, news) => {
-//                 console.log(jsPath)
-//                 if (olds.mtime === news.mtime) { return }
-//                 list.forEach((item, index) => {
-//                     content += fs.readFileSync(`${path}/${item}`)
-//                 })
-//                 console.log(content)
-//                 fs.writeFile(minPath, content, (err) => {
-//                     if (err)
-//                         console.log(err)
-//                     content = '';
-//                 })
-//             })
-//         }
-//     })
-// }
-
-
-
-// exports.mergeCSS = (cssPath, minPath, list, path) => {
-//     let content = '';
-//     fs.stat(cssPath, (err, data) => {
-//         if (err) {
-//             console.log(err)
-//         } else {
-//             fs.watchFile(cssPath, (olds, news) => {
-//                 console.log(cssPath)
-//                 if (olds.mtime === news.mtime) { return }
-//                 list.forEach((item, index) => {
-//                     content += fs.readFileSync(`${path}/${item}`)
-//                 })
-//                 console.log(content)
-//                 fs.writeFile(minPath, content, (err) => {
-//                     if (err)
-//                         console.log(err)
-//                     content = '';
-//                 })
-//             })
-//         }
-//     })
-// }
