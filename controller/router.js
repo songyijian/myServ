@@ -21,7 +21,7 @@ exports.warehouse = (req, res, next) => {
         res.render("warehouse", { "err": err, "data": data });
     })
 };
-
+//编译
 exports.merge = (req, res, next) => {
     let ajaxData = "";
     req.on("data", (data) => {
