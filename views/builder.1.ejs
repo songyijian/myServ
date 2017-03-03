@@ -15,7 +15,7 @@
 			<p class="btn_boxs">
 				<em><%= ItemType[i].name %>：</em>
 				<% for(var j=0; j<ItemType[i].list.length; j++){%>
-					<input type="button" data-changkupath="<%= ItemType[i].list[j].path %>" data-changkuid="<%= ItemType[i].id %>" id="" value="<%= ItemType[i].list[j].name %>" />
+					<input type="button" name="<%= ItemType[i].list[j].path %>" data-ckl="<%= ItemType[i].id %>" id="" value="<%= ItemType[i].list[j].name %>" />
 				<% }%>
 			</p><br/>
 		<% }%>
@@ -29,7 +29,7 @@
         <h4>模版：</h4>
         <p class="btn_box">
 			<%for(var i=0; i<template.length; i++){%>
-				<input type="button" data-mbid="<%= template[i].mb_id %>" id="" value="<%= template[i].name %>" />
+				<input type="button" name="<%= template[i].mb_id %>" id="" value="<%= template[i].name %>" />
 			<%}%>
         </p>
     </div>
@@ -83,19 +83,20 @@
 			alert("滚粗！再瞅瞅项目类型");
 			return;
 		}
-		jData.changkupath= $("#type_yes").dataset.changkupath;
-		jData.changkuid= $("#type_yes").dataset.changkuid;
-
+		jData.path= $("#type_yes").name;
+		
+		//jData.type= $("#type_yes").name;
+		jData.ckl= $("#type_yes").dataset.ckl;
 		if(!path.value){
 			alert("滚粗！你这是要创建空气吗？输入项目名称");
 			return;
 		}
-		jData.filepath = path.value;
+		jData.path = path.value;
 		if(!$("#mb_yes")){
 			alert("滚粗！关于模版...");
 			return;
 		}
-		jData.mbid = $("#mb_yes").dataset.mbid;
+		jData.mold = $("#mb_yes").name;
 		new Ajax({
 			"url":"./builder",
 			"data":jData,

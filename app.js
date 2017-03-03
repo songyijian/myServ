@@ -5,8 +5,12 @@ const app = express();
 const router = require("./controller/router.js");
 const builderData = require("./set.json");
 
+var opn = require('opn')
+const port = 9000;
+let uri = 'http://localhost:' + port;
+
 app.set("view engine", "ejs");
-//静态服务
+
 app.use('/staticfile', express.static(`staticfile`));
 builderData.ItemType.forEach((item, i) => {
     let www = item.id;
@@ -15,21 +19,22 @@ builderData.ItemType.forEach((item, i) => {
     })
 });
 
-//构建
+console.log('> Listening at ' + uri + '\n')
+opn(uri)
+
+
 app.get('/', router.buildershow);
 app.post('/builder', router.builder);
-//静态资源UI
 app.get('/:typeid/:ckid/*', router.warehouse);
-//编译
 app.post('/merge', router.merge);
-
 
 //404
 app.use((req, res) => {
     res.status(404).send("404!");
 })
 
-app.listen(8000, (err) => {
+
+app.listen(port, (err) => {
     if (err) {
         console.log("本地服务的80端口可能被占用")
         console.error(err)
