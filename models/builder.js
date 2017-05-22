@@ -1,161 +1,99 @@
 // 构建处理 
-const fs = require("fs");
-const path = require("path");
-const queryString = require("querystring");
-const builderData = require("../set.json");
-const getDom = require("./getDom.js");
+// const fs = require("fs");
+const path = require("path")
+const fs = require('fs-extra')
+const slash = require('slash')
+const queryString = require("querystring")
+const builderData = require("../set.json")
+const getDom = require("./getDom.js")
+
 
 let xr = "xr";
-exports.builder = (req, res, next, ajaxData, cpath) => {
+exports.builder = (req, res, next, ajaxData) => {
     let endData = {};
+    let gjPath = slash(`${ajaxData.changkupath}/${ajaxData.filepath}`);
+   
+    //构建
+    var oMb = builderData.template.filter((item,index)=>{
+        return item.mb_id == ajaxData.mbid
+    })
+    // console.log(oMb)
 
-    //项目检查
-    fs.access(`${ajaxData.type}`, fs.constants.R_OK | fs.constants.W_OK, err => {
-        if (err) {
-            endData = {
-                "state": -1,
-                "info": `请检查${ajaxData.type}仓库是否存在 || set配置是否正确？`
-            };
-            console.error(endData, err);
-            res.send(endData)
-            return false;
+    var dirGo = oMb[0].structure.map((item,index)=>{
+        if(typeof item !=='object'){
+            let p=slash(gjPath+'/'+item);
+            console.log(p)
+            if(!path.extname(p).length){
+                return new Promise((resolve, reject)=>{
+                    fs.ensureDir(p, function(err) {
+                        if(err){
+                            reject(`创建目录失败`)
+                        }else{
+                            resolve()
+                        }
+                    });
+                })
+            }else{
+                return new Promise((resolve, reject)=>{
+                    fs.ensureFile(p, function(err) {
+                        if(err){
+                            reject(`创建常规文件夹失败`)
+                        }else{
+                            resolve()
+                        }
+                    });
+                })
+            }
         }
 
-        fs.readdir(`${ajaxData.type}/${ajaxData.path}`, (err, data) => {
-            if (err || !data || data.length === 0) {
-                console.log("没有项目可以构建")
-                mkdirFn(cpath, req, res)
-                return false;
-            }
-            res.send({
-                "state": -1,
-                "info": `该项目已经存在 - ${ajaxData.type}/${ajaxData.path}`
+        if(typeof item =='object'){
+            let pf=slash(gjPath+'/'+item.name);
+            return new Promise((resolve, reject)=>{
+                fs.ensureFile(pf, function(err) {
+                    if(err){
+                        reject(`创建模版文件失败`)
+                    }else{
+                        if(item.get){
+                            getDom.getHtml(item.get, (err, data) => {
+                                fs.outputFile(pf,data, function(err) {
+                                    if(!err){
+                                       resolve()
+                                    }else{
+                                        reject(`爬虫文件写入处理失败`)
+                                    }
+                                })
+                            })
+                        }
+                        if(item.template){
+                            fs.outputFile(pf,item.template, function(err) {
+                                if(!err){
+                                   resolve()
+                                }else{
+                                    reject(`模版文件写入处理失败`)
+                                }
+                            })
+                        }
+                    }
+                });
             })
+        }
+
+    })
+
+
+
+
+    Promise.all(dirGo).then(function(o) { 
+        console.log('目录创建成功');
+        res.send({
+            "state": 0,
+            "info": `项目创建成功`
         })
-    });
-    //console.log("//", ajaxData);
+    }).catch(function(o) {
+        res.send({
+            "state": 0,
+            "info": `创建目录 层错误`
+        })
+    })
 
-
-
-    //构建目录层
-    // function mkdirFn(arr, req, res) {
-    //     let p = '',
-    //         array = arr,
-    //         y = false;
-
-    //     (function dg(i) {
-    //         var item = null;
-    //         if (i > array.length - 1) {
-    //             mkworkFn(req, res)
-    //             return false;
-    //         }
-    //         item = `${array[i]}`;
-    //         p += `/${item}`;
-    //         fs.access(`${ajaxData.type}${p}`, fs.constants.R_OK | fs.constants.W_OK, err => {
-    //             if (err) {
-    //                 fs.mkdir(`${ajaxData.type}${p}`, err => {
-    //                     if (err) {
-    //                         endData = {
-    //                             "state": -1,
-    //                             "info": `${ajaxData.type}${p}`
-    //                         };
-    //                         res.send(endData)
-    //                     } else {
-    //                         i++;
-    //                         dg(i);
-    //                     }
-    //                 })
-    //             } else {
-    //                 i++;
-    //                 dg(i);
-    //             }
-    //         })
-    //     })(0);
-    // }
-
-
-
-    // //构建项目内容
-    // function mkworkFn(req, res) {
-    //     var infoOut = '';
-    //     let mData = builderData.template.filter((item) => {
-    //         return item.mb_id == ajaxData.mold
-    //     });
-    //     let md = mData[0].structure;
-    //     (function dg(i) {
-    //         if (i > md.length - 1) {
-    //             let thisserverurl = null;
-    //             builderData.ItemType.forEach((item) => {
-    //                 if (item.id == ajaxData.changkuid) {
-    //                     item.list.forEach((items) => {
-    //                         if (items.path == ajaxData.type) {
-    //                             thisserverurl = items.id;
-    //                         }
-    //                     })
-    //                 }
-    //             })
-    //             res.send({
-    //                 "state": 1,
-    //                 "info": `${ajaxData.changkuid}/${thisserverurl}/${ajaxData.path}`
-    //             })
-    //             return false;
-    //         }
-    //         let item = md[i];
-    //         let url = '';
-    //         if (typeof item === "string") {
-    //             url = `${ajaxData.type}/${ajaxData.path}/${item}`
-    //             cMk(url, err => {
-    //                 if (err) {
-    //                     infoOut += `${ url } 创建失败,`;
-    //                     endData = { "state": -1, info: infoOut }
-    //                 }
-    //                 i++;
-    //                 dg(i)
-    //             })
-    //         } else {
-    //             url = `${ajaxData.type}/${ajaxData.path}/${item.name}`;
-    //             if (item.get) {
-    //                 cMk(url, `${item.get}`, err => {
-    //                     if (err) {
-    //                         infoOut += `${ url } 创建失败,`;
-    //                         endData = { "state": -1, info: infoOut }
-    //                     }
-    //                     i++;
-    //                     dg(i)
-    //                 })
-    //             }
-    //         }
-    //     })(0)
-
-
-    //     function cMk(url, get, fn) {
-    //         if (arguments.length < 3) {
-    //             fn = get
-    //         }
-    //         if (path.extname(url) == '') {
-    //             let u = url;
-    //             fs.mkdir(url, err => {
-    //                 fn(err)
-    //             })
-    //         } else {
-    //             if (arguments.length === 3) {
-    //                 getDom.getHtml(get, (err, data) => {
-    //                     if (err) {
-    //                         infoOut += `${ url } 创建失败,`;
-    //                         endData = { "state": -1, info: infoOut }
-    //                     }
-    //                     fs.writeFile(`${ url }`, data, 'utf8', err => {
-    //                         fn(err)
-    //                     })
-    //                 })
-    //                 return false;
-    //             }
-    //             fs.writeFile(`${ url }`, xr, 'utf8', err => {
-    //                 fn(err)
-    //             })
-    //         }
-    //     }
-    // }
-
-
-};
+}

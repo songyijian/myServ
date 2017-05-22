@@ -8,81 +8,59 @@ const slash = require('slash');
 
 
 
-exports.warehouseshow = (req, res, next, fn) => {
-    var rendData = {}
-    let type = req.params["typeid"];
-    let ck = req.params["ckid"];
-    let urls = url.parse(req.url).pathname;
-    let aurl = urls.split("/")
+module.exports = (req, res, next, fn) => {
+    let usePar=req.params
+    console.log(req.params,"+++++++",req.url)
 
-    let typey = builderData.ItemType.filter((item, index) => {
-        return item.id == type;
-    })
+    //先过滤库
+    let typey = builderData.ItemType.filter((item, index) => {   return item.id == usePar.typeid })
     if (typey.length === 0) {
         next();
         return;
     }
-
-    let cky = typey[0].list.filter((item, index) => {
-        return item.id == ck;
-    })
+    let cky = typey[0].list.filter((item, index) => { return item.id == usePar.ckid })
     if (cky.length === 0) {
         next();
         return;
     }
-    //路径处理
-    let pathy = cky[0].path;
-    let curl = '';
-    aurl.forEach((item, index) => {
-        if (index > 2 && item !== '') {
-            curl += `/${item}`
-        }
-    })
-    pathy += curl;
-    pathy = slash(pathy)
 
-    console.log(`${pathy}`)
-    if (path.parse(`${pathy}`).ext) {
+
+    //文件路径处理
+    let pathy = path.resolve( cky[0].path+"/"+usePar['0']);
+        pathy = slash(pathy)
+        console.log(pathy)
+
+    //忘记当时为什么这么写了？？？唉
+    if ( !!path.parse(pathy).ext ) {
         next()
         return;
     }
 
-    fs.readdir(`${pathy}`, (err, data) => {
-        let oerr = null;
-        let yData = { "data": data, 'v': null, "path": null };
+
+    fs.readdir(pathy, (err, data) => {
+        let oerr = null,
+            yData = { "data": data, 'config': null, "path": null };
         if (err) {
-            oerr = err;
+            oerr = err; 
+            return;
         }
+
+        console.log(data)
+
         //项目根目录判定
-        if (data)
+        if (data){   
             data.forEach((item, index) => {
                 if (item === "_.json") {
-                    const c = fs.readFileSync(`${pathy}/_.json`, "utf-8")
-                    yData.v = c ? c : null;
-                    yData.path = `${pathy}`;
-
-                    // let getD = JSON.parse(yData.v);
-                    // if (getD.js.list && getD.js.min) {
-                    //     getD.js.list.forEach((item, index) => {
-                    //         merge.mergeJS(`${pathy}/${item}`, `${pathy}/${getD.js.min}`, getD.js.list, `${pathy}`)
-                    //     })
-                    // }
-
-                    // if (getD.css.list && getD.css.min) {
-                    //     getD.css.list.forEach((item, index) => {
-                    //         merge.mergeCSS(`${pathy}/${item}`, `${pathy}/${getD.css.min}`, getD.css.list, `${pathy}`)
-                    //     })
-                    // }
-
+                    const sjson = fs.readFileSync(`${pathy}/_.json`, "utf-8")
+                        yData.config = sjson ? sjson : null;
+                        yData.path = `${pathy}`;
                     return
                 }
             })
+        }
 
         fn(oerr, yData)
     })
-
-
-
 
 
 };

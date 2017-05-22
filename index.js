@@ -1,12 +1,29 @@
 "use strict"
 const http = require("http");
-const fs = require("fs");
+// const fs = require("fs");
 const path = require("path");
-
+const slash = require('slash');
 const express = require("express");
 const app = express();
+
+const fs = require('fs-extra')
+
+
 const queryString = require("querystring");
 const getDom = require("./models/getDom.js");
+
+
+/*fs.ensureDir(slash("E:/SVN/2017/888/12/1.text"), function(err) {
+  console.log(err)
+
+});
+*/
+
+// console.log(path.extname("E:/SVN/2017/888/12/").length,typeof path.extname("E:/SVN/2017/888/12/"))
+
+console.log(slash(path.resolve('E:/SVN/2017'+"/"+'/1013/')))
+console.log()
+
 
 // fs.access(`/Users/yjsong/D/fis`,fs.constants.R_OK | fs.constants.W_OK , err => {
 // 	console.log(err)
@@ -142,7 +159,7 @@ err
 //     }
 // })
 
-var array = ['C:\\Users\\renke\\Desktop\\sprite\\3.png',
+/*var array = ['C:\\Users\\renke\\Desktop\\sprite\\3.png',
     'C:\\Users\\renke\\Desktop\\sprite\\1.png',
     'C:\\Users\\renke\\Desktop\\sprite\\11.png',
     'C:\\Users\\renke\\Desktop\\sprite\\12.png',
@@ -157,7 +174,7 @@ var array = ['C:\\Users\\renke\\Desktop\\sprite\\3.png',
     'C:\\Users\\renke\\Desktop\\sprite\\9.png'
 ]
 
-
+*/
 
 // let b = []
 // array.forEach((item, index) => {
@@ -181,7 +198,7 @@ var array = ['C:\\Users\\renke\\Desktop\\sprite\\3.png',
 
 
 
-function pathP(array) {
+/*function pathP(array) {
     let b = []
     array.forEach((item, index) => {
         b[index] = {
@@ -205,4 +222,4 @@ function pathP(array) {
 
 
 
-console.log(pathP(array))
+console.log(pathP(array))*/

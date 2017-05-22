@@ -27,24 +27,55 @@
     "template": [{
             "name": "广告模版1",
             "mb_id": 1,
-            "structure": ["_.json", "images", "css", "js", "thisData.json", "main.js", "main.css", { "name": "index.html", "get": "http://test.go.163.com/go/2017/0228/bTest/" }]
+            "structure": [
+                        "images", 
+                        "css", 
+                        "js", 
+                        {
+                            "name":"_.json",
+                            "template":"{js:{min:}}"
+                        },
+                        "testData.json", 
+                        "js/main.js", 
+                        "css/main.css", 
+                        { 
+                            "name": "index.html", 
+                            "get": "http://test.go.163.com/go/2017/0228/bTest/" 
+                        }
+                    ]
         }, {
             "name": "汽车模版1",
             "mb_id": 2,
-            "structure": ["_.json", "images",
-                { "name": "css", "chidren": [{ "name": "main.css", "content": "body{border:2px solid red}" }] },
-                { "name": "js", "chidren": [{ "name": "main.js", "content": "console.log('yes_a')" }] },
-                "thisData.json", "main.css", { "name": "index.html", "get": "http://test.go.163.com/go/2017/0228/bTest/" }
-            ]
+            "structure": [
+                        "images", 
+                        "css", 
+                        "js", 
+                        "_.json", 
+                        "testData.json", 
+                        "js/main.js", 
+                        "css/main.css", 
+                        { 
+                            "name": "index.html", 
+                            "get": "http://test.go.163.com/go/2017/0228/bTest/" 
+                        }
+                    ]
         },
         {
             "name": "new",
             "mb_id": 3,
-            "structure": ["_.json", "thisData.json", "images", "css/mian.css", "js/mian.js",
-                { "name": "css/c1.css", "content": "body{border:2px solid red}" },
-
-                { "name": "index.html", "get": "http://test.go.163.com/go/2017/0228/bTest/" }
-            ]
+            "structure": [
+                        "images", 
+                        "css", 
+                        "js", 
+                        "_.json", 
+                        "testData.json", 
+                        "js/main.js", 
+                        "css/main.css", 
+                        { 
+                            "name": "index.html", 
+                            "get": "http://test.go.163.com/go/2017/0228/bTest/" 
+                        }
+                    ]
         }
     ]
 }

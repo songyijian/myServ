@@ -9,13 +9,15 @@
 </head>
 <body>
 <form class="panel">
+	<!-- 仓库 -->
 	<div>
 		<h4>项目仓库：</h4>
 		<% for(var i=0; i<ItemType.length; i++){%>
 			<p class="btn_boxs">
 				<em><%= ItemType[i].name %>：</em>
 				<% for(var j=0; j<ItemType[i].list.length; j++){%>
-					<input type="button" data-changkupath="<%= ItemType[i].list[j].path %>" data-changkuid="<%= ItemType[i].id %>" id="" value="<%= ItemType[i].list[j].name %>" />
+					<input  id="" type="button" data-changkupath="<%= ItemType[i].list[j].path %>" data-changkuid="<%= ItemType[i].id %>" value="<%= ItemType[i].list[j].name %>" 
+					/>
 				<% }%>
 			</p><br/>
 		<% }%>
@@ -25,11 +27,14 @@
 		<i>注意：Windows ? "\" : "/" </i>
         <input type="text" name="" id="path" value="" />
     </div>
+
+    <!-- 模版 -->
     <div>
         <h4>模版：</h4>
         <p class="btn_box">
 			<%for(var i=0; i<template.length; i++){%>
-				<input type="button" data-mbid="<%= template[i].mb_id %>" id="" value="<%= template[i].name %>" />
+				<input type="button" id="" data-mbid="<%= template[i].mb_id %>" value="<%= template[i].name %>" 
+				/>
 			<%}%>
         </p>
     </div>
@@ -49,6 +54,10 @@
 </div>
 <script>
 !function(){function Ajax(o){this.data={"url":"","type":"POST","dataType":"json","data":"","encode":false,"async":true,"initFn":function(_this){},"success":function(e){},"err":function(e){}};for(var i in o){this.data[i]=o[i]}if(this.data.url===""){return}this.fn={"jsonof":function(obj){var isjson=typeof(obj)=="object"&&Object.prototype.toString.call(obj).toLowerCase()=="[object object]"&&!obj.length;return isjson},"setUrlK":function setUrlK(ojson,encode){var s="",name,key;for(var p in ojson){if(ojson.hasOwnProperty(p)){name=p}key=ojson[p];var value=null;if(encode){s+="&"+name+"="+encodeURI(typeof key=="object"?JSON.stringify(key):key)}else{s+="&"+name+"="+encodeURI(typeof key=="object"?JSON.stringify(key):key)}}return s.substring(1,s.length)}};this.go_data="";if(this.data.data&&(this.fn.jsonof(this.data.data)||typeof this.data.data==="string")){if(this.fn.jsonof(this.data.data)){this.go_data=this.fn.setUrlK(this.data.data,this.data.encode)}else{this.go_data=this.data.data}}else{return}this.init()}Ajax.prototype.init=function(){this.data.initFn(this);var _this=this;this.oAjax=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");if(this.data.type.toUpperCase()==="GET"){if(this.go_data){this.oAjax.open(this.data.type,this.data.url+"?"+this.go_data,this.data.async)}else{this.oAjax.open(this.data.type,this.data.url,this.data.async)}}if(this.data.type.toUpperCase()==="POST"){this.oAjax.open(this.data.type,this.data.url,this.data.async);this.oAjax.setRequestHeader("Content-type","application/x-www-form-urlencoded; charset=utf-8")}this.oAjax.send(this.data.type.toUpperCase()==="GET"?null:this.go_data);this.oAjax.onreadystatechange=function(){_this.changefn()}};Ajax.prototype.changefn=function(){if(this.oAjax.readyState===4){this.statusCode=this.oAjax.status;if(this.statusCode===200){this.data.success(JSON.parse(this.oAjax.responseText))}else{this.data.err(this.statusCode)}}};window.Ajax=Ajax}();if(typeof(module)!=="undefined"){exports=window.Ajax}else{if(typeof define==="function"&&define.amd){define([],function(){return window.Ajax})}};
+
+
+
+
 !function(){
 	function $(s){return document.querySelector(s)}
 	function _$(s){return document.querySelectorAll(s)}
@@ -84,7 +93,7 @@
 			return;
 		}
 		jData.changkupath= $("#type_yes").dataset.changkupath;
-		jData.changkuid= $("#type_yes").dataset.changkuid;
+		// jData.changkuid= $("#type_yes").dataset.changkuid;
 
 		if(!path.value){
 			alert("滚粗！你这是要创建空气吗？输入项目名称");
@@ -101,7 +110,7 @@
 			"data":jData,
 			"success":function(e){
 				console.log(e)
-				if(e.state>0){
+				if(e.state){
 					$("#gourl").innerHTML =`yes: <a href="${e.info}">${e.info} </a>`
 				}else{ 
 					$("#gourl").innerHTML =`no: ${e.info}` 

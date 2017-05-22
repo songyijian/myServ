@@ -10,13 +10,13 @@
   "license": "ISC",
   "devDependencies": {
     "ejs": "^2.5.5",
+    "express": "^4.15.3",
     "opn": "^4.0.2",
-    "express": "^4.14.0",
     "uglify-js": "^2.7.5",
     "webpack": "^1.14.0"
   },
   "dependencies": {
-    "fs-extra": "^2.0.0",
+    "fs-extra": "^2.1.2",
     "slash": "^1.0.0"
   }
 }

@@ -7,13 +7,11 @@ const app = express();
 //'http://test.go.163.com/go/2017/0106/honor/index.html'
 module.exports.getHtml = (sget, fn) => {
     http.get(sget, (res) => {
-        let data,
-            html;
+        let data='',html='';
         res.on("data", (data) => {
             html += data;
         })
         res.on("end", (data) => {
-
             fn(null, html)
         })
     }).on('error', (err) => {
