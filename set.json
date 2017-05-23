@@ -40,7 +40,7 @@
                         "css/main.css", 
                         { 
                             "name": "index.html", 
-                            "get": "http://test.go.163.com/go/2017/0228/bTest/" 
+                            "get": "http://test.go.163.com/go/2017/0228/bTest/"
                         }
                     ]
         }, {

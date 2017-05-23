@@ -14,7 +14,7 @@ const setData = require("../set.json");
 // 构建UI
 exports.buildershow = (req, res, next) => {
     res.render("builder", setData);
-};
+}
 
 // 构建处理
 exports.builder = (req, res, next) => {
@@ -56,18 +56,17 @@ exports.builder = (req, res, next) => {
             })
         })
 
-    });
-};
+    })
+}
 
 
 
 //静态文件列表UI 
 exports.warehouse = (req, res, next)=>{
     warehouseshow(req, res, next, (err, data) => {
-        res.render("warehouse", { "err": err, "data": data });
+        res.render("warehouse", { "err": err, "data": data })
     })
 }
-
 
 
 
@@ -84,4 +83,4 @@ exports.merge = (req, res, next) => {
             res.end("1")
         })
     })
-};
+}

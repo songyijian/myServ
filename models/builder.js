@@ -8,7 +8,6 @@ const builderData = require("../set.json")
 const getDom = require("./getDom.js")
 
 
-let xr = "xr";
 exports.builder = (req, res, next, ajaxData) => {
     let endData = {};
     let gjPath = slash(`${ajaxData.changkupath}/${ajaxData.filepath}`);
@@ -81,12 +80,10 @@ exports.builder = (req, res, next, ajaxData) => {
     })
 
 
-
-
     Promise.all(dirGo).then(function(o) { 
         console.log('目录创建成功');
         res.send({
-            "state": 0,
+            "state": 1,
             "info": `项目创建成功`
         })
     }).catch(function(o) {
@@ -95,5 +92,6 @@ exports.builder = (req, res, next, ajaxData) => {
             "info": `创建目录 层错误`
         })
     })
+
 
 }
