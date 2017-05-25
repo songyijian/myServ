@@ -49,7 +49,7 @@ exports.mergeFile = (ajaxData, fn) => {
         if(arr===cssEntList){
           fs.readFile(item.path, {flag: 'r+', encoding: 'utf8'},  (err, data) =>{
             if(err) {
-              resolve({index,path:item.path,name:item.name,data:null,err:`\/* ${err} *\/`,time:new Date()})
+              resolve({index,path:item.path,name:item.name,data:null,err:`\/\* ${err} *\/`,time:new Date()})
               return;
             }
             if(path.extname(item.path) === '.sass'){
@@ -70,7 +70,7 @@ exports.mergeFile = (ajaxData, fn) => {
             let data=uglifyjs.minify(item.path).code
             resolve({index,path:item.path,name:item.name,data,err:null,time:new Date()})
           }catch(err){
-            resolve({index,path:item.path,name:item.name,data:null,err:`\/* ${err} *\/`,time:new Date()})
+            resolve({index,path:item.path,name:item.name,data:null,err:`\/\* ${err} *\/`,time:new Date()})
           }
         }
       })
@@ -104,7 +104,7 @@ exports.mergeFile = (ajaxData, fn) => {
       console.log(rJsData);
       let sJsdata ='';
       for (var i = 0; i < rJsData.length; i++) {
-        sJsdata += `\/* ${rJsData[i].name} - ${rJsData[i].time}*\/` + (rJsData[i].data ? `\n ${rJsData[i].data}\n`:`\n ${rJsData[i].err}\n`)
+        sJsdata += `\/\* ${rJsData[i].name} - ${rJsData[i].time}*\/` + (rJsData[i].data ? `\n ${rJsData[i].data}\n`:`\n ${rJsData[i].err}\n`)
       }
       fs.outputFile(jsOutPath, sJsdata , function(err) {
         if(err){console.log(err);return}
@@ -116,7 +116,7 @@ exports.mergeFile = (ajaxData, fn) => {
 
       let sCssdata ='';
       for (var i = 0; i < rCssData.length; i++) {
-        sCssdata += `\/* ${rCssData[i].name} - ${rCssData[i].time}*\/` + (rCssData[i].data ? `\n ${rCssData[i].data}\n`:`\n ${rCssData[i].err}\n`);// ` \/* ${rCssData[i].name} - ${rCssData[i].time}*\/ \n ${rCssData[i].data}\n`
+        sCssdata += `\/\* ${rCssData[i].name} - ${rCssData[i].time}*\/` + (rCssData[i].data ? `\n ${rCssData[i].data}\n`:`\n ${rCssData[i].err}\n`);
       }
 
       fs.outputFile(cssOutPath, sCssdata, function(err) {
@@ -153,7 +153,7 @@ exports.mergeFile = (ajaxData, fn) => {
             olist[i].time = new Date();
             if(err) {
                console.log(err);
-              olist[i].err = `\/* ${err} *\/`;
+              olist[i].err = `\/\* ${err} *\/`;
               olist[i].data = null;return;
             }
             olist[i].data = new CleanCSS(cassys).minify(data).styles;
@@ -168,7 +168,7 @@ exports.mergeFile = (ajaxData, fn) => {
             olist[i].data = data;
           }catch(err){
             olist[i].data = null;
-            olist[i].err = `\/* ${err} *\/`
+            olist[i].err = `\/\* ${err} *\/`
           }
         }
         break;
@@ -195,9 +195,5 @@ exports.mergeFile = (ajaxData, fn) => {
     fn({"state":0, "info": " _.json配置没有对文件编译需求" })
   }
 
-
-
-
-// return uglifyjs.minify(fList).code;
 
 }
