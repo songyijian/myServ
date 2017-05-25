@@ -25,61 +25,67 @@
         }
     ],
     "template": [{
-            "name": "广告模版1",
+            "name": "song_PC",
             "mb_id": 1,
             "structure": [
                         "images",
                         "css",
                         "js",
+                        "js/1.js",
+                        "css/1.css",
+                        "css/1.sass",
                         {
                             "name":"_.json",
-                            "template":"{js:{min:}}"
+                            "template":"{\"js\":{\"entry\":[\"js/1.js\",\"js/2.js\"],\"output\":\"js/JS_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/CSS_min.css\"},\"v\":\"0.0.1\"}"
                         },
-                        "testData.json",
-                        "js/main.js",
-                        "css/main.css",
                         {
                             "name": "index.html",
-                            "get": "http://test.go.163.com/go/2017/0228/bTest/"
+                            "get": "http://test.go.163.com/go/2017/0228/bTest/song_PC.html"
                         }
                     ]
         }, {
-            "name": "汽车模版1",
+            "name": "song_WAP",
             "mb_id": 2,
             "structure": [
                         "images",
                         "css",
                         "js",
-                        "_.json",
-                        "testData.json",
-                        "js/main.js",
-                        "css/main.css",
+                        "js/1.js",
+                        "css/1.css",
+                        "css/1.sass",
+                        {
+                            "name":"_.json",
+                            "template":"{\"js\":{\"entry\":[\"js/1.js\",\"js/2.js\"],\"output\":\"js/JS_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/CSS_min.css\"},\"v\":\"0.0.1\"}"
+                        },
                         {
                             "name": "index.html",
-                            "get": "http://test.go.163.com/go/2017/0228/bTest/"
+                            "get": "http://test.go.163.com/go/2017/0228/bTest/song_WAP.html"
                         }
                     ]
         },{
-          "name": "test1",
+          "name": "WAP_test",
           "mb_id": 3,
-          "structure": [
-                      "images",
-                      "css",
-                      "js",
-                      "testData.json",
-                      "js/1.js",
-                      "js/2.js",
-                      "css/1.css",
-                      "css/1.sass",
-                      {
-                        "name":"_.json",
-                        "template":"{\"js\":{\"entry\":[\"js/1.js\",\"js/2.js\"],\"output\":\"js/min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/min.css\"},\"v\":\"0.0.1\"}"
-                      },
-                      {
-                          "name": "index.html",
-                          "get": "http://test.go.163.com/go/2017/0228/bTest/"
-                      }
-                  ]
+          "structure":  [
+                        "images",
+                        "css",
+                        "js",
+                        "ajaxTestData.json",
+                        "js/1.js",
+                        "css/1.css",
+                        "css/1.sass",
+                        {
+                          "name":"js/F2eShare.0.2.0-min.js",
+                          "get": "http://go.163.com/2017/0418/nissan/F2eShare.0.2.0-min.js"
+                        },
+                        {
+                            "name":"_.json",
+                            "template":"{\"js\":{\"entry\":[\"js/F2eShare.0.2.0-min.js\",\"js/1.js\"],\"output\":\"js/JS_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/CSS_min.css\"},\"v\":\"0.0.1\"}"
+                        },
+                        {
+                            "name": "index.html",
+                            "get": "http://test.go.163.com/go/2017/0228/bTest/song_WAP.html"
+                        }
+                    ]
       }
     ]
 }
