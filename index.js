@@ -52,7 +52,16 @@ var sass = require('node-sass');
 // });
 
 
-var itmepath='/Users/yjsong/D/fis/05/item/css/1.sass';
+var itmepath='/Users/yjsong/D/fis/item_test/css/1.sass';
+
+// var result = sass.renderSync({
+//   file:'/Users/yjsong/D/fis/item_test/css/1.sass',
+//   outputStyle:'compressed',
+//   indentedSyntax: true
+//   // outputStyle : 'compressed'
+//
+// });
+// console.log(result,result.css.toString());
 
 
 fs.readFile(itmepath, {flag: 'r+', encoding: 'utf8'},  (err, data) =>{
@@ -61,11 +70,12 @@ fs.readFile(itmepath, {flag: 'r+', encoding: 'utf8'},  (err, data) =>{
     return
   }
   if(path.extname(itmepath) === '.sass'){
-    var result =sass.renderSync({
+    let result = sass.renderSync({
       data: data,
-      outputStyle:'compressed'
+      // indentedSyntax: true,
+      // outputStyle:'compressed'
     });
-    console.log(result,result.css.toString());
+    console.log(result.css.toString());
   }else{
     console.log(new CleanCSS({}).minify(data));
   }

@@ -8,6 +8,7 @@
 	body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,   p,blockquote,th,td {margin: 0;padding: 0;}i,em {font-style: normal;}input,area {outline: none}body {font: 16px/30px "arial,sans-serif";background-color: #f8f8f8;}.panel {width: 750px;margin: 1rem auto;box-sizing: border-box;padding: 1rem;border: 1px solid #d8d8d8;background-color: #FFFFFF;border-radius: 3px;}.panel>div {border-bottom: 1px solid #d8d8d8;padding: 0.5rem 0;}h4 {margin-bottom: 0.3rem;}a {color: #000;}a:hover {color: #42b983;}.panel>a {margin-right: 2rem;font-size: 14px;}i {font: 14px/25px "arial,sans-serif";color: #c00}input[type="button"] {cursor: pointer;background: #eee;border: 1px solid #d8d8d8;color: #000000;display: inline-block;padding: 0.25rem 1rem;border-radius: 3px;}input[type="button"]:hover {border: 1px solid rgba(0, 0, 0, 0.2);}em {font-weight: bold;}.panel em {display: inline-block;width: 50px;}.btn_box>input {margin-right: 0.5rem;}.btn_boxs {display: inline;}#builder {font-weight: bold;width: 100px;height: 30px;color: #FFFFFF;margin: 1rem 2rem 0 0;background: #42b983;}#path {width: 100%;padding: 0.2rem;box-sizing: border-box;height: 30px}#mb_yes,#type_yes {background: #FFFFFF;border-color: #42b983;color: #42b983;}.rk a {margin-right: 2rem;}
   	div#auto_btn{background: #f0f0f0; box-sizing:border-box; padding:0.5rem; margin-top:2rem}
 	div#auto_btn>span{ border: 1px solid #d8d8d8; cursor: pointer; border-radius: 3px;display: inline-block; padding: 0 1rem; background: #42b983;color: #FFFFFF; margin:0 5px }
+  #bianygo {background: #999!important;}
 	</style>
 </head>
 <body>
@@ -19,7 +20,7 @@
 			<a href="<%= data.data[j] %>"><%= data.data[j] %></a>
 		<% } %>
 		<% if(data.config){ %>
-			<div id="auto_btn" data-path="<%= data.path %>" data-config="<%= data.config %>"><span id="banyi_btn" >启动实时压缩编译</span><span id="banyi_btn">最终编译打包</span></div>
+			<div id="auto_btn" data-path="<%= data.path %>" data-config="<%= data.config %>"><span id="banyi_btn" >启动实时压缩编译</span></div>
 		<% } %>
 	<% } %>
 	</div>
@@ -48,8 +49,10 @@
 				"url":' http://localhost:9000/merge',
 				"type":"POST",
 				"data":postd,
-				initFn:function(_this){
-					console.log(_this.go_data)
+				initFn:function(gofn){
+          _this.id="bianygo"
+          _this.innerHTML="已提交实时压缩编译～"
+					console.log(gofn.go_data)
 				},
 				success:function(res){
 					console.log(res)

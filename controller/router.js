@@ -78,8 +78,8 @@ exports.merge = (req, res, next) => {
     req.on("end", () => {
         ajaxData = queryString.parse(ajaxData);
         console.log("当前项目配置表：",ajaxData);
-        merge.mergeFile(ajaxData, (err, data) => {
-            // res.end("1")
+        merge.mergeFile(ajaxData, (data) => {
+            res.rend(data)
         })
     })
 }

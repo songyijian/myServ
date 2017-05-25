@@ -8,15 +8,14 @@ const CleanCSS = require('clean-css');
 const sass = require('node-sass');
 var cassys={format : ' keep-  breaking '}
 
-
-exports.mergeFile = (ajaxData, fn) => {
+exports.mergeFile = (ajaxData, endfn) => {
   let pPath = ajaxData.path;
   let _jp = null;
   var jsEntList,cssEntList;
   try{
 		_jp=JSON.parse(ajaxData.config)
 	}catch(err){
-    fn({ "state":0, "info": "_.json配置错误 || 不是正确的json文件" , err })
+    endfn({ "state":0, "info": "_.json配置错误 || 不是正确的json文件" , err })
     return
 	}
 
@@ -53,14 +52,15 @@ exports.mergeFile = (ajaxData, fn) => {
               return;
             }
             if(path.extname(item.path) === '.sass'){
-              let result =sass.renderSync({
-                data: data,
-                outputStyle:'compressed'
-              });
-              // console.log(result,result.css.toString());
-              resolve({index,path:item.path,name:item.name,data:result.css.toString(),err:null,time:new Date()})
+              try{
+                let result =sass.renderSync({
+                  data: data ==='' ? ` // ` : data
+                });
+                resolve({index,path:item.path,name:item.name,data:result.css.toString(),err:null,time:new Date()})
+              }catch(err){
+                resolve({index,path:item.path,name:item.name,data:null,err:err,time:new Date()})
+              }
             }else{
-              // console.log(new CleanCSS({}).minify(data));
               resolve({index,path:item.path,name:item.name,data:new CleanCSS(cassys).minify(data).styles,err:null,time:new Date()})
             }
           });
@@ -79,51 +79,66 @@ exports.mergeFile = (ajaxData, fn) => {
 
   //CSS 编译文件详细信息
   Promise.all(rBianYiDat(cssEntList)).then((o)=>{
-      rCssData=o;BY('css')
+      rCssData=o;
+      BY('css')
       console.log('编译CSS文件详细信息：',rCssData);
   }).catch(function(err) {
     console.log(err);
+    endfn({ "state":0, "info": "CSS 初始化编译||压缩错误" , err })
   })
   //JS 编译文件详细信息
   Promise.all(rBianYiDat(jsEntList)).then((o)=>{
-      rJsData=o;BY('js');
+      rJsData=o;
+      BY('js');
       console.log('编译JS文件详细信息：',rJsData);
   }).catch(function(err) {
     console.log(err);
+    endfn({ "state":0, "info": "jss 初始化编译||压缩错误" , err })
   })
+
+
 
   //数据编译写入 ======
   // rJsData，rCssData
   var jsOutPath = slash(path.resolve(pPath+'/'+_jp.js.output))
   var cssOutPath = slash(path.resolve(pPath+'/'+_jp.css.output))
-  console.log('写入文件处理：',jsOutPath,jsOutPath)
+  console.log('写入文件路径：',jsOutPath,jsOutPath)
 
   function BY(type) {
+    console.log(rJsData,rCssData);
     //写入函数
-    if(type === 'js'){
-      console.log(rJsData);
-      let sJsdata ='';
-      for (var i = 0; i < rJsData.length; i++) {
-        sJsdata += `\/\* ${rJsData[i].name} - ${rJsData[i].time}*\/` + (rJsData[i].data ? `\n ${rJsData[i].data}\n`:`\n ${rJsData[i].err}\n`)
+    var xrJS = new Promise((resolve,reject)=>{
+      if(type === 'js'){
+        console.log(rJsData);
+        let sJsdata ='';
+        for (var i = 0; i < rJsData.length; i++) {
+          sJsdata += `\/\* ${rJsData[i].name} - ${rJsData[i].time}*\/` + (rJsData[i].data !==null ? `\n ${rJsData[i].data}\n`:`\n \/\* ${rJsData[i].err} \*\/\n`)
+        }
+        fs.outputFile(jsOutPath, sJsdata , function(err) {
+          if(err){reject(err);return}
+          resolve(`${jsOutPath} 写入成功`)
+        })
       }
-      fs.outputFile(jsOutPath, sJsdata , function(err) {
-        if(err){console.log(err);return}
-        console.log('写入成功');
-      })
-    }
-    if(type === 'css'){
-      console.log(rCssData);
-
-      let sCssdata ='';
-      for (var i = 0; i < rCssData.length; i++) {
-        sCssdata += `\/\* ${rCssData[i].name} - ${rCssData[i].time}*\/` + (rCssData[i].data ? `\n ${rCssData[i].data}\n`:`\n ${rCssData[i].err}\n`);
+    })
+    var xrCSS = new Promise((resolve,reject)=>{
+      if(type === 'css'){
+        console.log(rCssData);
+        let sCssdata ='';
+        for (var i = 0; i < rCssData.length; i++) {
+          sCssdata += `\/\* ${rCssData[i].name} - ${rCssData[i].time}*\/` + (rCssData[i].data !==null ? `\n ${rCssData[i].data}\n`:`\n \/\* ${rCssData[i].err} \*\/\n`);
+        }
+        fs.outputFile(cssOutPath, sCssdata, function(err) {
+          if(err){reject(err);return}
+          resolve(`${jsOutPath} 写入成功`)
+        })
       }
-
-      fs.outputFile(cssOutPath, sCssdata, function(err) {
-        if(err){console.log(err);return}
-        console.log('写入成功');
-      })
-    }
+    })
+    Promise.all([xrJS,xrCSS]).then((o)={
+      // endfn({ "state":'1', "info": `${o}` })
+    }).catch(()=>{
+      endfn({ "state":0, "info": `${o}`,err  })
+    })
+    return false;
   }
 
 
@@ -152,12 +167,26 @@ exports.mergeFile = (ajaxData, fn) => {
           fs.readFile(oChang.path, {flag: 'r+', encoding: 'utf8'},  (err, data) =>{
             olist[i].time = new Date();
             if(err) {
-               console.log(err);
-              olist[i].err = `\/\* ${err} *\/`;
-              olist[i].data = null;return;
+              console.log(err);
+              olist[i].err = err;//`\/\* ${err} *\/`;
+              olist[i].data = null;
+              return;
             }
-            olist[i].data = new CleanCSS(cassys).minify(data).styles;
             olist[i].err = null;
+            if(path.extname(oChang.path) === '.sass'){
+              try {
+                let result =sass.renderSync({
+                  data: data ==='' ? ` // ` : data
+                });
+                olist[i].data = result.css.toString()
+                olist[i].err =null
+              } catch (err) {
+                olist[i].data = null
+                olist[i].err =err
+              }
+            }else{
+              olist[i].data = new CleanCSS(cassys).minify(data).styles;
+            }
             fn()
           });
         }
@@ -168,8 +197,9 @@ exports.mergeFile = (ajaxData, fn) => {
             olist[i].data = data;
           }catch(err){
             olist[i].data = null;
-            olist[i].err = `\/\* ${err} *\/`
+            olist[i].err = err;
           }
+          fn()
         }
         break;
       }
@@ -180,6 +210,7 @@ exports.mergeFile = (ajaxData, fn) => {
     if(jsEntList){
       watchF(jsEntList,(oChang)=>{
         rwatch(rJsData,oChang,()=>{
+          console.log('js -------');
           BY('js')
         })
       })
@@ -187,13 +218,13 @@ exports.mergeFile = (ajaxData, fn) => {
     if(cssEntList){
       watchF(cssEntList,(oChang)=>{
         rwatch(rCssData,oChang,()=>{
+          console.log('css -------');
           BY('css')
         })
       })
     }
   }else{
-    fn({"state":0, "info": " _.json配置没有对文件编译需求" })
+    endfn({"state":0, "info": " _.json配置没有对文件编译需求" })
   }
-
 
 }
