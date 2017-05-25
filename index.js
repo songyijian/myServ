@@ -8,9 +8,91 @@ const app = express();
 
 const fs = require('fs-extra')
 
-
 const queryString = require("querystring");
 const getDom = require("./models/getDom.js");
+
+const uglifyjs = require("uglify-js");
+// Js 压缩 -------
+// function miniFn(str) {
+//   return uglifyjs.minify(str).code;
+// }
+// try{
+//   let data=uglifyjs.minify('/Users/yjsong/D/fis/05/item/js/1.js').code
+//   console.log(data);
+// }catch(err){
+//   console.log(err);
+// }
+
+
+const CleanCSS = require('clean-css');
+// css 压缩 --------
+// var input = 'a{font-weight:bold;}';
+// var options = { /* options */ };
+// var output = new CleanCSS(options).minify(input);
+//
+// fs.readFile('/Users/yjsong/D/fis/05/item/css/2.css', {flag: 'r+', encoding: 'utf8'},  (err, data) =>{
+//   if(err) {
+//     console.log( err );
+//   }
+//   console.log(new CleanCSS({}).minify(data).styles);
+// });
+
+// sass -------
+var sass = require('node-sass');
+
+
+// sass.render({
+//   file: scss_filename,
+//   [, options..]
+// }, function(err, result) { /*...*/ });
+// OR
+// var result = sass.renderSync({
+//   data: scss_content
+//   [, options..]
+// });
+
+
+var itmepath='/Users/yjsong/D/fis/05/item/css/1.sass';
+
+
+fs.readFile(itmepath, {flag: 'r+', encoding: 'utf8'},  (err, data) =>{
+  if(err) {
+    console.log( err );
+    return
+  }
+  if(path.extname(itmepath) === '.sass'){
+    var result =sass.renderSync({
+      data: data,
+      outputStyle:'compressed'
+    });
+    console.log(result,result.css.toString());
+  }else{
+    console.log(new CleanCSS({}).minify(data));
+  }
+});
+
+
+
+//监听文件变化 ---------
+// fs.watchFile('/Users/yjsong/D/fis/05/item/css/3.css' ,{interval: 20}, function (curr, prev) {
+//   if(Date.parse(prev.ctime) == 0) {
+//     console.log('文件被创建!');
+//   } else if(Date.parse(curr.ctime) == 0) {
+//     console.log('文件被删除!')
+//   } else if(Date.parse(curr.mtime) != Date.parse(prev.mtime)) {
+//     console.log('文件有修改');
+//   }
+// });
+
+// fs.watch('/Users/yjsong/D/fis/05/item/css/', (eventType, filename) => {
+//   console.log(`事件类型是: ${eventType}`);
+//   if (filename) {
+//     console.log(`提供的文件名: ${filename}`);
+//   } else {
+//     console.log('未提供文件名');
+//   }
+// });
+
 
 
 /*fs.ensureDir(slash("E:/SVN/2017/888/12/1.text"), function(err) {
@@ -19,12 +101,13 @@ const getDom = require("./models/getDom.js");
 });
 */
 
+
+// 文件路径处理 ----------
 // console.log(path.extname("E:/SVN/2017/888/12/").length,typeof path.extname("E:/SVN/2017/888/12/"))
-
-console.log(slash(path.resolve('E:/SVN/2017'+"/"+'/1013/')))
-console.log()
+// console.log(slash(path.resolve('E:/SVN/2017'+"/"+'/1013/')))
 
 
+// 文件不存在 ----------
 // fs.access(`/Users/yjsong/D/fis`,fs.constants.R_OK | fs.constants.W_OK , err => {
 // 	console.log(err)
 // 	if(err){
@@ -34,13 +117,14 @@ console.log()
 // 	}
 // })
 
+
+// 文件权限  存在与否 ----------
 // fs.access(`/Users`,fs.constants.R_OK | fs.constants.W_OK , err => {
 // 	console.log(err)
 // 	if(err){
 // 		console.log("文件不存在")
 // 	}else{
 // 		console.log("文件存在")
-
 // 	}
 // })
 
@@ -64,7 +148,7 @@ console.log()
 
 
 //创建文件夹===================
-/*__dirname + "/views/2" 创建的文件夹叫 2 
+/*__dirname + "/views/2" 创建的文件夹叫 2
  *fs.mkdir(__dirname + "/views/2",权限 不填默认0777 读写, (err) => {})
 err
 错误码 -4075
@@ -89,7 +173,7 @@ err
 //     }
 // })
 
-//判断 点文件 .txt 
+//判断 点文件 .txt
 // console.log(path.extname("ss.txt"))
 // console.log(path.extname(".txt"))
 

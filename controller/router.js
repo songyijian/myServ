@@ -61,7 +61,7 @@ exports.builder = (req, res, next) => {
 
 
 
-//静态文件列表UI 
+//静态文件列表UI
 exports.warehouse = (req, res, next)=>{
     warehouseshow(req, res, next, (err, data) => {
         res.render("warehouse", { "err": err, "data": data })
@@ -74,13 +74,12 @@ exports.warehouse = (req, res, next)=>{
 //编译
 exports.merge = (req, res, next) => {
     let ajaxData = "";
-    req.on("data", (data) => {
-        ajaxData += data;
-    })
+    req.on("data", (data) => {  ajaxData += data })
     req.on("end", () => {
         ajaxData = queryString.parse(ajaxData);
+        console.log("当前项目配置表：",ajaxData);
         merge.mergeFile(ajaxData, (err, data) => {
-            res.end("1")
+            // res.end("1")
         })
     })
 }

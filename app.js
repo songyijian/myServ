@@ -1,11 +1,11 @@
 "use strict"
 const fs = require("fs");
+const opn = require('opn')
 const express = require("express");
 const app = express();
 const router = require("./controller/router.js");
 const builderData = require("./set.json");
 
-var opn = require('opn')
 const port = 9000;
 let uri = 'http://localhost:' + port;
 

@@ -28,18 +28,18 @@
             "name": "广告模版1",
             "mb_id": 1,
             "structure": [
-                        "images", 
-                        "css", 
-                        "js", 
+                        "images",
+                        "css",
+                        "js",
                         {
                             "name":"_.json",
                             "template":"{js:{min:}}"
                         },
-                        "testData.json", 
-                        "js/main.js", 
-                        "css/main.css", 
-                        { 
-                            "name": "index.html", 
+                        "testData.json",
+                        "js/main.js",
+                        "css/main.css",
+                        {
+                            "name": "index.html",
                             "get": "http://test.go.163.com/go/2017/0228/bTest/"
                         }
                     ]
@@ -47,35 +47,39 @@
             "name": "汽车模版1",
             "mb_id": 2,
             "structure": [
-                        "images", 
-                        "css", 
-                        "js", 
-                        "_.json", 
-                        "testData.json", 
-                        "js/main.js", 
-                        "css/main.css", 
-                        { 
-                            "name": "index.html", 
-                            "get": "http://test.go.163.com/go/2017/0228/bTest/" 
+                        "images",
+                        "css",
+                        "js",
+                        "_.json",
+                        "testData.json",
+                        "js/main.js",
+                        "css/main.css",
+                        {
+                            "name": "index.html",
+                            "get": "http://test.go.163.com/go/2017/0228/bTest/"
                         }
                     ]
-        },
-        {
-            "name": "new",
-            "mb_id": 3,
-            "structure": [
-                        "images", 
-                        "css", 
-                        "js", 
-                        "_.json", 
-                        "testData.json", 
-                        "js/main.js", 
-                        "css/main.css", 
-                        { 
-                            "name": "index.html", 
-                            "get": "http://test.go.163.com/go/2017/0228/bTest/" 
-                        }
-                    ]
-        }
+        },{
+          "name": "test1",
+          "mb_id": 3,
+          "structure": [
+                      "images",
+                      "css",
+                      "js",
+                      "testData.json",
+                      "js/1.js",
+                      "js/2.js",
+                      "css/1.css",
+                      "css/1.sass",
+                      {
+                        "name":"_.json",
+                        "template":"{\"js\":{\"entry\":[\"js/1.js\",\"js/2.js\"],\"output\":\"js/min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/min.css\"},\"v\":\"0.0.1\"}"
+                      },
+                      {
+                          "name": "index.html",
+                          "get": "http://test.go.163.com/go/2017/0228/bTest/"
+                      }
+                  ]
+      }
     ]
 }

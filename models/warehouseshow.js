@@ -1,16 +1,16 @@
-// 构建处理 
+// 构建处理
 const fs = require("fs");
 const path = require("path");
 const url = require("url");
 const queryString = require("querystring");
-const builderData = require("../set.json");
 const slash = require('slash');
+const builderData = require("../set.json");
 
 
 
 module.exports = (req, res, next, fn) => {
     let usePar=req.params
-    console.log(req.params,"+++++++",req.url)
+    // console.log(req.params,"+++++++",req.url)
 
     //先过滤库
     let typey = builderData.ItemType.filter((item, index) => {   return item.id == usePar.typeid })
@@ -41,14 +41,14 @@ module.exports = (req, res, next, fn) => {
         let oerr = null,
             yData = { "data": data, 'config': null, "path": null };
         if (err) {
-            oerr = err; 
+            oerr = err;
             return;
         }
 
         console.log(data)
 
         //项目根目录判定
-        if (data){   
+        if (data){
             data.forEach((item, index) => {
                 if (item === "_.json") {
                     const sjson = fs.readFileSync(`${pathy}/_.json`, "utf-8")

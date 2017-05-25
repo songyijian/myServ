@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
 	<meta name="viewport" content="width=750,target-densitydpi=device-dpi,user-scalable=no">
-    <title>f2e 前端构建工具</title>
+  <title>f2e 前端构建工具</title>
 	<style>
 	body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,   p,blockquote,th,td {margin: 0;padding: 0;}i,em {font-style: normal;}input,area {outline: none}body {font: 16px/30px "arial,sans-serif";background-color: #f8f8f8;}.panel {width: 750px;margin: 1rem auto;box-sizing: border-box;padding: 1rem;border: 1px solid #d8d8d8;background-color: #FFFFFF;border-radius: 3px;}.panel>div {border-bottom: 1px solid #d8d8d8;padding: 0.5rem 0;}h4 {margin-bottom: 0.3rem;}a {color: #000;}a:hover {color: #42b983;}.panel>a {margin-right: 2rem;font-size: 14px;}i {font: 14px/25px "arial,sans-serif";color: #c00}input[type="button"] {cursor: pointer;background: #eee;border: 1px solid #d8d8d8;color: #000000;display: inline-block;padding: 0.25rem 1rem;border-radius: 3px;}input[type="button"]:hover {border: 1px solid rgba(0, 0, 0, 0.2);}em {font-weight: bold;}.panel em {display: inline-block;width: 50px;}.btn_box>input {margin-right: 0.5rem;}.btn_boxs {display: inline;}#builder {font-weight: bold;width: 100px;height: 30px;color: #FFFFFF;margin: 1rem 2rem 0 0;background: #42b983;}#path {width: 100%;padding: 0.2rem;box-sizing: border-box;height: 30px}#mb_yes,#type_yes {background: #FFFFFF;border-color: #42b983;color: #42b983;}.rk a {margin-right: 2rem;}</style>
 </head>
@@ -16,7 +16,7 @@
 			<p class="btn_boxs">
 				<em><%= ItemType[i].name %>：</em>
 				<% for(var j=0; j<ItemType[i].list.length; j++){%>
-					<input  id="" type="button" data-changkupath="<%= ItemType[i].list[j].path %>" data-changkuid="<%= ItemType[i].id %>" value="<%= ItemType[i].list[j].name %>" 
+					<input  id="" type="button" data-changkupath="<%= ItemType[i].list[j].path %>" data-changkuid="<%= ItemType[i].id %>" value="<%= ItemType[i].list[j].name %>"
 					/>
 				<% }%>
 			</p><br/>
@@ -33,12 +33,12 @@
         <h4>模版：</h4>
         <p class="btn_box">
 			<%for(var i=0; i<template.length; i++){%>
-				<input type="button" id="" data-mbid="<%= template[i].mb_id %>" value="<%= template[i].name %>" 
+				<input type="button" id="" data-mbid="<%= template[i].mb_id %>" value="<%= template[i].name %>"
 				/>
 			<%}%>
         </p>
     </div>
-	<input type="button" name="" id="builder" value="创建项目" /> <span  id="gourl"></span> 
+	<input type="button" name="" id="builder" value="创建项目" /> <span  id="gourl"></span>
 </form>
 
 <div class="panel rk">
@@ -84,7 +84,7 @@
 			}
 		})
 	})
-	
+
 
 	$("#builder").onclick = ()=>{
 		let jData={}
@@ -111,9 +111,9 @@
 			"success":function(e){
 				console.log(e)
 				if(e.state){
-					$("#gourl").innerHTML =`yes: <a href="${e.info}">${e.info} </a>`
-				}else{ 
-					$("#gourl").innerHTML =`no: ${e.info}` 
+					$("#gourl").innerHTML =`yes: ${e.info} `
+				}else{
+					$("#gourl").innerHTML =`no: ${e.info}`
 				}
 			}
 		})

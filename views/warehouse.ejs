@@ -19,7 +19,7 @@
 			<a href="<%= data.data[j] %>"><%= data.data[j] %></a>
 		<% } %>
 		<% if(data.config){ %>
-			<div id="auto_btn" data-path="<%= data.path %>" data-config="<%= data.config %>"><span id="banyi_btn" >启动实时编译</span><span>svn</span></div>
+			<div id="auto_btn" data-path="<%= data.path %>" data-config="<%= data.config %>"><span id="banyi_btn" >启动实时压缩编译</span><span id="banyi_btn">最终编译打包</span></div>
 		<% } %>
 	<% } %>
 	</div>
@@ -45,7 +45,7 @@
 		if(_this.id === "banyi_btn"){
 			console.log(autoBtn.dataset)
 			new Ajax({
-				"url":' ./merge',
+				"url":' http://localhost:9000/merge',
 				"type":"POST",
 				"data":postd,
 				initFn:function(_this){
