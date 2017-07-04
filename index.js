@@ -64,7 +64,7 @@ var itmepath='/Users/yjsong/D/fis/item_test/css/1.sass';
 // console.log(result,result.css.toString());
 
 
-fs.readFile(itmepath, {flag: 'r+', encoding: 'utf8'},  (err, data) =>{
+/*fs.readFile(itmepath, {flag: 'r+', encoding: 'utf8'},  (err, data) =>{
   if(err) {
     console.log( err );
     return
@@ -80,6 +80,58 @@ fs.readFile(itmepath, {flag: 'r+', encoding: 'utf8'},  (err, data) =>{
     console.log(new CleanCSS({}).minify(data));
   }
 });
+*/
+   
+
+
+
+
+var css='./swiper2.gif"./swiper.min.gif?v=1499051878344',
+    img='images/tuoxie.jpg',
+    css2='http://go.163.com/2016/0215/japan/css/swiper.min.css?v=1499051878344';
+
+var t=new Date().getTime()
+
+
+
+
+// \.jpg | \.png | \.gif | \.css | \.js | \.js\?v\=\d+ | \.css\?v\=\d+ | \.img\?v\=\d+ | \.png\?v\=\d+ |
+
+
+
+
+var re=/\.js\?v\=\d+|\.css\?v\=\d+|\.img\?v\=\d+|\.png\?v\=\d+|\.gif\?v=\d+|\.jpg|\.png|\.gif|\.css|\.js/g; 
+
+
+
+
+var nw = css.replace(re,function(a0,a1,s){
+    console.log(arguments)
+
+    if(/\.js\?v\=\d+/g.test(a0)){
+        return '.js'+'?v='+t; 
+    }
+    if(/\.css\?v\=\d+/g.test(a0)){
+        return '.css'+'?v='+t; 
+    }
+    if(/\.img\?v\=\d+/g.test(a0)){
+        return '.img'+'?v='+t; 
+    }
+    if(/\.png\?v\=\d+/g.test(a0)){
+        return '.png'+'?v='+t; 
+    }
+    if(/\.gif\?v\=\d+/g.test(a0)){
+        return '.gif'+'?v='+t; 
+    }
+
+    return a0+'?v='+t; 
+}) 
+
+
+console.log(nw)
+
+
+
 
 
 
@@ -317,3 +369,9 @@ err
 
 
 console.log(pathP(array))*/
+
+
+
+
+
+

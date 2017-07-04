@@ -1,4 +1,3 @@
-
 const path = require("path")
 const queryString = require("querystring")
 const fs = require('fs-extra')
@@ -9,138 +8,124 @@ const sass = require('node-sass');
 var cassys={format : ' keep-  breaking '}
 
 exports.mergeFile = (ajaxData, endfn) => {
-  let pPath = ajaxData.path;
-  let _jp = null;
-  var jsEntList,cssEntList;
+  var pPath = ajaxData.path;
+  var _jp = null;
   try{
 		_jp=JSON.parse(ajaxData.config)
 	}catch(err){
-    endfn({ "state":0, "info": "_.json配置错误 || 不是正确的json文件" , err })
+    endfn({ "state":0, "info": "_.json文件不被能被解析请检查后再试" , err })
     return
 	}
 
-  // 读取，监测文件 js css处理
+  //js 文件列表路径处理
+  var jsCssList=[]
   if(Array.isArray(_jp.js.entry)){
-    jsEntList  = _jp.js.entry.map((item)=>{
-        return  {name:item,path:slash(path.resolve(pPath+'/'+item))}
+    _jp.js.entry.forEach((item)=>{
+      jsCssList.push( {name:item,path:slash(path.resolve(pPath+'/'+item))} )
     })
   }
   if(typeof _jp.js.entry === 'string'){
-    jsEntList  = [{name: _jp.js.entry,path:slash(path.resolve(pPath+'/'+_jp.js.entry))}]
+    jsCssList.push( [{name: _jp.js.entry,path:slash(path.resolve(pPath+'/'+_jp.js.entry))}] )
   }
+  //css 文件列表路径处理
   if(Array.isArray(_jp.css.entry)){
-    cssEntList  = _jp.css.entry.map((item)=>{
-        return  {name:item,path:slash(path.resolve(pPath+'/'+item))}
+    _jp.css.entry.forEach((item)=>{
+      jsCssList.push( {name:item,path:slash(path.resolve(pPath+'/'+item))} )
     })
   }
   if(typeof _jp.css.entry === 'string'){
-    cssEntList  = [{name: _jp.js.entry,path:slash(path.resolve(pPath+'/'+_jp.js.entry))}]
+    jsCssList.push( [{name: _jp.js.entry,path:slash(path.resolve(pPath+'/'+_jp.js.entry))}] )
   }
-  console.log('需要处理的文件目录列表 ：' ,jsEntList,cssEntList);
+
+  console.log('----------- 待编译压缩文件List ------------')
+  console.log( jsCssList);
 
 
 
-//先全全部读取放在arr内 ==========
-  var rJsData, rCssData;
-  function rBianYiDat(arr) {
-    return arr.map((item,index,arr)=>{
+  //css和js 读取函数==========
+  var rJsCssData=[];
+  function rBianYiDataList(arr) {
+    // console.log('--------- rBianYiDataList')
+    return arr.map((item,index)=>{
       return  new Promise((resolve,reject)=>{
-        if(arr===cssEntList){
-          fs.readFile(item.path, {flag: 'r+', encoding: 'utf8'},  (err, data) =>{
-            if(err) {
-              resolve({index,path:item.path,name:item.name,data:null,err:`\/\* ${err} *\/`,time:new Date()})
-              return;
-            }
-            if(path.extname(item.path) === '.sass'){
-              try{
-                let result =sass.renderSync({
-                  data: data ==='' ? ` // ` : data
-                });
-                resolve({index,path:item.path,name:item.name,data:result.css.toString(),err:null,time:new Date()})
-              }catch(err){
-                resolve({index,path:item.path,name:item.name,data:null,err:err,time:new Date()})
+          if( path.extname(item.path) === '.css' || path.extname(item.path) === '.sass'){
+            fs.readFile(item.path, {flag: 'r+', encoding: 'utf8'},  (err, data) =>{
+              if(err) {
+                if(path.extname(item.path) === '.css'){
+                  rJsCssData.push({index,type:'css',path:item.path,name:item.name,data:null,err,time:new Date()})
+                }
+                return;
               }
-            }else{
-              resolve({index,path:item.path,name:item.name,data:new CleanCSS(cassys).minify(data).styles,err:null,time:new Date()})
-            }
-          });
-        }
-        if(arr===jsEntList){
-          try{
-            let data=uglifyjs.minify(item.path).code
-            resolve({index,path:item.path,name:item.name,data,err:null,time:new Date()})
-          }catch(err){
-            resolve({index,path:item.path,name:item.name,data:null,err:`\/\* ${err} *\/`,time:new Date()})
+              if(path.extname(item.path) === '.sass'){
+                try{
+                  let result = sass.renderSync({data: data ==='' ? "" : data});
+                      result = new CleanCSS(cassys).minify( result ).styles;
+                  rJsCssData.push({index,type:'css',path:item.path,name:item.name,data:result.css.toString(),err:null,time:new Date()})
+                }catch(err){
+                  rJsCssData.push({index,type:'css',path:item.path,name:item.name,data:null,err,time:new Date()})
+                }
+                resolve(item.name)
+              }
+              if(path.extname(item.path) === '.css'){
+                rJsCssData.push({index,type:'css',path:item.path,name:item.name,data:new CleanCSS(cassys).minify(data).styles,err:null,time:new Date()})
+                resolve(item.name)
+              }
+            })
           }
-        }
+
+          if(path.extname(item.path) === '.js'){
+            try{
+              let data=uglifyjs.minify(item.path).code
+              rJsCssData.push({index,type:'js',path:item.path,name:item.name,data,err:null,time:new Date()})
+            }catch(err){
+              rJsCssData.push({index,type:'js',path:item.path,name:item.name,data:null,err,time:new Date()})
+            }
+            resolve(item.name)
+          }
       })
     })
   }
 
-  //CSS 编译文件详细信息
-  Promise.all(rBianYiDat(cssEntList)).then((o)=>{
-      rCssData=o;
-      BY('css')
-      console.log('编译CSS文件详细信息：',rCssData);
-  }).catch(function(err) {
-    console.log(err);
-    endfn({ "state":0, "info": "CSS 初始化编译||压缩错误" , err })
-  })
-  //JS 编译文件详细信息
-  Promise.all(rBianYiDat(jsEntList)).then((o)=>{
-      rJsData=o;
-      BY('js');
-      console.log('编译JS文件详细信息：',rJsData);
-  }).catch(function(err) {
-    console.log(err);
-    endfn({ "state":0, "info": "jss 初始化编译||压缩错误" , err })
-  })
-
-
-
-  //数据编译写入 ======
-  // rJsData，rCssData
+  //css和js 编译写入==========
   var jsOutPath = slash(path.resolve(pPath+'/'+_jp.js.output))
   var cssOutPath = slash(path.resolve(pPath+'/'+_jp.css.output))
-  console.log('写入文件路径：',jsOutPath,jsOutPath)
+  console.log('写入文件路径：',cssOutPath,'\n',jsOutPath)
+  
+  //写入函数
+  function dataOutFile(array,fn) {
+      let sJsdata='' , sCssdata='';
 
-  function BY(type) {
-    console.log(rJsData,rCssData);
-    //写入函数
-    var xrJS = new Promise((resolve,reject)=>{
-      if(type === 'js'){
-        console.log(rJsData);
-        let sJsdata ='';
-        for (var i = 0; i < rJsData.length; i++) {
-          sJsdata += `\/\* ${rJsData[i].name} - ${rJsData[i].time}*\/` + (rJsData[i].data !==null ? `\n ${rJsData[i].data}\n`:`\n \/\* ${rJsData[i].err} \*\/\n`)
+      array.forEach((item,index)=>{
+        if(item.type==='js'){
+          sJsdata += `\/\* ${item.name} - ${item.time}*\/` + ( item.data !==null ? `\n ${item.data}\n` : `\n \/\* ${item.err} \*\/\n`)
         }
-        fs.outputFile(jsOutPath, sJsdata , function(err) {
-          if(err){reject(err);return}
-          resolve(`${jsOutPath} 写入成功`)
-        })
-      }
-    })
-    var xrCSS = new Promise((resolve,reject)=>{
-      if(type === 'css'){
-        console.log(rCssData);
-        let sCssdata ='';
-        for (var i = 0; i < rCssData.length; i++) {
-          sCssdata += `\/\* ${rCssData[i].name} - ${rCssData[i].time}*\/` + (rCssData[i].data !==null ? `\n ${rCssData[i].data}\n`:`\n \/\* ${rCssData[i].err} \*\/\n`);
+        if(item.type==='css'){
+          sCssdata += `\/\* ${item.name} - ${item.time}*\/` + (item.data !==null ? `\n ${item.data}\n`:`\n \/\* ${item.err} \*\/\n`)
         }
-        fs.outputFile(cssOutPath, sCssdata, function(err) {
-          if(err){reject(err);return}
-          resolve(`${jsOutPath} 写入成功`)
-        })
-      }
-    })
-    Promise.all([xrJS,xrCSS]).then((o)={
-      // endfn({ "state":'1', "info": `${o}` })
-    }).catch(()=>{
-      endfn({ "state":0, "info": `${o}`,err  })
-    })
-    return false;
+      })
+
+      fs.outputFile(jsOutPath, sJsdata , (err)=>{
+        if(err){
+          if(fn)fn({'state':0,'info':'js编译数据写入错误',err}); return
+        }
+        if(fn)fn({'state':1,'info':`${jsOutPath} 写入成功`,'err':null})
+      })
+      fs.outputFile(cssOutPath, sCssdata, (err)=>{
+        if(err){
+          if(fn)fn({'state':0,'info':'css编译数据写入错误',err}); return
+        }
+        if(fn)fn({'state':1,'info':`${cssOutPath} 写入成功`,'err':null})
+      })
   }
 
+
+  //CSS,JS 编译&写入
+  Promise.all( rBianYiDataList(jsCssList) ).then((o)=>{
+    dataOutFile(rJsCssData,(data)=>{
+      console.log('----------- 第一次编译数据写入完成 ------------')
+      console.log(rJsCssData)
+    })
+  }).catch(function(err) {})
 
 
 
@@ -149,82 +134,76 @@ exports.mergeFile = (ajaxData, endfn) => {
     oArr.forEach((item,index,arr)=>{
       fs.watchFile(item.path,{persistent: true, interval: 500},  (curr, prev)=> {
         if(Date.parse(prev.ctime) == 0) {
-          console.log(item.name+'文件被创建!');
+          console.log(item.name+':文件被创建!');
         } else if(Date.parse(curr.ctime) == 0) {
           console.log(item.name+'文件被删除!')
         } else if(Date.parse(curr.mtime) != Date.parse(prev.mtime)) {
-          fn(item)
+
+          rwatch(rJsCssData,item,fn)
         }
       })
     })
-  }
-  //观察变化，然后再修对应数据
-  function rwatch(olist,oChang,fn) {
-    for (let i = 0; i < olist.length; i++) {
-      if(olist[i].path === oChang.path ){
-        console.log('监测变化',oChang.name)
-        if(olist === rCssData){
-          fs.readFile(oChang.path, {flag: 'r+', encoding: 'utf8'},  (err, data) =>{
-            olist[i].time = new Date();
-            if(err) {
-              console.log(err);
-              olist[i].err = err;//`\/\* ${err} *\/`;
-              olist[i].data = null;
-              return;
-            }
-            olist[i].err = null;
-            if(path.extname(oChang.path) === '.sass'){
-              try {
-                let result =sass.renderSync({
-                  data: data ==='' ? ` // ` : data
-                });
-                olist[i].data = result.css.toString()
-                olist[i].err =null
-              } catch (err) {
-                olist[i].data = null
-                olist[i].err =err
-              }
-            }else{
-              olist[i].data = new CleanCSS(cassys).minify(data).styles;
-            }
-            fn()
-          });
-        }
-        if(olist === rJsData){
-          olist[i].time = new Date();
-          try{
-            let data=uglifyjs.minify(oChang.path).code;
-            olist[i].data = data;
-          }catch(err){
-            olist[i].data = null;
-            olist[i].err = err;
-          }
-          fn()
-        }
-        break;
-      }
-    }
+    console.log('----------- 监听启动 ------------')
+    endfn({"state":1, "info": "监听已经启动" })
   }
 
-  if(cssEntList || jsEntList){
-    if(jsEntList){
-      watchF(jsEntList,(oChang)=>{
-        rwatch(rJsData,oChang,()=>{
-          console.log('js -------');
-          BY('js')
+  //观察变化后处理文件
+  function rwatch(olist,oChang,fn) {
+    olist.forEach((item,index)=>{
+      if(item.path === oChang.path ){
+        //console.log('监测变化',oChang.name)
+        if(path.extname(oChang.path) !== '.js'){
+          fs.readFile(oChang.path, {flag: 'r+', encoding: 'utf8'},  (err, data) =>{
+            item.time = new Date();
+            if(err) {
+              item.err = err;
+              item.data = null;
+              return;
+            }
+
+            item.err = null;
+            if(path.extname(oChang.path) === '.css'){
+              item.data = new CleanCSS(cassys).minify(data).styles;
+            }
+            if(path.extname(oChang.path) === '.sass'){
+              try {
+                let result =sass.renderSync({ data: data ==='' ? `\/\/` : data });
+                item.data = new CleanCSS(cassys).minify( result.css.toString() ).styles;
+                item.err =null
+              } catch (err) {
+                item.data = null
+                item.err =err
+              }
+            }
+            fn()
+          })
+        }
+
+        if(path.extname(oChang.path) === '.js'){
+          item.time = new Date();
+          try{
+            let data=uglifyjs.minify(oChang.path).code;
+            item.data = data;
+          }catch(err){
+            item.data = null;
+            item.err = err;
+          }
+          fn()
+        }  
+      }
+    })
+  }
+
+
+  if(jsCssList){
+      watchF(jsCssList,()=>{
+        dataOutFile(rJsCssData,(data)=>{
+          console.log('----------- 检测处理状态 ------------')
+          console.log(data)
         })
       })
-    }
-    if(cssEntList){
-      watchF(cssEntList,(oChang)=>{
-        rwatch(rCssData,oChang,()=>{
-          console.log('css -------');
-          BY('css')
-        })
-      })
-    }
   }else{
-    endfn({"state":0, "info": " _.json配置没有对文件编译需求" })
+    endfn({"state":0, "info": " _.json没有配置编译" })
   }
 
 }

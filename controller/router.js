@@ -1,11 +1,14 @@
 "use strict"
 const queryString = require("querystring");
 const path = require("path");
-const fs = require('fs-extra')
-const builder = require("../models/builder.js");
-const warehouseshow = require("../models/warehouseshow.js");
-const merge = require("../models/merge.js");
+const fs = require('fs-extra');
 const slash = require('slash');
+
+const builder = require("../models/builder");
+const warehouseshow = require("../models/warehouseshow");
+const merge = require("../models/merge");
+const staticv= require("../models/staticv");
+
 
 
 const setData = require("../set.json");
@@ -60,15 +63,12 @@ exports.builder = (req, res, next) => {
 }
 
 
-
 //静态文件列表UI
 exports.warehouse = (req, res, next)=>{
     warehouseshow(req, res, next, (err, data) => {
         res.render("warehouse", { "err": err, "data": data })
     })
 }
-
-
 
 
 //编译
@@ -78,8 +78,23 @@ exports.merge = (req, res, next) => {
     req.on("end", () => {
         ajaxData = queryString.parse(ajaxData);
         console.log("当前项目配置表：",ajaxData);
-        merge.mergeFile(ajaxData, (data) => {
-            res.rend(data)
+        merge.mergeFile(ajaxData, (datas) => {
+            res.send(datas)
+        })
+    })
+}
+
+
+//版本号
+exports.staticv = (req, res, next) => {
+    let ajaxData = "";
+    req.on("data", (data) => {  ajaxData += data })
+    req.on("end", () => {
+        ajaxData = queryString.parse(ajaxData);
+        console.log("当前项目配置表：",ajaxData);
+
+        staticv.vFile(ajaxData, function (datas) {
+            res.send(datas)
         })
     })
 }

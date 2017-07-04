@@ -36,7 +36,7 @@
                         "css/1.sass",
                         {
                             "name":"_.json",
-                            "template":"{\"js\":{\"entry\":[\"js/1.js\",\"js/2.js\"],\"output\":\"js/JS_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/CSS_min.css\"},\"v\":\"0.0.1\"}"
+                            "template":"{\"js\":{\"entry\":[\"js/1.js\",\"js/2.js\"],\"output\":\"js/JS_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/CSS_min.css\",\"edition\":[\"./index.html\",\"js/1.js\"]},\"v\":\"0.0.1\"}"
                         },
                         {
                             "name": "index.html",
@@ -55,37 +55,13 @@
                         "css/1.sass",
                         {
                             "name":"_.json",
-                            "template":"{\"js\":{\"entry\":[\"js/1.js\",\"js/2.js\"],\"output\":\"js/JS_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/CSS_min.css\"},\"v\":\"0.0.1\"}"
+                            "template":"{\"js\":{\"entry\":[\"js/1.js\",\"js/2.js\"],\"output\":\"js/JS_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/CSS_min.css\",\"edition\":[\"./index.html\",\"js/1.js\"]},\"v\":\"0.0.1\"}"
                         },
                         {
                             "name": "index.html",
                             "get": "http://test.go.163.com/go/2017/0228/bTest/song_WAP.html"
                         }
                     ]
-        },{
-          "name": "WAP_test",
-          "mb_id": 3,
-          "structure":  [
-                        "images",
-                        "css",
-                        "js",
-                        "ajaxTestData.json",
-                        "js/1.js",
-                        "css/1.css",
-                        "css/1.sass",
-                        {
-                          "name":"js/F2eShare.0.2.0-min.js",
-                          "get": "http://go.163.com/2017/0418/nissan/F2eShare.0.2.0-min.js"
-                        },
-                        {
-                            "name":"_.json",
-                            "template":"{\"js\":{\"entry\":[\"js/F2eShare.0.2.0-min.js\",\"js/1.js\"],\"output\":\"js/JS_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/CSS_min.css\"},\"v\":\"0.0.1\"}"
-                        },
-                        {
-                            "name": "index.html",
-                            "get": "http://test.go.163.com/go/2017/0228/bTest/song_WAP.html"
-                        }
-                    ]
-      }
+        }
     ]
 }
