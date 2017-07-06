@@ -11,7 +11,7 @@
 		#auto_btn span.btno{background: #999!important;}
 
 		.pane2 {width: 750px; margin: 1rem auto;box-sizing: border-box;padding: 0.5rem 1rem; color: #cb3837; font: 12px/14px 'arial,sans-serif'}
-
+		.pane2 li{ padding: 0.5rem 0;}
 	</style>
 </head>
 <body>
@@ -46,14 +46,8 @@
 	if(autoBtn)
 	autoBtn.onclick=(ev)=>{
 		let _this = ev.target;
-		let postd ={config:null,path:null};
+		let postd = autoBtn.dataset.path;
 
-		try{
-			postd.config=JSON.parse( autoBtn.dataset.config);
-			postd.path = autoBtn.dataset.path;
-		}catch(err){
-			alert("检查当前目录下_.json格式是否存在错误后再次刷新")
-		}
 
 		if(_this.id === "banyi_btn"){
 			console.log(autoBtn.dataset)
@@ -73,11 +67,10 @@
 					}else{
 						_this.innerHTML="控制台查看错误信息"
 					}
-					pane2.innerHTML+="</li>实时压缩编译中</li>"
+					pane2.innerHTML+=`</li>实时压缩编译：${res.info}</li>`
 				}
 			})
 		}
-
 
 		if(_this.id === "vid_btn"){
 			console.log(autoBtn.dataset)
@@ -95,8 +88,7 @@
 						_this.innerHTML="控制台查看错误,修改后再尝试"
 					}
 					console.log(res)
-
-					pane2.innerHTML+=`<li>静态资源版本号添加成功：${res.info} </li>`
+					pane2.innerHTML+=`<li>静态资源版本号添加：${res.info} </li>`
 				}
 			})
 		}

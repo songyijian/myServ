@@ -1,4 +1,3 @@
-// 构建处理
 const fs = require("fs");
 const path = require("path");
 const url = require("url");
@@ -7,11 +6,8 @@ const slash = require('slash');
 const builderData = require("../set.json");
 
 
-
 module.exports = (req, res, next, fn) => {
     let usePar=req.params
-    // console.log(req.params,"+++++++",req.url)
-
     //先过滤库
     let typey = builderData.ItemType.filter((item, index) => {   return item.id == usePar.typeid })
     if (typey.length === 0) {
@@ -24,18 +20,16 @@ module.exports = (req, res, next, fn) => {
         return;
     }
 
-
     //文件路径处理
     let pathy = path.resolve( cky[0].path+"/"+usePar['0']);
         pathy = slash(pathy)
-        console.log(pathy)
+
+        // console.log(pathy)
 
     //忘记当时为什么这么写了？？？唉
     if ( !!path.parse(pathy).ext ) {
-        next()
-        return;
+        next();return
     }
-
 
     fs.readdir(pathy, (err, data) => {
         let oerr = null,
@@ -44,23 +38,19 @@ module.exports = (req, res, next, fn) => {
             oerr = err;
             return;
         }
-
-        console.log(data)
+        // console.log(data)
 
         //项目根目录判定
         if (data){
             data.forEach((item, index) => {
                 if (item === "_.json") {
-                    const sjson = fs.readFileSync(`${pathy}/_.json`, "utf-8")
-                        yData.config = sjson ? sjson : null;
+                    // const sjson = fs.readFileSync(`${pathy}/_.json`, "utf-8")
+                        yData.config = true;
                         yData.path = `${pathy}`;
                     return
                 }
             })
         }
-
         fn(oerr, yData)
     })
-
-
-};
+}

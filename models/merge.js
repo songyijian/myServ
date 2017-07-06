@@ -7,37 +7,41 @@ const CleanCSS = require('clean-css');
 const sass = require('node-sass');
 var cassys={format : ' keep-  breaking '}
 
-exports.mergeFile = (ajaxData, endfn) => {
-  var pPath = ajaxData.path;
-  var _jp = null;
+
+exports.mergeFile = (itemPath,itemJson, endfn) => {
+  /*itemPath 项目路径   ,itemJson 配置表*/
+  var oitemJson = null;
   try{
-		_jp=JSON.parse(ajaxData.config)
+		oitemJson=JSON.parse(itemJson)
 	}catch(err){
+    console.log('\n----------- _.json文件不被能被解析 ------------')
+    conso.log(err)
     endfn({ "state":0, "info": "_.json文件不被能被解析请检查后再试" , err })
     return
 	}
 
+
   //js 文件列表路径处理
   var jsCssList=[]
-  if(Array.isArray(_jp.js.entry)){
-    _jp.js.entry.forEach((item)=>{
-      jsCssList.push( {name:item,path:slash(path.resolve(pPath+'/'+item))} )
+  if(Array.isArray(oitemJson.js.entry)){
+    oitemJson.js.entry.forEach((item)=>{
+      jsCssList.push( {name:item,path:slash(path.resolve(itemPath+'/'+item))} )
     })
   }
-  if(typeof _jp.js.entry === 'string'){
-    jsCssList.push( [{name: _jp.js.entry,path:slash(path.resolve(pPath+'/'+_jp.js.entry))}] )
+  if(typeof oitemJson.js.entry === 'string'){
+    jsCssList.push( [{name: oitemJson.js.entry,path:slash(path.resolve(itemPath+'/'+oitemJson.js.entry))}] )
   }
   //css 文件列表路径处理
-  if(Array.isArray(_jp.css.entry)){
-    _jp.css.entry.forEach((item)=>{
-      jsCssList.push( {name:item,path:slash(path.resolve(pPath+'/'+item))} )
+  if(Array.isArray(oitemJson.css.entry)){
+    oitemJson.css.entry.forEach((item)=>{
+      jsCssList.push( {name:item,path:slash(path.resolve(itemPath+'/'+item))} )
     })
   }
-  if(typeof _jp.css.entry === 'string'){
-    jsCssList.push( [{name: _jp.js.entry,path:slash(path.resolve(pPath+'/'+_jp.js.entry))}] )
+  if(typeof oitemJson.css.entry === 'string'){
+    jsCssList.push( [{name: oitemJson.js.entry,path:slash(path.resolve(itemPath+'/'+oitemJson.js.entry))}] )
   }
 
-  console.log('----------- 待编译压缩文件List ------------')
+  console.log('\n----------- 待编译压缩文件List ------------')
   console.log( jsCssList);
 
 
@@ -87,8 +91,8 @@ exports.mergeFile = (ajaxData, endfn) => {
   }
 
   //css和js 编译写入==========
-  var jsOutPath = slash(path.resolve(pPath+'/'+_jp.js.output))
-  var cssOutPath = slash(path.resolve(pPath+'/'+_jp.css.output))
+  var jsOutPath = slash(path.resolve(itemPath+'/'+oitemJson.js.output))
+  var cssOutPath = slash(path.resolve(itemPath+'/'+oitemJson.css.output))
   console.log('写入文件路径：',cssOutPath,'\n',jsOutPath)
   
   //写入函数
@@ -122,7 +126,7 @@ exports.mergeFile = (ajaxData, endfn) => {
   //CSS,JS 编译&写入
   Promise.all( rBianYiDataList(jsCssList) ).then((o)=>{
     dataOutFile(rJsCssData,(data)=>{
-      console.log('----------- 第一次编译数据写入完成 ------------')
+      console.log('\n----------- 第一次编译数据写入完成 ------------')
       console.log(rJsCssData)
     })
   }).catch(function(err) {})
@@ -131,20 +135,21 @@ exports.mergeFile = (ajaxData, endfn) => {
 
   //监控读写操作
   function watchF(oArr,fn) {
-    oArr.forEach((item,index,arr)=>{
+    let wlist = [];
+    oArr.forEach((item,index)=>{
+      wlist.push(item.name)
       fs.watchFile(item.path,{persistent: true, interval: 500},  (curr, prev)=> {
         if(Date.parse(prev.ctime) == 0) {
           console.log(item.name+':文件被创建!');
         } else if(Date.parse(curr.ctime) == 0) {
           console.log(item.name+'文件被删除!')
         } else if(Date.parse(curr.mtime) != Date.parse(prev.mtime)) {
-
           rwatch(rJsCssData,item,fn)
         }
       })
     })
-    console.log('----------- 监听启动 ------------')
-    endfn({"state":1, "info": "监听已经启动" })
+    console.log('\n----------- 监听启动 ------------')
+    endfn({"state":1, "info":`已经启动监听的文件 | ${wlist}` })
   }
 
   //观察变化后处理文件
@@ -198,12 +203,11 @@ exports.mergeFile = (ajaxData, endfn) => {
   if(jsCssList){
       watchF(jsCssList,()=>{
         dataOutFile(rJsCssData,(data)=>{
-          console.log('----------- 检测处理状态 ------------')
+          console.log('\n----------- 检测处理状态 ------------')
           console.log(data)
         })
       })
   }else{
     endfn({"state":0, "info": " _.json没有配置编译" })
   }
-
 }

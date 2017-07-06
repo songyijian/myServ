@@ -8,33 +8,28 @@ const builder = require("../models/builder");
 const warehouseshow = require("../models/warehouseshow");
 const merge = require("../models/merge");
 const staticv= require("../models/staticv");
-
-
-
 const setData = require("../set.json");
-// console.log(setData)
+
 
 // 构建UI
 exports.buildershow = (req, res, next) => {
     res.render("builder", setData);
 }
-
 // 构建处理
 exports.builder = (req, res, next) => {
     let alldata = "";
     req.on("data", function(chunk) { alldata += chunk; });
     req.on("end", () => {
-        let ajaxData = queryString.parse(alldata);
-        console.log(ajaxData);
+        let ajaxData = queryString.parse(alldata)
+        console.log('项目创建信息：', ajaxData)
 
         if (!ajaxData.changkupath || !ajaxData.filepath || !ajaxData.mbid) {
             res.send({
                 "state":0,
                 "info": '参数错误'
             });
-            return;
-        };
-
+            return
+        }
         //项目检查
         fs.access(ajaxData.changkupath, fs.constants.R_OK | fs.constants.W_OK, (err)=>{
             if (err) {
@@ -47,11 +42,11 @@ exports.builder = (req, res, next) => {
             let goujianfile = slash(`${ajaxData.changkupath}/${ajaxData.filepath}`);
             fs.readdir(goujianfile, (err, data) => {
                 if (err || !data || data.length === 0) {
-                    console.log("开始构建---");
+                    console.log("\n--------- 开始构建 ---------");
                     builder.builder(req, res, next, ajaxData);
                     return false;
                 }
-                console.log("项目已存在构建取消 xx")
+                console.log("\n---------  项目已存在构建取消 xx ---------")
                 res.send({
                     "state": 0,
                     "info": `该项目已经存在 - ${goujianfile}`
@@ -62,7 +57,6 @@ exports.builder = (req, res, next) => {
     })
 }
 
-
 //静态文件列表UI
 exports.warehouse = (req, res, next)=>{
     warehouseshow(req, res, next, (err, data) => {
@@ -70,30 +64,33 @@ exports.warehouse = (req, res, next)=>{
     })
 }
 
-
 //编译
 exports.merge = (req, res, next) => {
     let ajaxData = "";
     req.on("data", (data) => {  ajaxData += data })
     req.on("end", () => {
-        ajaxData = queryString.parse(ajaxData);
-        console.log("当前项目配置表：",ajaxData);
-        merge.mergeFile(ajaxData, (datas) => {
+        var itemPath = ajaxData;
+        var itemJson = fs.readFileSync(`${itemPath}/_.json`, "utf-8")
+        console.log("\n--------------- 当前项目配置表 ---------------");
+        console.log(itemPath,typeof itemJson);
+
+        merge.mergeFile(itemPath,itemJson, (datas) => {
             res.send(datas)
         })
     })
 }
-
 
 //版本号
 exports.staticv = (req, res, next) => {
     let ajaxData = "";
     req.on("data", (data) => {  ajaxData += data })
     req.on("end", () => {
-        ajaxData = queryString.parse(ajaxData);
-        console.log("当前项目配置表：",ajaxData);
+        var itemPath = ajaxData;
+        var itemJson = fs.readFileSync(`${itemPath}/_.json`, "utf-8")
+        console.log("\n--------------- 当前项目配置表 ---------------");
+        console.log(itemPath,itemJson);
 
-        staticv.vFile(ajaxData, function (datas) {
+        staticv.vFile(itemPath,itemJson, (datas) => {
             res.send(datas)
         })
     })

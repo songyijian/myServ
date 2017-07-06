@@ -22,10 +22,16 @@
             "list": [
                 { "name": "set", "id": "set", "path": "/Users/yjsong/D/fis" }
             ]
+        },{
+            "name": "itest",
+            "id": "itemtest",
+            "list": [
+                { "name": "itemtest", "id": "itemtest", "path": "E:/itemtest" }
+            ]
         }
     ],
     "template": [{
-            "name": "song_PC",
+            "name": "song_pc",
             "mb_id": 1,
             "structure": [
                         "images",
@@ -36,15 +42,15 @@
                         "css/1.sass",
                         {
                             "name":"_.json",
-                            "template":"{\"js\":{\"entry\":[\"js/1.js\",\"js/2.js\"],\"output\":\"js/JS_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/CSS_min.css\",\"edition\":[\"./index.html\",\"js/1.js\"]},\"v\":\"0.0.1\"}"
+                            "template":"{\"js\":{\"entry\":[\"js/1.js\"],\"output\":\"js/js_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/css_min.css\"},\"edition\":[\"./index.html\",\"js/1.js\"],\"v\":\"0.0.1\"}"
                         },
                         {
                             "name": "index.html",
                             "get": "http://test.go.163.com/go/2017/0228/bTest/song_PC.html"
                         }
                     ]
-        }, {
-            "name": "song_WAP",
+        },{
+            "name": "song_wap",
             "mb_id": 2,
             "structure": [
                         "images",
@@ -55,7 +61,34 @@
                         "css/1.sass",
                         {
                             "name":"_.json",
-                            "template":"{\"js\":{\"entry\":[\"js/1.js\",\"js/2.js\"],\"output\":\"js/JS_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/CSS_min.css\",\"edition\":[\"./index.html\",\"js/1.js\"]},\"v\":\"0.0.1\"}"
+                            "template":"{\"js\":{\"entry\":[\"js/1.js\"],\"output\":\"js/js_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/css_min.css\"},\"edition\":[\"./index.html\"],\"v\":\"0.0.1\"}"
+                        },
+                        {
+                            "name": "index.html",
+                            "get": "http://test.go.163.com/go/2017/0228/bTest/song_WAP.html"
+                        }
+                    ]
+        },{
+            "name": "song_lf_wap",
+            "mb_id": 3,
+            "structure": [
+                        "images",
+                        "css",
+                        "js",
+                        "js/1.js",
+                        "css/1.css",
+                        "css/1.sass",
+                        {
+                            "name":"css/BombBox.1.1.0.css",
+                            "get":"http://go.163.com/2017/0228/bTest/BombBox.1.1.0.css"
+                        },
+                        {
+                            "name":"js/BombBox.1.1.0-min.js",
+                            "get":"http://go.163.com/2017/0228/bTest/BombBox.1.1.0-min.js"
+                        },
+                        {
+                            "name":"_.json",
+                            "template":"{\"js\":{\"entry\":[\"js/1.js\"],\"output\":\"js/js_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/css_min.css\"},\"edition\":[\"./index.html\"],\"v\":\"0.0.1\"}"
                         },
                         {
                             "name": "index.html",

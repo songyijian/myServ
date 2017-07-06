@@ -3,43 +3,42 @@ const queryString = require("querystring")
 const fs = require('fs-extra')
 const slash = require('slash')
 
-
-exports.vFile = (ajaxData, endfn) => {
-  let pPath = ajaxData.path;
-  let _jp = null;
+exports.vFile = (itemPath,itemJson, endfn) => {
+  /*itemPath 项目路径   ,itemJson 配置表*/
+  var oitemJson = null;
   try{
-    _jp=JSON.parse(ajaxData.config).edition
+    oitemJson=JSON.parse(itemJson)
   }catch(err){
-    console.log(err)
-    endfn({ "state":0, "info": "_.json配置错误 || 不是正确的json文件" , err });
+    console.log('\n----------- _.json文件不被能被解析 ------------')
+    conso.log(err)
+    endfn({ "state":0, "info": "_.json文件不被能被解析请检查后再试" , err })
     return
   }
 
+  console.log(oitemJson,oitemJson.edition)
+
+
   function addvfn(str,fn){
     var t=new Date().getTime();
-    var re=/\.js\?v=\d+|\.css\?v=\d+|\.jpg\?v=\d+|\.img\?v=\d+|\.png\?v=\d+|\.gif\?v=\d+|\.jpg|\.JPG|\.png|\.gif|\.css|\.js/ig;
+    var re=/\.js\?v=\d+|\.css\?v=\d+|\.jpg\?v=\d+|\.img\?v=\d+|\.png\?v=\d+|\.gif\?v=\d+|\.html\?v=\d+|\.jpg|\.JPG|\.png|\.gif|\.css|\.js|\/\w\.html/ig;
     var vdata = str.replace(re,function(a0,a1,s){
-      if(/\.js\?v=\d+|\.css\?v=\d+|\.jpg\?v=\d+|\.img\?v=\d+|\.png\?v=\d+|\.gif\?v=\d+/ig.test(a0)){return a0.replace(/\d+/,t) } 
+      if(/\.js\?v=\d+|\.css\?v=\d+|\.jpg\?v=\d+|\.img\?v=\d+|\.png\?v=\d+|\.gif\?v=\d+|\/\w\.html\?v=\d+/ig.test(a0)){return a0.replace(/\d+/,t) } 
       return a0+'?v='+t; 
     })
     fn(vdata)
   }
 
-  var vfn = _jp.map((item,inde,array)=>{
-    let paths =  slash(path.resolve(pPath+'/'+item))
-    // console.log(paths)
+  var vfn = oitemJson.edition.map((item,inde)=>{
+    let paths =  slash(path.resolve(itemPath+'/'+item))
     return new Promise((resolve,reject)=>{
-        //du
         fs.readFile(paths, {flag: 'r+', encoding: 'utf8'},  (err, data) =>{
           if(err) {
-            reject(err);
-            return;
+            reject(err); return
           }
-          //chuli xieru
           addvfn(data,(vdata)=>{
             fs.outputFile(paths, vdata , (err)=>{
               if(err){ reject(err); return }
-              resolve(`${paths}处理成功！`)
+              resolve(`${item}处理成功`)
             })
           })
         })
@@ -47,9 +46,12 @@ exports.vFile = (ajaxData, endfn) => {
   })
 
   Promise.all(vfn).then(function(o) {
+    console.log(`\n----------- 添加版本号完成 ------------ `)
+    console.log(o)
     endfn({ "state":1, "info": `${o}` })
   }).catch(function(err) {
-    console.log(`_this err ${err}`)
+    console.log(`\n----------- 添加版本号错误 ------------ `)
+    console.log(err)
     endfn({ "state":0, "info": "文件处理错误" , err })
   })
 }

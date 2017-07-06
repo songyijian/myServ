@@ -14,7 +14,7 @@ app.use('/staticfile', express.static(`staticfile`));
 builderData.ItemType.forEach((item, i) => {
     let www = item.id;
     item.list.forEach((it, i) => {
-        app.use(`/${www}/${it.name}`, express.static(`${it.path}`, { 'index': [] }));
+        app.use(`/${www}/${it.id}`, express.static(`${it.path}`, { 'index': [] }));
     })
 });
 console.log('> Listening at ' + url + '\n')
@@ -26,7 +26,6 @@ app.get('/:typeid/:ckid/*', router.warehouse);
 app.post('/merge', router.merge);
 app.post('/staticv', router.staticv);
 app.use((req, res) => { res.status(404).send("404!");})
-
 
 app.listen(port, (err) => {
     if (err) {
