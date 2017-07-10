@@ -1,9 +1,7 @@
 
 # 前端自动化工具 0.1.2
 
-先让我们看看他到底长什么样吧
-
-<iframe height=498 width=510 src='http://player.youku.com/embed/XMjg3NDU4NzQ1Mg==' frameborder=0 'allowfullscreen'></iframe>
+它到底长什么样，怎么操作？我录制了一个小视频可以先看一下 [youku](http://v.youku.com/v_show/id_XMjg3NDU4NzQ1Mg==.html?spm=a2hzp.8244740.userfeed.5!3~5~5~5!2~A)
 
 
 ###	这是一个前端效率工具，基于node开发,处理一些特定业务（可以用nonde自由拓展）：
