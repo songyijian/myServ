@@ -1,6 +1,10 @@
 
 # 前端自动化工具 0.1.2
 
+先让我们看看他到底长什么样吧
+<iframe height=498 width=510 src='http://player.youku.com/embed/XMjg3NDU4NzQ1Mg==' frameborder=0 'allowfullscreen'></iframe>
+
+
 ###	这是一个前端效率工具，基于node开发,处理一些特定业务（可以用nonde自由拓展）：
 
 * 搭建本地环境服务
@@ -46,11 +50,11 @@ template //模版配置同上，支持文件夹和文件的构建，文件内容
                 { "name": "2016", "id": "2016", "path": "E:/SVN/auto/2016" },
                 { "name": "2017", "id": "2017", "path": "E:/SVN/auto/2017" }
             ]
-        },{
-            "name": "go",
-            "id": "go",
+        }, {
+            "name": "mac",
+            "id": "mac",
             "list": [
-                { "name": "2017", "id": "2017", "path": "E:/SVN/2017" }
+                { "name": "set", "id": "set", "path": "/Users/yjsong/D/fis" }
             ]
         }
     ],
