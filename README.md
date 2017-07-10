@@ -2,6 +2,7 @@
 # 前端自动化工具 0.1.2
 
 先让我们看看他到底长什么样吧
+
 <iframe height=498 width=510 src='http://player.youku.com/embed/XMjg3NDU4NzQ1Mg==' frameborder=0 'allowfullscreen'></iframe>
 
 
@@ -117,3 +118,5 @@ _.json 可自己创建。推荐直接在模版配置自动生成。再根据项�
 ```
 
 0.1.2 版本修改当前项目配置表后无需再刷新当前页面。这点方便了很多（不过对于排除压缩编译文件来说还是做不到的，添加更有意义）
+
+
