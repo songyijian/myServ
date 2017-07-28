@@ -108,10 +108,10 @@
 			"success":function(e){
 				console.log(e)
 				if(e.state){
-					$("#gourl").innerHTML =`${e.info} |╰(￣▽￣)╮`
+					$("#gourl").innerHTML =`${e.info} _╰(￣▽￣)╮`
 				}else{
 					console.log(e.info)
-					$("#gourl").innerHTML =`项目创建失败，打开控制台查看错误，修正后再试 | (づ╥﹏╥)づ `
+					$("#gourl").innerHTML =`创建失败，err:'${e.info}'，请修正后再试 _ (づ╥﹏╥)づ `
 				}
 			}
 		})
