@@ -15,13 +15,13 @@ exports.vFile = (itemPath,itemJson, endfn) => {
     return
   }
 
-  console.log(oitemJson,oitemJson.edition)
+  // console.log(oitemJson,oitemJson.edition)
 
   function addvfn(str,fn){
     var t=new Date().getTime();
     var re=/\.js\?v=\d+|\.css\?v=\d+|\.jpg\?v=\d+|\.img\?v=\d+|\.png\?v=\d+|\.gif\?v=\d+|\.html\?v=\d+|\.jpg|\.JPG|\.png|\.gif|\.css[^(]|\.js|\.html[^(]/ig;
     var vdata = str.replace(re,function(a0,a1,s){
-      console.log(a0,a1,s)
+      // console.log(a0,a1,s)
       if(/\.js\?v=\d+|\.css\?v=\d+|\.jpg\?v=\d+|\.img\?v=\d+|\.png\?v=\d+|\.gif\?v=\d+|\.html\?v=\d+/ig.test(a0)){return a0.replace(/\d+/,t) }
       if(a0==='.html"'||a0===".html'"){
         return '.html?v='+t+a0[a0.length-1];

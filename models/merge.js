@@ -42,7 +42,7 @@ exports.mergeFile = (itemPath,itemJson, endfn) => {
   }
 
   console.log('\n----------- 待编译压缩文件List ------------')
-  console.log( jsCssList);
+  // console.log( jsCssList);
 
 
 
@@ -127,7 +127,7 @@ exports.mergeFile = (itemPath,itemJson, endfn) => {
   Promise.all( rBianYiDataList(jsCssList) ).then((o)=>{
     dataOutFile(rJsCssData,(data)=>{
       console.log('\n----------- 第一次编译数据写入完成 ------------')
-      console.log(rJsCssData)
+      // console.log(rJsCssData)
     })
   }).catch(function(err) {})
 
@@ -204,7 +204,7 @@ exports.mergeFile = (itemPath,itemJson, endfn) => {
       watchF(jsCssList,()=>{
         dataOutFile(rJsCssData,(data)=>{
           console.log('\n----------- 检测处理状态 ------------')
-          console.log(data)
+          // console.log(data)
         })
       })
   }else{

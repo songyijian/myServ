@@ -16,7 +16,7 @@ exports.builder = (req, res, next, ajaxData) => {
     var dirGo = oMb[0].structure.map((item,index)=>{
         if(typeof item !=='object'){
             let p=slash(gjPath+'/'+item);
-            console.log(p)
+            // console.log(p)
             if(!path.extname(p).length){
                 return new Promise((resolve, reject)=>{
                     fs.ensureDir(p, function(err) {
