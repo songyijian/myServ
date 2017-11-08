@@ -1,0 +1,101 @@
+{
+    "me": "yjsong",
+    "ItemType": [{
+            "name": "auto",
+            "id": "auto",
+            "list": [
+                { "name": "2016", "id": "2016", "path": "E:/SVN/auto/2016" },
+                { "name": "2017", "id": "2017", "path": "E:/SVN/auto/2017" }
+            ]
+        },
+        {
+            "name": "go",
+            "id": "go",
+            "list": [
+                { "name": "2015", "id": "2015", "path": "E:/SVN/2015" },
+                { "name": "2016", "id": "2016", "path": "E:/SVN/2016" },
+                { "name": "2017", "id": "2017", "path": "E:/SVN/2017" }
+            ]
+        }, {
+            "name": "mac",
+            "id": "mac",
+            "list": [
+                { "name": "set", "id": "set", "path": "/Users/yjsong/D/fis" }
+            ]
+        },{
+            "name": "itest",
+            "id": "itemtest",
+            "list": [
+                { "name": "itemtest", "id": "itemtest", "path": "E:/itemtest" }
+            ]
+        }
+    ],
+    "template": [{
+            "name": "song_pc",
+            "mb_id": 1,
+            "structure": [
+                        "images",
+                        "css",
+                        "js",
+                        "js/1.js",
+                        "css/1.css",
+                        "css/1.sass",
+                        {
+                            "name":"_.json",
+                            "template":"{\"js\":{\"entry\":[\"js/1.js\"],\"output\":\"js/js_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/css_min.css\"},\"edition\":[\"./index.html\",\"js/1.js\"],\"v\":\"0.0.1\"}"
+                        },
+                        {
+                            "name": "index.html",
+                            "get": "http://test.go.163.com/go/2017/0228/bTest/song_PC.html"
+                        }
+                    ]
+        },{
+            "name": "song_wap",
+            "mb_id": 2,
+            "structure": [
+                        "images",
+                        "css",
+                        "js",
+                        "js/1.js",
+                        "css/1.css",
+                        "css/1.sass",
+                        {
+                            "name":"_.json",
+                            "template":"{\"js\":{\"entry\":[\"js/1.js\"],\"output\":\"js/js_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/css_min.css\"},\"edition\":[\"./index.html\"],\"v\":\"0.1.2\"}"
+                        },
+                        {
+                            "name": "index.html",
+                            "get": "http://test.go.163.com/go/2017/0228/bTest/song_WAP.html"
+                        }
+                    ]
+        },{
+            "name": "pc_min",
+            "mb_id": 3,
+            "structure": [
+                        "images",
+                        {
+                            "name":"_.json",
+                            "template":"{\"edition\":[\"./index.html\"],\"v\":\"0.0.1\"}"
+                        },
+                        {
+                            "name": "index.html",
+                            "get": "http://test.go.163.com/go/2017/0228/bTest/song_PC.html"
+                        }
+                    ]
+        },{
+            "name": "wap_min",
+            "mb_id": 4,
+            "structure": [
+                        "images",
+                        {
+                            "name":"_.json",
+                            "template":"{\"edition\":[\"./index.html\"],\"v\":\"0.0.1\"}"
+                        },
+                        {
+                            "name": "index.html",
+                            "get": "http://test.go.163.com/go/2017/0228/bTest/song_WAP.html"
+                        }
+                    ]
+        }
+    ]
+}

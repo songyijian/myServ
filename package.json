@@ -1,0 +1,23 @@
+{
+  "name": "builder",
+  "version": "0.2.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "fs-extra": "^4.0.2",
+    "nodemon": "^1.12.1",
+    "node-sass": "^4.6.0",
+    "opn": "^5.1.0",
+    "slash": "^1.0.0",
+    "uglify-js": "^3.1.8",
+    "clean-css": "^4.1.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon app"
+  },
+  "author": "",
+  "license": "ISC"
+}
