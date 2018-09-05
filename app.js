@@ -4,8 +4,10 @@ const opn = require('opn')
 const express = require("express");
 const app = express();
 const router = require("./controller/router.js");
+const mockIndex = require("./mock/index.js");
+
 const builderData = require("./set.json");
-const port = 9000;
+const port = 8080;
 
 // 获取本地
 function getIPAdress() {
@@ -32,16 +34,21 @@ builderData.ItemType.forEach((item, i) => {
 });
 opn(url)
 
+
+
 app.get('/', router.buildershow);
 app.post('/builder', router.builder);
 app.get('/:typeid/:ckid/*', router.warehouse);
 app.post('/merge', router.merge);
 app.post('/staticv', router.staticv);
-app.use((req, res) => { res.status(404).send("404!");})
+app.get('/mock', mockIndex.test);
 
+
+
+app.use((req, res) => { res.status(404).send("404!");})
 app.listen(port, (err) => {
     if (err) {
-        console.log("本地服务的9000端口可能被占用",err)
+        console.log(`本地${port}端口可能被占用`,err)
     }else{
       console.log('> Listening at ' + url + '\n')
     }
