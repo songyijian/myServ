@@ -12,7 +12,8 @@
             "name": "endcard",
             "id": "endcard",
             "list": [
-                { "name": "专题业务", "id": "endcard_id", "path": "/Users/happyelements/git/endcard" }
+                { "name": "endcard模版", "id": "endcards", "path": "/Users/happyelements/git/endcards" },
+                { "name": "mock数据", "id": "mockdatas", "path": "/Users/happyelements/git/mockdatas"}
             ]
         }
     ],
