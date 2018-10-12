@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "clean-css": "^4.1.9",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
