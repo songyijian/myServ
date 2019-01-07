@@ -6,23 +6,37 @@ var router = express.Router();
 // 一定要在路由上加的
 router.use(require('body-parser')());
 
-router.get('/get',(req, res, next)=>{
-  console.log('mock/get， 获取的参数：', req.query)
-  res.send({
-    code: 200,
-    msg: 'mock/get， 成功获取数据',
-    data: req.query
-  })
+
+/**
+ * mock/get?time=3000
+ * time=返回时间（毫秒）别过长
+ */
+router.get('/get', (req, res, next) => {
+  let rdate = req.query
+  let times = !isNaN(Number(rdate.time)) ? Number(rdate.time) : 0;
+  setTimeout(() => {
+    res.send({
+      code: 200,
+      msg: 'mock/get， 成功获取数据',
+      data: req.query
+    })
+  }, times)
 })
 
-
+/**
+ * mock/get?time=3000
+ * time=返回时间（毫秒）别过长
+ */
 router.post('/post',(req, res, next)=>{
-  console.log("mock/post， 获取的参数：", req.body);
-  res.send({
-    code: 200,
-    msg:'mock/post， 成功获取数据!',
-    data: req.body
-  })
+  let rdate = req.body
+  let times = !isNaN(Number(rdate.time)) ? Number(rdate.time) : 0;
+  setTimeout(() => {
+    res.send({
+      code: 200,
+      msg: 'mock/post， 成功获取数据!',
+      data: rdate
+    })
+  }, times)
 })
 
 module.exports = router;

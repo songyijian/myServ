@@ -1,11 +1,15 @@
 
-# 前端自动化工具 0.3.1
+# 前端dev环境
 视频展示: [youku 地址] (http://v.youku.com/v_show/id_XMjg3NDU4NzQ1Mg==.html?spm=a2hzp.8244740.userfeed.5!3~5~5~5!2~A)
 
 **更新说明**  
-0.3.1
-> 端口修改
-> 文本在新页面打开目录在当页也打开
+0.3.3
+> get/post 延时响应用来测试异步请求
+mock/get?time=3000 接受个响应延时（毫秒）
+mock/post?time=3000 接受个响应延时（毫秒）
+
+0.3.2
+> 开始构建moke接口
 
 0.3.0
 >url直接获得本地ip手机可直接扫码

@@ -1,6 +1,6 @@
 {
   "name": "builder",
-  "version": "0.2.0",
+  "version": "0.3.2",
   "description": "",
   "main": "app.js",
   "dependencies": {
@@ -9,6 +9,7 @@
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "fs-extra": "^4.0.2",
+    "html-minifier": "^3.5.20",
     "multiparty": "^4.2.1",
     "node-sass": "^4.6.0",
     "nodemon": "^1.12.1",
