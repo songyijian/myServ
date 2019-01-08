@@ -5,9 +5,11 @@
 **更新说明**  
 0.3.3
 > get/post 延时响应用来测试异步请求
-mock/get?time=3000 接受个响应延时（毫秒）
-mock/post?time=3000 接受个响应延时（毫秒）
-
+```
+mock/get?time=3000 #响应延时（毫秒）
+mock/post?time=3000 #响应延时（毫秒）
+mock/jsonStr='{a:1}' #可以通过jsonStr直接接收一个字符串格式的obj
+```
 0.3.2
 > 开始构建moke接口
 
