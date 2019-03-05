@@ -6,7 +6,6 @@ const builderData = require("../set.json")
 const getDom = require("./getDom.js")
 
 exports.builder = (req, res, next, ajaxData) => {
-    let endData = {};
     let gjPath = slash(`${ajaxData.changkupath}/${ajaxData.filepath}`);
     //构建
     var oMb = builderData.template.filter((item,index)=>{
@@ -16,7 +15,6 @@ exports.builder = (req, res, next, ajaxData) => {
     var dirGo = oMb[0].structure.map((item,index)=>{
         if(typeof item !=='object'){
             let p=slash(gjPath+'/'+item);
-            // console.log(p)
             if(!path.extname(p).length){
                 return new Promise((resolve, reject)=>{
                     fs.ensureDir(p, function(err) {

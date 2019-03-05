@@ -1,10 +1,7 @@
-var express = require('express');
-var router = express.Router();
-// var fs = require("fs");
-// var multiparty = require('multiparty');  //图片上传模块  即可以获取form表单的数据 也可以实现上传文件
+const express = require('express');
+const router = express.Router();
+const func = require('../models/func');
 
-// 一定要在路由上加的
-router.use(require('body-parser')());
 
 
 /**
@@ -16,8 +13,8 @@ router.get('/get', (req, res, next) => {
   let times = !isNaN(Number(rbody.time)) ? Number(rbody.time) : 0;
 
   try {
-    if ('jsonStr' in rbody){
-      rbody.jsonStr =  JSON.parse(rbody.jsonStr)
+    if ('jsonStr' in rbody) {
+      rbody.jsonStr = JSON.parse(rbody.jsonStr)
     }
   } catch (error) {
   }
@@ -35,7 +32,7 @@ router.get('/get', (req, res, next) => {
  * mock/get?time=3000
  * time=返回时间（毫秒）别过长
  */
-router.post('/post',(req, res, next)=>{
+router.post('/post', (req, res, next) => {
   let rbody = req.body
   let times = !isNaN(Number(rbody.time)) ? Number(rbody.time) : 0;
   setTimeout(() => {
@@ -46,5 +43,9 @@ router.post('/post',(req, res, next)=>{
     })
   }, times)
 })
+
+
+
+
 
 module.exports = router;
