@@ -5,17 +5,17 @@
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "clean-css": "^4.1.9",
+    "clean-css": "^4.2.1",
     "ejs": "^2.5.7",
-    "express": "^4.16.2",
+    "express": "^4.16.4",
     "fs-extra": "^4.0.2",
-    "html-minifier": "^3.5.20",
+    "html-minifier": "^3.5.21",
     "multiparty": "^4.2.1",
-    "node-sass": "^4.6.0",
-    "nodemon": "^1.12.1",
-    "opn": "^5.1.0",
+    "node-sass": "^4.11.0",
+    "nodemon": "^1.18.10",
+    "opn": "^5.5.0",
     "slash": "^1.0.0",
-    "uglify-js": "^3.1.8"
+    "uglify-js": "^3.5.2"
   },
   "devDependencies": {},
   "scripts": {
