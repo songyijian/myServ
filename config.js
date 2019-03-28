@@ -7,6 +7,8 @@ module.exports = {
      * 每个仓储id应该唯一
      * */
     "item_type":[
+        
+        { "name": "myMac", "id": "maymac", "path": "/Users/yjsong/sgit/test" },
         { "name": "mock数据", "id": "mockdatas", "path": "/Users/happyelements/git/mockdatas" },
         { "name": "endcard", "id": "endcards", "path": "/Users/happyelements/git/endcards" },
         { "name": "endcard模版", "id": "endcardTemplate", "path": "/Users/happyelements/git/sigmob-fe-endcardTemplate" }
@@ -25,25 +27,20 @@ module.exports = {
                 "js",
                 "js/index.js",
                 "css/css.css",
-                "css/sass.sass",
                 {
                     "name": "_.json",
                     "template": "{\"js\":{\"entry\":[\"js/1.js\"],\"output\":\"js/js_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/css_min.css\"},\"edition\":[\"./index.html\",\"js/1.js\"],\"v\":\"0.0.1\"}"
                 },
                 {
                     "name": "index.html",
-                    "template": "xxxx"
+                    "template": "ssss"
                 }
             ]
         },
         {
-            "name": "JQ_html",
+            "name": "JQhtml",
             "id": 200,
             "objs": [
-                {
-                    "name": "_.json",
-                    "template": "{\"js\":{\"entry\":[\"js/1.js\"],\"output\":\"js/js_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/css_min.css\"},\"edition\":[\"./index.html\",\"js/1.js\"],\"v\":\"0.0.1\"}"
-                },
                 {
                     "name": "index.html",
                     "template": "<!doctype html><html><head><meta charset=\"utf-8\"><title>Demo</title><script src=\"https: //cdn.bootcss.com/jquery/3.3.1/jquery.js\"></script></head><body><p> 3.3.1/jquery.js</p><script></script></body></html>"

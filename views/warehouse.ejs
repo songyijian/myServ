@@ -3,89 +3,29 @@
 <head>
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-    <title>f2e 静态服务...</title>
+    <title>仓库项目</title>
 	<link rel="stylesheet" href="/staticfile/css/style.css">
 	<link rel="stylesheet" href="/staticfile/js/jquery.js">
 </head>
 <body>
 	<div class="panel">
-	<% if(err){ %>
-		<%= err %>
-	<% }else{ %>
-		<% for(var j=0; j<data.data.length; j++){%>
-			<% if(data.data[j].indexOf('.')>0){ %>
-				<a href="<%= data.data[j] %>" target="_blank" class="textfile" ><%= data.data[j] %></a>
-			<% }else{ %>
-				<a href="<%= data.data[j] %>" class="catalog"><%= data.data[j] %></a>
+		
+		<% if(err){ %>
+			<%= err %>
+		<% }else{ %>
+			<% for(var j=0; j<data.length; j++){%>
+				<% if(data[j].indexOf('.')>0){ %>
+					<a href="<%= data[j] %>" target="_blank" class="textfile" ><%= data[j] %></a>
+				<% }else{ %>
+					<a href="<%= data[j] %>" class="catalog"><%= data[j] %></a>
+				<% } %>
 			<% } %>
 		<% } %>
-		<% if(data.config){ %>
-			<div id="auto_btn" data-path="<%= data.path %>" data-config="<%= data.config %>"><span id="banyi_btn" >启动实时压缩编译</span><span id="vid_btn" >静态资源版本号添加</span></div>
-		<% } %>
-	<% } %>
 	</div>
-	<% if(data.config){ %>
-		<ul class="pane2"></ul>
-	<% } %>
+
+	<a href="/" id="gotoindex">首页</a>
 
 	<script>
-	!function(){function Ajax(o){this.data={"url":"","type":"POST","dataType":"json","data":"","encode":false,"async":true,"initFn":function(_this){},"success":function(e){},"err":function(e){}};for(var i in o){this.data[i]=o[i]}if(this.data.url===""){return}this.fn={"jsonof":function(obj){var isjson=typeof(obj)=="object"&&Object.prototype.toString.call(obj).toLowerCase()=="[object object]"&&!obj.length;return isjson},"setUrlK":function setUrlK(ojson,encode){var s="",name,key;for(var p in ojson){if(ojson.hasOwnProperty(p)){name=p}key=ojson[p];var value=null;if(encode){s+="&"+name+"="+encodeURI(typeof key=="object"?JSON.stringify(key):key)}else{s+="&"+name+"="+encodeURI(typeof key=="object"?JSON.stringify(key):key)}}return s.substring(1,s.length)}};this.go_data="";if(this.data.data&&(this.fn.jsonof(this.data.data)||typeof this.data.data==="string")){if(this.fn.jsonof(this.data.data)){this.go_data=this.fn.setUrlK(this.data.data,this.data.encode)}else{this.go_data=this.data.data}}else{return}this.init()}Ajax.prototype.init=function(){this.data.initFn(this);var _this=this;this.oAjax=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");if(this.data.type.toUpperCase()==="GET"){if(this.go_data){this.oAjax.open(this.data.type,this.data.url+"?"+this.go_data,this.data.async)}else{this.oAjax.open(this.data.type,this.data.url,this.data.async)}}if(this.data.type.toUpperCase()==="POST"){this.oAjax.open(this.data.type,this.data.url,this.data.async);this.oAjax.setRequestHeader("Content-type","application/x-www-form-urlencoded; charset=utf-8")}this.oAjax.send(this.data.type.toUpperCase()==="GET"?null:this.go_data);this.oAjax.onreadystatechange=function(){_this.changefn()}};Ajax.prototype.changefn=function(){if(this.oAjax.readyState===4){this.statusCode=this.oAjax.status;if(this.statusCode===200){this.data.success(JSON.parse(this.oAjax.responseText))}else{this.data.err(this.statusCode)}}};window.Ajax=Ajax}();if(typeof(module)!=="undefined"){exports=window.Ajax}else{if(typeof define==="function"&&define.amd){define([],function(){return window.Ajax})}};
-	function $(s){return document.querySelector(s)}
-	function _$(s){return document.querySelectorAll(s)}
-	let autoBtn = $("#auto_btn");
-	let banyiBtn = $("#banyi_btn");
-	let vidBtn= $ ("#vid_btn");
-	let pane2= $(".pane2");
-	if(autoBtn)
-	autoBtn.onclick=(ev)=>{
-		let _this = ev.target;
-		let postd = autoBtn.dataset.path;
-
-
-		if(_this.id === "banyi_btn"){
-			console.log(autoBtn.dataset)
-			new Ajax({
-				"url":'./merge',
-				"type":"POST",
-				"data":postd,
-				initFn:function(gofn){
-		          _this.className="btno"
-		          _this.id=""
-		          _this.innerHTML="申请处理..."
-				},
-				success:function(res){
-					console.log(res)
-					if(res.state){
-						_this.innerHTML="实时压缩编译中..."
-					}else{
-						_this.innerHTML="控制台查看错误信息"
-					}
-					pane2.innerHTML+=`</li>实时压缩编译：${res.info}</li>`
-				}
-			})
-		}
-
-		if(_this.id === "vid_btn"){
-			console.log(autoBtn.dataset)
-			new Ajax({
-				"url":'./staticv',
-				"type":"POST",
-				"data":postd,
-				initFn:function(gofn){
-					_this.innerHTML="申请添加..."
-				},
-				success:function(res){
-					if(res.state){
-						_this.innerHTML="静态资源版本号添加"
-					}else{
-						_this.innerHTML="控制台查看错误,修改后再尝试"
-					}
-					console.log(res)
-					pane2.innerHTML+=`<li>静态资源版本号添加：${res.info} </li>`
-				}
-			})
-		}
-	}
 	</script>
 </body>
 </html>

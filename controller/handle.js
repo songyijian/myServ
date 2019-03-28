@@ -2,7 +2,7 @@
 const fs = require('fs-extra');
 const slash = require('slash');
 const path = require("path")
-const { creactFn } = require("../models/createFile");
+const {creactFn}  = require("../models/createFile");
 
 module.exports = {
     // 构建UI
@@ -14,7 +14,11 @@ module.exports = {
     // 构建处理
     "creactGo" : (req, res, next) => {
         let ajaxData = req.body
-        console.log('项目创建信息：', ajaxData)
+        console.log(
+            '请求创建信息----------------\n', 
+            ajaxData
+        )
+
         if (!ajaxData.item_type_id || !ajaxData.filepath || !ajaxData.template_id) {
             res.send({
                 "state": 0,
@@ -38,7 +42,7 @@ module.exports = {
             //检查项目是否存在
             fs.access(cjPath, fs.constants.R_OK | fs.constants.W_OK, (err) => {
                 if (err) {
-                    creactFn(cjPath, tmItem).then(function (o) {
+                    Promise.all( creactFn(cjPath, tmItem) ).then(function (o) {
                         res.send({
                             "state": 1,
                             "info": `项目创建成功`
@@ -56,42 +60,8 @@ module.exports = {
                     })
                 }
             })
-
-
-            try {
-  
-            } catch (error) {
-                res.send({
-                    "state": 0,
-                    "info": err
-                })
-            }
-
+        
         })
-
-
-        // fs.access(ajaxData.changkupath, fs.constants.R_OK | fs.constants.W_OK, (err) => {
-        //     if (err) {
-        //         res.send({
-        //             "state": 0,
-        //             "info": `请检查${ajaxData.changkupath}仓库是否存在 || set配置是否正确？`
-        //         })
-        //         return;
-        //     }
-        //     let ckuPath = slash(`${ajaxData.changkupath}/${ajaxData.filepath}`);
-        //     fs.readdir(ckuPath, (err, data) => {
-        //         if (err || !data || data.length === 0) {
-        //             console.log("\n--------- 开始构建 ---------");
-        //             builder.builder(req, res, next, ajaxData)
-        //             return
-        //         }
-        //         console.log("\n---------  项目已存在构建取消 xx ---------")
-        //         res.send({
-        //             "state": 0,
-        //             "info": `该项目已经存在 - ${ckuPath}`
-        //         })
-        //     })
-        // })
     },
 
     
@@ -108,8 +78,10 @@ module.exports = {
         //读取对应库里的文件
         let pathy = slash(path.resolve(isCkUrl[0].path + "/" + Npaths));
         fs.readdir(pathy, (err, data) => {
-            let yData = { "data": data, 'config': null, "path": null };
-            res.render("warehouse", { "err": err, "data": yData })
+            res.render("warehouse", {
+                "err": err,
+                "data": data
+            })
         })
     },
 
