@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>f2e 前端构建工具</title>
+	<link rel="stylesheet" href="/staticfile/css/style.css">
+	<script src="/staticfile/js/jquery.js"></script>
+</head>
+<body>
+<!-- <form action="/creact_go" method="post" class="panel"> -->
+<form class="panel">
+	<!-- 仓库 -->
+	<div>
+		<h4>项目仓库：</h4>
+		<% for(var i=0; i<item_type.length; i++){%>
+			<label for="<%= item_type[i].id %>">
+				<input type="radio" name="item_type_id" id="<%= item_type[i].id %>" value="<%= item_type[i].id %>"/>
+				<%= item_type[i].name %>
+			</label>
+		<% }%>
+	</div>
+	<hr>
+
+	<div>
+		<h4>创建位置：</h4>
+		<input type="text" name="filepath" id="path" value=""/>
+	</div>
+	<hr>
+
+	<!-- 模版 -->
+	<div>
+		<h4>模版：</h4>
+		<div>
+		<%for(var i=0; i<template.length; i++){%>
+			<label for="<%= template[i].id %>">
+				<input type="radio" name="template_id" id="<%= template[i].id %>" value="<%= template[i].id %>" />
+				<%= template[i].name %>
+			</label>
+		<%}%>
+		</div>
+	</div>
+	<hr>
+
+	<input type="button" id="sbumit" value="创建项目"/> <span id="info"></span>
+</form>
+
+<div class="pane2 rk">
+	<h4>项目仓库入口：</h4>
+	<ul>
+		<% for(var i=0; i<item_type.length; i++){%>
+			<li>
+				<em><%= item_type[i].name %> :</em><a href="<%= item_type[i].id %>"> <%= item_type[i].path %></a>
+			</li>
+		<% }%>
+	</ul>
+</div>
+<script>
+
+	$('#sbumit').click(()=>{
+		if(
+			!$('input[name="item_type_id"]').val() || 
+			!$('input[name="filepath"]').val() || 
+			!$('input[name="template_id"]').val()
+		){
+			alert('参数不能为空')
+			return
+		}
+		$.post('/creact_go', $(".panel").serialize(),(res)=>{
+			$('#info').html(res.info)
+		})
+	})
+
+</script>
+</body>
+</html>

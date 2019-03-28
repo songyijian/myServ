@@ -3,13 +3,12 @@ const path = require("path");
 const url = require("url");
 const queryString = require("querystring");
 const slash = require('slash');
-const builderData = require("../set.json");
-
+const configData = require("../config")
 
 module.exports = (req, res, next, fn) => {
     let usePar=req.params
     //先过滤库
-    let typey = builderData.ItemType.filter((item, index) => {   return item.id == usePar.typeid })
+    let typey = configData.ItemType.filter((item, index) => {   return item.id == usePar.typeid })
     if (typey.length === 0) {
         next();
         return;
@@ -24,8 +23,6 @@ module.exports = (req, res, next, fn) => {
     let pathy = path.resolve( cky[0].path+"/"+usePar['0']);
         pathy = slash(pathy)
 
-        // console.log(pathy)
-
     //忘记当时为什么这么写了？？？唉
     if ( !!path.parse(pathy).ext ) {
         next();return
@@ -38,8 +35,6 @@ module.exports = (req, res, next, fn) => {
             oerr = err;
             return;
         }
-        // console.log(data)
-
         //项目根目录判定
         if (data){
             data.forEach((item, index) => {

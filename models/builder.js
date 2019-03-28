@@ -1,14 +1,15 @@
 const path = require("path")
 const fs = require('fs-extra')
 const slash = require('slash')
-// const queryString = require("querystring")
-const builderData = require("../set.json")
+const configData = require("../config")
 const getDom = require("./getDom.js")
+
+
 
 exports.builder = (req, res, next, ajaxData) => {
     let gjPath = slash(`${ajaxData.changkupath}/${ajaxData.filepath}`);
     //构建
-    var oMb = builderData.template.filter((item,index)=>{
+    var oMb = configData.template.filter((item,index)=>{
         return item.mb_id == ajaxData.mbid
     })
 

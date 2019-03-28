@@ -1,6 +1,9 @@
+# 前端开发本地服务系统
 
-# 前端dev环境
-视频展示: [youku 地址] (http://v.youku.com/v_show/id_XMjg3NDU4NzQ1Mg==.html?spm=a2hzp.8244740.userfeed.5!3~5~5~5!2~A)
+config.js (所以配置配置参数)
+
+
+
 
 **更新说明**  
 0.3.3
@@ -48,7 +51,6 @@ template //模版配置同上，支持文件夹和文件的构建，文件内容
 
 ```
 {
-    "me": "yjsong",
 
     /* 仓库配置 */
     "ItemType": [{
@@ -119,3 +121,8 @@ _.json 可自己创建。推荐直接在模版配置自动生成。再根据项�
 ```
 
 0.2.0 版本修改当前项目配置表后无需再刷新当前页面。这点方便了很多（不过对于排除压缩编译文件来说还是做不到的，添加更有意义）
+
+
+
+## 演示视频
+视频展示: [youku 地址] (http://v.youku.com/v_show/id_XMjg3NDU4NzQ1Mg==.html?spm=a2hzp.8244740.userfeed.5!3~5~5~5!2~A)
