@@ -8,7 +8,7 @@ a:hover {color: #42b983;}
 input[type="button"],input[type="submit"] {font-size: inherit; line-height: inherit; cursor: pointer;background: #eee;border: 1px solid #d8d8d8;color: #000000;display: inline-block;padding: 0 0.5rem;border-radius: 3px;}
 input[type="button"] {background-color: #42b983;border: 1px solid #42b983;color: #FFFFFF;}
 html{font-size: 14px;}
-input[type="text"] { width: 100%; line-height: 2rem;}
+input[type="text"] { width: 100%; line-height: 2rem; background:#f8f8f8 }
 
 .panel,.pane2 {width: 100%; max-width:750px;box-sizing: border-box; margin:0.5rem auto;padding: 1rem;border: 1px solid #d8d8d8;background-color: #FFFFFF;border-radius: 3px;}
 .panel>div {padding: 0.5rem 0;}
@@ -20,7 +20,16 @@ li{margin: 0.5rem 0;}
 #info{ color: red; } 
 
 
-#gotoindex{ display: inline-block; line-height: 2rem; width: 3rem; text-align: center; position: fixed; bottom: 2rem; right: 2rem;color:#fff; background: forestgreen;}
+#gotoindex {
+    display: inline-block;
+    padding: 0 0.5rem;
+    border-radius: 3px;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    color: #fff;
+    background: #42b983;
+}
 
 @media(max-width:820px){
     html{ font-size: 18px;}
