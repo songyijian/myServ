@@ -6,46 +6,52 @@
   <title>f2e 前端构建工具</title>
 	<link rel="stylesheet" href="/staticfile/css/style.css">
 	<script src="/staticfile/js/jquery.js"></script>
+	<script src="/staticfile/js/vue.js"></script>
+
 </head>
 <body>
 <!-- <form action="/creact_go" method="post" class="panel"> -->
-<form class="panel">
+<form class="panel" id="form">
 	<!-- 仓库 -->
 	<div>
 		<h4>项目仓库：</h4>
 		<% for(var i=0; i<item_type.length; i++){%>
 			<label for="<%= item_type[i].id %>">
-				<input type="radio" name="item_type_id" id="<%= item_type[i].id %>" value="<%= item_type[i].id %>"/>
+				<input type="radio" name="item_type_id" v-model="updata.item_type_id" id="<%= item_type[i].id %>" value="<%= item_type[i].id %>"/>
 				<%= item_type[i].name %>
 			</label>
 		<% }%>
 	</div>
 	<hr>
-
-	<div>
-		<h4>创建位置：</h4>
-		<input type="text" name="filepath" id="path" value=""/>
-	</div>
-	<hr>
-
 	<!-- 模版 -->
-	<div>
-		<h4>模版：</h4>
+	<input type="button" value="模版配置" :class="{'now':istemp}" @click="istemp=true">
+	<input type="button" value="录入内容自定义文件" :class="{'now':!istemp}" @click="istemp=false">
+
+	<div v-show="istemp">
+		<h4>选择模版配置：</h4>
 		<div>
 		<%for(var i=0; i<template.length; i++){%>
 			<label for="<%= template[i].id %>">
-				<input type="radio" name="template_id" id="<%= template[i].id %>" value="<%= template[i].id %>" />
+				<input type="radio" name="template_id"  v-model="updata.template_id" id="<%= template[i].id %>" value="<%= template[i].id %>" />
 				<%= template[i].name %>
 			</label>
 		<%}%>
 		</div>
-		<textarea name="" id="" cols="100" rows="10">
-			
-		</textarea>
+	</div>
+	<div v-show="!istemp">
+		<h4>录入内容自定义文件：</h4>
+		<textarea name="" id="ctxt" value=""  v-model="updata.ctxt"></textarea>
+	</div>
+
+	<hr>
+	<!-- 创建位置 -->
+	<div>
+		<h4>{{istemp ? '创建位置：' : '创建位置+文件名'}}</h4>
+		<input type="text" name="filepath"  v-model="updata.filepath" id="path" value="" />
 	</div>
 	<hr>
 
-	<input type="button" id="sbumit" value="创建项目"/> <span id="info"></span>
+	<input type="button" class="sbumit" @click="sbumit" value="创建项目"/> <span id="info">{{resInfo}}</span>
 </form>
 
 <div class="pane2 rk">
@@ -59,19 +65,54 @@
 	</ul>
 </div>
 <script>
-	$('#sbumit').click(()=>{
-		$('#info').html()
-		if(
-			!$('input[name="item_type_id"]').val() || 
-			!$('input[name="filepath"]').val() || 
-			!$('input[name="template_id"]').val()
-		){
-			alert('参数不能为空')
-			return
-		}
-		$.post('/creact_go', $(".panel").serialize(),(res)=>{
-			$('#info').html(res.info)
-		})
+	// $('#sbumit').click(()=>{
+	// 	$('#info').html()
+	// 	if(
+	// 		!$('input[name="item_type_id"]').val() || 
+	// 		!$('input[name="filepath"]').val() || 
+	// 		!$('input[name="template_id"]').val()
+	// 	){
+	// 		alert('参数不能为空')
+	// 		return
+	// 	}
+	// 	$.post('/creact_go', $(".panel").serialize(),(res)=>{
+	// 		$('#info').html(res.info)
+	// 	})
+	// })
+
+	new Vue({
+		el:'#form',
+		data:{
+			istemp:true,
+			updata:{
+				item_type_id:'',
+				template_id:'',
+				filepath:'',
+				ctxt:'',	//输入的内容
+			},
+			resInfo:''
+		},
+		methods: {
+			sbumit(){
+				console.log(this.updata)
+				if(this.istemp){
+					if(!this.updata.item_type_id || !this.updata.template_id || !this.updata.filepath ){
+						alert('参数错误')
+						return
+					}
+				}else{
+					if (!this.updata.item_type_id || !this.updata.filepath) {
+						alert('参数错误')
+						return
+					}
+				}
+				var req = { ...this.updata, "istemp":this.istemp }
+				var _this = this;
+				$.post('/creact_go', req , (res) => {
+					_this.resInfo = res.info
+				})
+			}
+		},
 	})
 </script>
 </body>

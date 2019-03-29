@@ -7,7 +7,6 @@ module.exports = {
      * 每个仓储id应该唯一
      * */
     "item_type":[
-        
         { "name": "myMac", "id": "maymac", "path": "/Users/yjsong/sgit/test" },
         { "name": "mock数据", "id": "mockdatas", "path": "/Users/happyelements/git/mockdatas" },
         { "name": "endcard", "id": "endcards", "path": "/Users/happyelements/git/endcards" },

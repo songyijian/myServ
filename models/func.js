@@ -1,3 +1,30 @@
+const fs = require('fs-extra');
+const slash = require('slash');
+const path = require("path")
+
+// 是否存在可读写的路径
+function isDirCallFn(url,fn){
+    fs.access(url, fs.constants.R_OK | fs.constants.W_OK, (err) => {
+        err ? fn(false) : fn(true)
+    })
+}
+
+
+// 是否存在合法文件
+function isFileCallFn(url, fn) {
+    fs.stat(url, function (err, stat) {
+        err ? fn(false) : fn(true)
+    })
+}
+
+
+// 是否存在合法文件
+function isFileUrl(url) {
+    console.log(path.extname(slash(url)).length > 1)
+    return path.extname(slash(url)).length > 1;
+}
+
+
 
 // 获取用户ip
 function getClientIp(req) {
@@ -35,5 +62,8 @@ function logs(){
 module.exports = {
     getClientIp:getClientIp,
     getIPAdress:getIPAdress,
-    logs:logs
+    logs:logs,
+    isDirCallFn: isDirCallFn,
+    isFileCallFn: isFileCallFn,
+    isFileUrl: isFileUrl
 }
