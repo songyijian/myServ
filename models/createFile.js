@@ -1,29 +1,29 @@
 const path = require("path")
 const fs = require('fs-extra')
+const slash = require('slash')
 
-exports.creactFn = (obj)=>{
-    new Promise((resolve, reject)=>{
-        let isDir = path.extname(obj.src).length < 1;
-        let { src } = obj.src;
-        console.log('创建...',obj)
-        if (isDir) {
-            //创建路径
-            fs.ensureDir(src, function(err) {
-                err ? reject(err) : resolve()
-            });
-        }else{
-            //创建文件
-            fs.ensureFile(src, function(err) {
-                if(err){
-                    reject(err)
-                }else{
-                    if (obj.txt){
-                        fs.outputFile(src,obj.txt,function(err) {
-                            err ? reject(err) : resolve()
-                        })
-                    }
-                }
-            });
-        }
+//创建目录
+exports.creactArray = (newThisPath, templist) => {
+    function isFile(url) { return path.extname(slash(url)).length > 1 }
+    return templist.map(item => {
+        let src = '';
+        let txt = '';
+        new Promise((yes,no)=>{
+            if (typeof (item) == 'string') {
+                src = slash(path.resolve(newThisPath, item))
+            }else{
+                src = slash(path.resolve(newThisPath, item.name));
+                txt = item.template || false;
+            }
+            if(isFile(src)){
+                fs.outputFile(src, txt, err => {
+                    err ? no(err) : yes()
+                })
+            }else{
+                fs.ensureDir(src,  err=>{
+                    err ? no(err) : yes()
+                });
+            }
+        })
     })
 }

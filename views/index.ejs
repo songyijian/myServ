@@ -65,20 +65,6 @@
 	</ul>
 </div>
 <script>
-	// $('#sbumit').click(()=>{
-	// 	$('#info').html()
-	// 	if(
-	// 		!$('input[name="item_type_id"]').val() || 
-	// 		!$('input[name="filepath"]').val() || 
-	// 		!$('input[name="template_id"]').val()
-	// 	){
-	// 		alert('参数不能为空')
-	// 		return
-	// 	}
-	// 	$.post('/creact_go', $(".panel").serialize(),(res)=>{
-	// 		$('#info').html(res.info)
-	// 	})
-	// })
 
 	new Vue({
 		el:'#form',
@@ -86,9 +72,9 @@
 			istemp:true,
 			updata:{
 				item_type_id:'',
-				template_id:'',
 				filepath:'',
 				ctxt:'',	//输入的内容
+				template_id:'',
 			},
 			resInfo:''
 		},
@@ -97,20 +83,29 @@
 				console.log(this.updata)
 				if(this.istemp){
 					if(!this.updata.item_type_id || !this.updata.template_id || !this.updata.filepath ){
-						alert('参数错误')
-						return
+						alert('参数缺失！')
+					}else{
+						var _this = this;
+						var req = { ...this.updata }
+						console.log(req)
+						$.post('/creact_template_go', req , (res) => {
+							_this.resInfo = res.info
+						})
 					}
 				}else{
-					if (!this.updata.item_type_id || !this.updata.filepath) {
-						alert('参数错误')
-						return
+					if (!this.updata.item_type_id || !this.updata.filepath || !this.updata.ctxt) {
+						alert('参数缺失！')
+					}else{
+						var _this = this;
+						var req = { ...this.updata }
+						console.log(req)
+
+						$.post('/creact_flite_go', req , (res) => {
+							_this.resInfo = res.info
+						})
+					
 					}
 				}
-				var req = { ...this.updata, "istemp":this.istemp }
-				var _this = this;
-				$.post('/creact_go', req , (res) => {
-					_this.resInfo = res.info
-				})
 			}
 		},
 	})

@@ -2,80 +2,81 @@
 const fs = require('fs-extra');
 const slash = require('slash');
 const path = require("path")
-const {creactFn}  = require("../models/createFile");
+const {creactArray}  = require("../models/createFile");
 const { isDirCallFn, isFileCallFn, isFileUrl } = require("../models/func");
-
 
 module.exports = {
     // 构建UI
     "renderIndex" :(req, res, next) => {
         res.render("index", req.__CONFIG__);
     },
-
-
-    // 构建处理
-    "creactGo" : (req, res, next) => {
-        let ajaxData = req.body
-        console.log( '请求创建信息----------------\n',  ajaxData )
-
-        if (!ajaxData.istemp || !ajaxData.item_type_id || !ajaxData.filepath) {
-            res.send({
-                "state": 0,
-                "info": '缺少必要参数'
-            });
-            return
-        }
-        if (ajaxData.istemp == 'true') {
-            if (!ajaxData.template_id){
+    
+    // 创建自定义文件
+    "creactFliteGo": (req, res, next) => {
+        try {
+            let { filepath, item_type_id, ctxt } = req.body;
+            console.log('^^^^^^^',req.body)
+            if (!filepath || !item_type_id || !ctxt ) {
                 res.send({
                     "state": 0,
-                    "info": '缺少模版参数'
+                    "info": '缺少必要参数'
                 });
                 return
             }
-        }
-        if (ajaxData.istemp == 'false'){
-            if (!isFileUrl(ajaxData.filepath)){
+            if (!isFileUrl(filepath)) {
                 res.send({
                     "state": 0,
                     "info": '路径应是合法的文件格式！'
                 });
                 return
             }
-        }
-
-        try {
-            runs()
+            let ckPath = req.__CONFIG__.item_type.filter(item => item.id == item_type_id)[0].path;
+            let newThisPath = slash(path.join(ckPath, filepath))
+            console.log('请求创建信息----------------\n', newThisPath)
+            isFileCallFn(newThisPath,s=>{
+                if (s){
+                    res.send({
+                        "state": 0,
+                        "info": `文件已存在！${newThisPath}`
+                    });
+                }else{
+                    fs.outputFile(newThisPath, ctxt, function (err) {
+                        console.log(err)
+                        res.send(
+                            err
+                            ? { "state": 0, "info": `创建失败${newThisPath}` ,err}
+                            :{ "state": 1, "info": `创建成功！${newThisPath}` }
+                        );
+                    })
+                }
+            })
         } catch (error) {
             res.send({
                 "state": 0,
-                "info": '未知错误，创建失败请检查配置与参数',
-                "err": error
+                "info": '失败！未知错误！',
+                error
             });
         }
-        
-        function runs(){
-            //仓库地址
-            var ckPath = req.__CONFIG__.item_type.filter(item => item.id == ajaxData.item_type_id)[0].path;
-            //模版
-            var tmItem = '';
-            //组合后创建路径
-            var newThisPath='';
-            //文件名字加后缀
-            var nameBase = '';
-            if (ajaxData.istemp == "true") {
-                newThisPath = slash(path.join(ckPath, ajaxData.filepath))
-                tmItem = req.__CONFIG__.template.filter(item => item.id == ajaxData.template_id)[0] 
-                console.log('模版创建模式---------')
-            }else{
-                nameBase = path.basename(ajaxData.filepath);
-                let fp = path.join(ckPath, ajaxData.filepath);
-                newThisPath = slash(fp.substr(0, fp.length - nameBase.length))
-                tmItem = { "objs": [{ "name": nameBase, "template": ajaxData.ctxt }] }
-                console.log('自定义文件创建模式--------')
-            }
-            console.log({ ckPath, newThisPath, nameBase, tmItem})
+    },
 
+
+    // 构建项目模版
+    "creactTemplateGo": (req, res, next) => {
+        try {
+            let { filepath, item_type_id, template_id } = req.body;
+
+            if (!template_id || !item_type_id || !filepath) {
+                res.send({
+                    "state": 0,
+                    "info": '缺少必要参数'
+                });
+                return
+            }
+            console.log('请求创建信息----------------\n', req.body)
+            //仓库地址
+            let ckPath = req.__CONFIG__.item_type.filter(item => item.id==item_type_id)[0].path;
+            let tmItem = req.__CONFIG__.template.filter(item => item.id==template_id)[0].objs;
+            let newThisPath = slash(path.join(ckPath, filepath)) 
             //检查仓库的正确性
             isDirCallFn(ckPath, s => {
                 if (!s) {
@@ -85,44 +86,18 @@ module.exports = {
                     })
                     return
                 }
-
-                if (ajaxData.istemp == 'true'){
-                    //检查项目是否存在
-                    isDirCallFn(newThisPath, ds=> {
-                        if (ds) {
-                            res.send({
-                                "state": 0,
-                                "info": `项目已存在`
-                            })
-                            return
-                        }
-                        creactAll(newThisPath)
-                    })
-                }else{
-                    //文件是否存在
-                    let fUrl = path.resolve(newThisPath, nameBase);
-                    isFileCallFn(fUrl,s=>{
-                        if(s){
-                            res.send({
-                                "state": 0,
-                                "info": `文件已存在:${fUrl}`
-                            });
-                            return
-                        }
-                        creactAll(newThisPath)
-                    })
-                }
-                // 批量创建业务
-                function creactAll(thisPath){
-                    console.log('))))))',tmItem.objs)
-                    let creactListLing = tmItem.objs.map(item => {
-                        let obj = typeof (item) == 'string' 
-                            ? { "src": slash(path.resolve(thisPath, item))}
-                            : { "src": slash(path.resolve(thisPath, item.name)), "txt": item.template }
-                        console.log('&&&&',obj)
-                        return creactFn(obj)
-                    }) 
-                    Promise.all(creactListLing ).then(function (o) {
+                //检查项目是否存在
+                isDirCallFn(newThisPath, ds => {
+                    if (ds) {
+                        res.send({
+                            "state": 0,
+                            "info": `项目已存在`
+                        })
+                        return
+                    }
+                    console.log('-------', newThisPath, tmItem)
+                    //创建项目
+                    Promise.all(creactArray(newThisPath,tmItem)).then(function (o) {
                         res.send({
                             "state": 1,
                             "info": `项目创建成功`
@@ -134,9 +109,16 @@ module.exports = {
                             "info": err
                         })
                     })
-                }
+                })
             })
-        }  
+        } catch (error) {
+            res.send({
+                "state": 0,
+                "info": '未知错误，创建失败请检查配置与参数',
+                "err": error
+            });
+            
+        }
     },
 
 

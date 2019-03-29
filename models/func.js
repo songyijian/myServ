@@ -20,10 +20,8 @@ function isFileCallFn(url, fn) {
 
 // 是否存在合法文件
 function isFileUrl(url) {
-    console.log(path.extname(slash(url)).length > 1)
     return path.extname(slash(url)).length > 1;
 }
-
 
 
 // 获取用户ip
@@ -55,14 +53,10 @@ function getIPAdress() {
     }
 }
 
-function logs(){
-    console.log('logs')
-}
 
 module.exports = {
     getClientIp:getClientIp,
     getIPAdress:getIPAdress,
-    logs:logs,
     isDirCallFn: isDirCallFn,
     isFileCallFn: isFileCallFn,
     isFileUrl: isFileUrl
