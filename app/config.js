@@ -22,8 +22,6 @@ module.exports = {
             "id": 100,
             "objs": [
                 "images",
-                "css",
-                "js",
                 "js/index.js",
                 "css/css.css",
                 {
@@ -32,7 +30,7 @@ module.exports = {
                 },
                 {
                     "name": "index.html",
-                    "template": "ssss"
+                    "template": "<!doctype html><html><head><meta charset=\"utf-8\"><title>Demo</title><script src=\"https: //cdn.bootcss.com/jquery/3.3.1/jquery.js\"></script></head><body><p> 3.3.1/jquery.js</p><script></script></body></html>"
                 }
             ]
         },
@@ -52,7 +50,11 @@ module.exports = {
             "objs": [
                 {
                     "name": "mocks.json",
-                    "template": "{\"js\":{\"entry\":[\"js/1.js\"],\"output\":\"js/js_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/css_min.css\"},\"edition\":[\"./index.html\",\"js/1.js\"],\"v\":\"0.0.1\"}"
+                    "template": `{
+                                    "msg": "",
+                                    "code": 200,
+                                    "data":{}
+                                }`
                 }
             ]
         }

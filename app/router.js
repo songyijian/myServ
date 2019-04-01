@@ -21,8 +21,7 @@ router.get('/:urlId/*', handleRouter.warehouse)
 // router.post('/merge', handleRouter.merge)
 // router.post('/staticv', handleRouter.staticv)
 
-// mock交互接口
-router.get('/mock/get', mocRouter.get)
-router.post('/mock/post', mocRouter.post)
+// 模拟异步延时等待
+router.get('/mockwait', mocRouter.get)
 
 module.exports = router;

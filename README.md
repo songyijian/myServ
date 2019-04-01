@@ -15,9 +15,7 @@
 - 根据模版创建项目
 - 自定义本地文件
 - 仓库CORF做来跨域处理，可以自己放json模拟mock数据
-- 响应延时get接口，mock/get?time=3000（毫秒），模拟一步请求等场景测试
-- 响应延时post接口，mock/post?time=3000（毫秒），模拟一步请求等场景测试
-- mock/jsonStr='{a:1}' jsonStr直接接收一个字符串格式的obj
+- get响应延时接口/mockwait?time=3000（毫秒不操作10秒）模拟异步请求使用
 
 ---
 
