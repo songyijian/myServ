@@ -5,7 +5,7 @@ const slash = require('slash')
 const uglifyjs = require("uglify-js");
 const CleanCSS = require('clean-css');
 const sass = require('node-sass');
-var cassys={format : ' keep-  breaking '}
+var cassys={format : 'keep-breaking'}
 
 
 exports.mergeFile = (itemPath,itemJson, endfn) => {

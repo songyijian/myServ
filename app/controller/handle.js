@@ -2,8 +2,8 @@
 const fs = require('fs-extra');
 const slash = require('slash');
 const path = require("path")
-const {creactArray}  = require("../models/createFile");
-const { isDirCallFn, isFileCallFn, isFileUrl } = require("../models/func");
+const {creactArray}  = require("../model/createFile");
+const { isDirCallFn, isFileCallFn, isFileUrl } = require("../model/func");
 
 module.exports = {
     // 构建UI

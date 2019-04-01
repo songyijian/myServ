@@ -1,10 +1,32 @@
 # 前端开发本地服务系统
-v1.0.0  
-yijian.song
+> v0.5.0  , yijian.song
+
+
+### 目录结构
+```
+app
+├── app
+│   ├── controller	#主要业务
+│   │   ├── mock.js		# 接口mock业务
+│   │   └── handle.js	# 核心业务	
+│   │
+│   ├── model		# 公用方法
+│   ├── public		# 项目静态资源，如css、js等存放的目录
+│   ├── views		# 项目模版文件ejs
+│   ├── app.js		# 应用运行文件
+│   ├── config.js	# 用户配置信息
+│   └── router.js	# 路由文件
+│
+├── node_modules 	# 依赖的模块
+│
+└── package.json 	# node模块的配置文件
+
+```
 
 ---
+
 ### config.js 配置文件
-- item_type：静态本地仓库（项目文件夹）配置
+- item_type：静态本地仓库（本地绝对路径）配置
 - template：模版仓库
 - port：本地服务端口，默认：8080
 
@@ -21,15 +43,14 @@ yijian.song
 
 
 ### 环境
-node v8.9.1+
-```
-2.npm install
-3.npm run start //启动服务器并打开操作系统页面
-```
+- node v8.9.1+  //确保node安装
+- npm install   //装依赖
+- npm run start //启动服务
 
 
 ---
-老版本一些注视
+
+该业务已废弃
 ```
 {
 	"js":{
@@ -40,11 +61,9 @@ node v8.9.1+
 		"entry":["css/1.sass","css/1.css"],	//css压缩文件，sass会被编译后再压缩
 		"output":"css/css_min.css"			//同上
 	},
-	"edition":["./index.html"],		//需要静态文件引入地址后面加版本号的地址
-	"v":"0.1.2"
+	"edition":["./index.html"],		//需要静态文件引入地址后面加版本
 }
 ```
-
 
 ###  老版本演示视频
 视频展示: [youku 地址] (http://v.youku.com/v_show/id_XMjg3NDU4NzQ1Mg==.html?spm=a2hzp.8244740.userfeed.5!3~5~5~5!2~A)
