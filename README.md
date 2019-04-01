@@ -14,8 +14,8 @@
 - 本地仓库（所以文件项目都是基于本地仓库配置的）
 - 根据模版创建项目
 - 自定义本地文件
-- 仓库CORF做来跨域处理，可以自己放json模拟mock数据
-- get响应延时接口/mockwait?time=3000（毫秒不操作10秒）模拟异步请求使用
+- 仓库做了CORF跨域处理，可用直接请求仓库下的json文件，mock接口数据
+- get响应延时接口/mockwait?time=3000（毫秒）模拟异步请求使用
 
 ---
 
@@ -47,10 +47,10 @@ app
 - port：本地服务端口，默认：8080
 
 
-
-
-###下面的业务已废弃 （请忽略）
 ---
+
+
+### 下面的业务已废弃 （请忽略）
 
 ```
 {
@@ -66,5 +66,5 @@ app
 }
 ```
 
-###  老版本演示视频
-视频展示: [youku 地址] (http://v.youku.com/v_show/id_XMjg3NDU4NzQ1Mg==.html?spm=a2hzp.8244740.userfeed.5!3~5~5~5!2~A)
+> 老版本演示视频
+> 视频展示: [youku 地址] (http://v.youku.com/v_show/id_XMjg3NDU4NzQ1Mg==.html?spm=a2hzp.8244740.userfeed.5!3~5~5~5!2~A)
