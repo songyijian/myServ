@@ -3,29 +3,26 @@
 <head>
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-    <title>仓库项目</title>
-	<link rel="stylesheet" href="/public/css/style.css">
-	<link rel="stylesheet" href="/public/js/jquery.js">
+    <title> 仓库项目-myServ </title>
+	<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 	<div class="panel">
-		
+		<a href="/" >返回首页</a>
+	</div>
+
+	<div class="panel">
 		<% if(err){ %>
-			<%= err %>
+			<p class="errtxt"><%= err %></p>
 		<% }else{ %>
 			<% for(var j=0; j<data.length; j++){%>
-				<% if(data[j].indexOf('.')>0){ %>
-					<a href="<%= data[j] %>" target="_blank" class="textfile" ><%= data[j] %></a>
-				<% }else{ %>
-					<a href="<%= data[j] %>" class="catalog"><%= data[j] %></a>
+				<% if(data[j].indexOf('.')<0){ %>
+						<a href="<%= data[j] %>" class="dir_a"><%= data[j] %></a>
+					<% }else{ %>
+						<a href="<%= data[j] %>" target="_blank" class="file_a" ><%= data[j] %></a>
 				<% } %>
 			<% } %>
 		<% } %>
 	</div>
-
-	<a href="/" id="gotoindex">首页</a>
-
-	<script>
-	</script>
 </body>
 </html>

@@ -33,7 +33,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //router
 app.use(routers)
-app.use((req, res) => { res.status(404).send("404!")})
+app.use((req, res) => { res.status(404).render('err', { err: "404"})})
+
 let url = `http://${func.getIPAdress()}:${port}`
 app.listen(port, (err) => {
     if (err) {

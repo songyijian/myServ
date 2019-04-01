@@ -15,7 +15,7 @@ module.exports = {
     "creactFliteGo": (req, res, next) => {
         try {
             let { filepath, item_type_id, ctxt } = req.body;
-            console.log('^^^^^^^',req.body)
+            console.log('请求创建信息----------------\n', req.body)
             if (!filepath || !item_type_id || !ctxt ) {
                 res.send({
                     "state": 0,
@@ -32,7 +32,7 @@ module.exports = {
             }
             let ckPath = req.__CONFIG__.item_type.filter(item => item.id == item_type_id)[0].path;
             let newThisPath = slash(path.join(ckPath, filepath))
-            console.log('请求创建信息----------------\n', newThisPath)
+            console.log('创建路径----------------\n', newThisPath)
             isFileCallFn(newThisPath,s=>{
                 if (s){
                     res.send({
@@ -41,7 +41,7 @@ module.exports = {
                     });
                 }else{
                     fs.outputFile(newThisPath, ctxt, function (err) {
-                        console.log(err)
+                        console.log('创建失败信息xxxxxxxxx',err)
                         res.send(
                             err
                             ? { "state": 0, "info": `创建失败${newThisPath}` ,err}
