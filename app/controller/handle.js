@@ -41,12 +41,13 @@ module.exports = {
                     });
                 }else{
                     fs.outputFile(newThisPath, ctxt, function (err) {
-                        console.log('创建失败信息xxxxxxxxx',err)
-                        res.send(
-                            err
-                            ? { "state": 0, "info": `创建失败${newThisPath}` ,err}
-                            :{ "state": 1, "info": `创建成功！${newThisPath}` }
-                        );
+                        if (err){
+                            console.log('创建失败！',err)
+                            res.send({ "state": 0, "info": `创建失败${newThisPath}`,err})
+                        }else{
+                            console.log('创建成功！', newThisPath)
+                            res.send({ "state": 1, "info": `创建成功！${newThisPath}` });
+                        }
                     })
                 }
             })
