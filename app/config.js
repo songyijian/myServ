@@ -8,9 +8,9 @@ module.exports = {
      * */
     "item_type":[
         { "name": "myMac_a", "id": "maymac", "path": "/Users/yjsong/B/test" },
-        { "name": "mock数据", "id": "mockdatas", "path": "/Users/happyelements/git/mockdatas" },
-        { "name": "endcard", "id": "endcards", "path": "/Users/happyelements/git/endcards" },
-        { "name": "endcard模版", "id": "endcardTemplate", "path": "/Users/happyelements/git/sigmob-fe-endcardTemplate" }
+        { "name": "mockData", "id": "mockdatas", "path": "/Users/happyelements/git/mockdatas" },
+        { "name": "item", "id": "item", "path": "/Users/happyelements/git/item" },
+        { "name": "endcardTemplate", "id": "endcardTemplate", "path": "/Users/happyelements/git/sigmob-fe-endcardTemplate" }
     ],
     
     /**自动生产项目模版配置

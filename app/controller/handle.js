@@ -11,6 +11,7 @@ module.exports = {
         res.render("index", req.__CONFIG__);
     },
     
+    
     // 创建自定义文件
     "creactFliteGo": (req, res, next) => {
         try {
