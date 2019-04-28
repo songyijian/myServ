@@ -30,7 +30,24 @@ module.exports = {
                 },
                 {
                     "name": "index.html",
-                    "template": "<!doctype html><html><head><meta charset=\"utf-8\"><title>Demo</title><script src=\"https: //cdn.bootcss.com/jquery/3.3.1/jquery.js\"></script></head><body><p> 3.3.1/jquery.js</p><script></script></body></html>"
+                    "template": `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="mobile-web-app-capable">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <title>bula-cns</title>
+</head>
+<body>
+    <div id="app">jquery/3.3.1</div>
+</body>
+</html>
+                    `
                 }
             ]
         },
@@ -40,7 +57,24 @@ module.exports = {
             "objs": [
                 {
                     "name": "index.html",
-                    "template": "<!doctype html><html><head><meta charset=\"utf-8\"><title>Demo</title><script src=\"https: //cdn.bootcss.com/jquery/3.3.1/jquery.js\"></script></head><body><p> 3.3.1/jquery.js</p><script></script></body></html>"
+                    "template":`
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="mobile-web-app-capable">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <title>bula-cns</title>
+</head>
+<body>
+    <div id="app">jquery/3.3.1</div>
+</body>
+</html>
+                    `
                 }
             ]
         },
