@@ -23,5 +23,8 @@ router.get('/:urlId/*', handleRouter.warehouse)
 
 // 模拟异步延时等待
 router.get('/mockwait', mocRouter.get)
+router.post('/upload', mocRouter.upload)
+
+
 
 module.exports = router;

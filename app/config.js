@@ -10,7 +10,8 @@ module.exports = {
         { "name": "myMac_a", "id": "maymac", "path": "/Users/yjsong/B/test" },
         { "name": "mockData", "id": "mockdatas", "path": "/Users/happyelements/git/mockdatas" },
         { "name": "item", "id": "item", "path": "/Users/happyelements/git/item" },
-        { "name": "endcardTemplate", "id": "endcardTemplate", "path": "/Users/happyelements/git/sigmob-fe-endcardTemplate" }
+        { "name": "endcardTemplate", "id": "endcardTemplate", "path": "/Users/happyelements/git/sigmob-fe-endcardTemplate" },
+        { "name": "官网首页", "id": "sigmob_www", "path": "/Users/happyelements/git/www-web/web-ui" }
     ],
     
     /**自动生产项目模版配置

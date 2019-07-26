@@ -45,10 +45,7 @@ app
 - item_type：静态本地仓库（本地绝对路径）配置
 - template：模版仓库
 - port：本地服务端口，默认：8080
-
-
 ---
-
 
 ### 下面的业务已废弃 （请忽略）
 
@@ -66,5 +63,5 @@ app
 }
 ```
 
-> 老版本演示视频
-> 视频展示: [youku 地址] (http://v.youku.com/v_show/id_XMjg3NDU4NzQ1Mg==.html?spm=a2hzp.8244740.userfeed.5!3~5~5~5!2~A)
+<!-- 老版本演示视频 -->
+<!-- 视频展示: [youku 地址] (http://v.youku.com/v_show/id_XMjg3NDU4NzQ1Mg==.html?spm=a2hzp.8244740.userfeed.5!3~5~5~5!2~A) -->
