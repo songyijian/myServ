@@ -87,7 +87,7 @@
 						var _this = this;
 						var req = { ...this.updata }
 						console.log(req)
-						$.post('/creact_template_go', req , (res) => {
+						$.post('/creact_template_api', req , (res) => {
 							_this.resInfo = res.info
 						})
 					}
@@ -99,7 +99,7 @@
 						var req = { ...this.updata }
 						console.log(req)
 
-						$.post('/creact_flite_go', req , (res) => {
+						$.post('/creact_flite_api', req , (res) => {
 							_this.resInfo = res.info
 						})
 					

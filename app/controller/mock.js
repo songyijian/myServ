@@ -1,49 +1,36 @@
-
+// const fs = require('fs-extra')
+// const slash = require('slash')
+// const path = require("path")
+// const { isDirCallFn, isFileCallFn, isFileUrl } = require("../model/func")
 const multiparty = require('multiparty')
 
 module.exports = {
-  /**
-   * mockwait?time=3000（毫秒，不操作10秒）
-   */
-  get : (req, res, next) => {
-    try {
-      let getData = req.query
-      let time = Number(getData.time || 0);
-      setTimeout(() => {
-        res.send({
-          code: 200,
-          msg: 'mock/get， 成功获取数据',
-          data: getData
-        })
-      }, time)
-    } catch (error) {
-      res.send({
-        code: 0,
-        msg: 'mock/post 未知错误查看err!',
-        error: error
-      })
-    }
+  // cmock 页面
+  "render": (req, res, next) => {
+    res.render("cmock.ejs")
   },
 
 
-  // 文件上传接口
-  "upload": (req, res, next) => {
+  /* 
+  文件上传接口
+  */
+  "upload": (req, res, next)=>{
     try {
       var dataRes = {
-        file: [],
+        file:[],
         field: []
       }
-
+      
       let form = new multiparty.Form({
-        uploadDir: req.__CONFIG__.uploadFilesDir // 存储目录
+        uploadDir: req.__CONFIG__.uploadFiles // 存储目录
       })
-      form.parse(req)
-      form.on('file', (name, file, ...rest) => {
+      form.parse(req) 
+      form.on('file', (name, file, ...rest) => { 
         // 接收到文件参数时，触发file事件
         dataRes.file.push({
           "name": name,
           "file": file
-        })
+        }) 
       })
 
       form.on('field', (name, value) => {
@@ -54,7 +41,7 @@ module.exports = {
         })
       })
 
-      form.on('close', () => {
+      form.on('close', () => { 
         res.send({
           code: 200,
           msg: '文件上传成功',
@@ -71,7 +58,4 @@ module.exports = {
     }
 
   }
-
-
 }
-

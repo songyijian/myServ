@@ -1,7 +1,5 @@
 const fs = require("fs");
 const path = require("path");
-const url = require("url");
-const queryString = require("querystring");
 const slash = require('slash');
 const configData = require("../config")
 

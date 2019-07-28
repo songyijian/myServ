@@ -7,8 +7,7 @@ const opn = require("opn")
 const routers = require("./router")
 const func = require("./model/func")
 const configData = require("./config")
-const { port=8080 } = configData;
-
+const { port=8080 } = configData
 
 //业务中间件
 app.use(function (req, res, next) {
@@ -23,8 +22,17 @@ app.set('view engine', 'ejs')
 
 // 目录静态化
 app.use('', express.static(__dirname + '/public'));
+if (configData.uploadFiles) {
+  configData.item_type.push({
+    name: '上传文件',
+    id: 'uploadFiles',
+    path: configData.uploadFiles
+  })
+}
 configData.item_type.forEach((item, i) => {
-  app.use(`/${item.id}`, express.static(`${item.path}`, { 'index': [] }))
+  app.use(`/${item.id}`, express.static(`${item.path}`, {
+    'index': []
+  }))
 })
 
 //http交互

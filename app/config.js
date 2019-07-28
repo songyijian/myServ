@@ -1,7 +1,7 @@
 const path = require('path')
 function setPath(params) {
     return path.normalize(__dirname + '/' + params);
-}
+} 
 
 module.exports = {
     /**启动端口号， 不设置默认8080端口 */
@@ -9,6 +9,9 @@ module.exports = {
 
     // 上传文件配置
     "uploadFiles": setPath('/uploadfiles'),
+    
+    // mock数据文件配置
+    // "mockfiles": setPath('/mockfiles'),
 
     /**
      * 本地静态项目仓库列表

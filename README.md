@@ -16,6 +16,7 @@
 - 自定义本地文件
 - 仓库做了CORF跨域处理，可用直接请求仓库下的json文件，mock接口数据
 - get响应延时接口/mockwait?time=3000（毫秒）模拟异步请求使用
+- 文件上传接口/upload，储存目录可配置（文件夹路径）
 
 ---
 
@@ -27,13 +28,14 @@ app
 │   │   ├── mock.js	# 接口mock业务
 │   │   └── handle.js	# 核心业务	
 │   │
-│   ├── model		# 公用方法
+│   ├── model			# 公用方法
 │   ├── public		# 项目静态资源，如css、js等存放的目录
-│   ├── views		# 项目模版文件ejs
+│   ├── views			# 项目模版文件ejs
 │   ├── app.js		# 应用运行文件
 │   ├── config.js	# 配置信息( 配置自己的项目仓库、自定义模版 )
 │   └── router.js	# 路由文件
 │
+├── files 	#上传文件存储（默认会静态化该文件夹）
 ├── node_modules 	# 依赖的模块
 └── package.json 	# node模块的配置文件
 
@@ -45,7 +47,10 @@ app
 - item_type：静态本地仓库（本地绝对路径）配置
 - template：模版仓库
 - port：本地服务端口，默认：8080
+- uploadFiles：上传文件存储目录
+
 ---
+
 
 ### 下面的业务已废弃 （请忽略）
 
@@ -63,5 +68,4 @@ app
 }
 ```
 
-<!-- 老版本演示视频 -->
-<!-- 视频展示: [youku 地址] (http://v.youku.com/v_show/id_XMjg3NDU4NzQ1Mg==.html?spm=a2hzp.8244740.userfeed.5!3~5~5~5!2~A) -->
+<!-- 老版本演示视频: [youku 地址] (http://v.youku.com/v_show/id_XMjg3NDU4NzQ1Mg==.html?spm=a2hzp.8244740.userfeed.5!3~5~5~5!2~A) -->
