@@ -26,5 +26,4 @@ router.get('/mockwait', mocRouter.get)
 router.post('/upload', mocRouter.upload)
 
 
-
 module.exports = router;

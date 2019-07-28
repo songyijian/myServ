@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  	<title> myServ </title>
+	<link rel="stylesheet" href="/css/style.css">
+	<script src="/js/jquery.js"></script>
+	<!-- <script src="/js/vue.js"></script> -->
+	<!-- 核心脚本 -->
+	<script src="https://pagecdn.io/lib/ace/1.4.5/ace.js" charset="utf-8"></script>
+	<!-- 启用自动完成功能 -->
+	<script src="https://pagecdn.io/lib/ace/1.4.5/ext-language_tools.js" charset="utf-8"></script>
+	<style>
+		.editbox>div{ height: 450px; width: 100%;}
+	</style>
+</head>
+<body>
+
+<form class="panel" id="form">
+	<h4>mock数据：</h4>
+	<span>url：</span>
+	<input type="text" name="filepath" id="path" value="" />
+	<span>请求类型：</span>
+	<select id="type">
+		<option value="GET">GET</option>
+		<option value="POST">POST</option>
+		<option value="PUT">PUT</option>
+		<option value="DELETE">DELETE</option>
+	</select>
+	<span>相应延时(毫秒)：</span>
+	<input type="number" name="filepath" id="time" value="0" />
+
+	<div id="mockbox">
+		<div class="editbox">
+			<h5>请求参数：</h5>
+		</div>
+		<div class="editbox">
+			<h5>响应内容（json,func）：</h5>
+		</div>
+	</div>
+	<hr>
+	
+	<div>
+		<span class="btn" onclick="btnfn()"> 提交 </span>
+		<!-- <span class="btn" onclick="btnfn('getValue')">getValue 输出内容 </span> -->
+		<!-- <span class="btn" onclick="btnfn('run')">eval 运行脚本 </span> -->
+	</div>
+</form>
+
+
+<script>
+// req 编辑器
+	var reqel = document.createElement("div")
+	reqel.id = "reqel"
+	var reqE = ace.edit(reqel);
+	reqE.setOptions({
+		mode: "ace/mode/javascript",
+		theme: "ace/theme/twilight",
+		autoScrollEditorIntoView: true
+	})
+	reqE.setValue('')
+
+// res 编辑器
+	var resel = document.createElement("div")
+	resel.id = "resel"
+	var resE = ace.edit(resel)
+	resE.setOptions({
+		mode: "ace/mode/javascript",
+		theme: "ace/theme/twilight",
+		autoScrollEditorIntoView: true
+	})
+	resE.setValue('')
+
+// 插入编辑器
+	var e = document.getElementsByClassName("editbox")
+	e[0].append(reqel)
+	e[1].append(resel)
+
+	var data = {
+		path:'',
+		type:'GET',
+		time:0,
+		reqtxt:'{}', //输入的内容
+		restxt:'{}', //输入的内容
+	}
+
+	function btnfn(params) {
+		data.reqtxt = reqE.getValue().trim()
+		data.restxt = resE.getValue().trim()
+		data.path = $("#path").val().trim()
+		data.type = $("#type").val().trim()
+		data.time = $("#time").val().trim()
+
+		console.log(data)
+		$.post('/creact_mock_files_api', data , (res) => {
+			console.log(res)
+		})
+	}
+
+</script>
+</body>
+</html>
