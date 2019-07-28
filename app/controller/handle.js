@@ -1,9 +1,9 @@
 "use strict"
-const fs = require('fs-extra');
-const slash = require('slash');
+const fs = require('fs-extra')
+const slash = require('slash')
 const path = require("path")
-const {creactArray}  = require("../model/createFile");
-const { isDirCallFn, isFileCallFn, isFileUrl } = require("../model/func");
+const {creactArray}  = require("../model/createFile")
+const { isDirCallFn, isFileCallFn, isFileUrl } = require("../model/func")
 
 module.exports = {
     // 构建UI
@@ -11,59 +11,10 @@ module.exports = {
         res.render("index", req.__CONFIG__);
     },
     
-    
-    // 创建自定义文件
-    "creactFliteGo": (req, res, next) => {
-        try {
-            let { filepath, item_type_id, ctxt } = req.body;
-            console.log('请求创建信息----------------\n', req.body)
-            if (!filepath || !item_type_id || !ctxt ) {
-                res.send({
-                    "state": 0,
-                    "info": '缺少必要参数'
-                });
-                return
-            }
-            if (!isFileUrl(filepath)) {
-                res.send({
-                    "state": 0,
-                    "info": '路径应是合法的文件格式！'
-                });
-                return
-            }
-            let ckPath = req.__CONFIG__.item_type.filter(item => item.id == item_type_id)[0].path;
-            let newThisPath = slash(path.join(ckPath, filepath))
-            console.log('创建路径----------------\n', newThisPath)
-            isFileCallFn(newThisPath,s=>{
-                if (s){
-                    res.send({
-                        "state": 0,
-                        "info": `文件已存在！${newThisPath}`
-                    });
-                }else{
-                    fs.outputFile(newThisPath, ctxt, function (err) {
-                        if (err){
-                            console.log('创建失败！',err)
-                            res.send({ "state": 0, "info": `创建失败${newThisPath}`,err})
-                        }else{
-                            console.log('创建成功！', newThisPath)
-                            res.send({ "state": 1, "info": `创建成功！${newThisPath}` });
-                        }
-                    })
-                }
-            })
-        } catch (error) {
-            res.send({
-                "state": 0,
-                "info": '失败！未知错误！',
-                error
-            });
-        }
-    },
 
 
     // 构建项目模版
-    "creactTemplateGo": (req, res, next) => {
+    "creactTemplate": (req, res, next) => {
         try {
             let { filepath, item_type_id, template_id } = req.body;
 
@@ -74,7 +25,7 @@ module.exports = {
                 });
                 return
             }
-            console.log('请求创建信息----------------\n', req.body)
+            console.log('请求创建信息------\n', req.body)
             //仓库地址
             let ckPath = req.__CONFIG__.item_type.filter(item => item.id==item_type_id)[0].path;
             let tmItem = req.__CONFIG__.template.filter(item => item.id==template_id)[0].objs;
@@ -97,14 +48,16 @@ module.exports = {
                         })
                         return
                     }
-                    console.log('-------', newThisPath, tmItem)
+                    console.log('开始创建...')
                     //创建项目
                     Promise.all(creactArray(newThisPath,tmItem)).then(function (o) {
+                        console.log('y 项目创建成功!')
                         res.send({
                             "state": 1,
                             "info": `项目创建成功`
                         })
                     }).catch(function (err) {
+                        console.log('x 创建失败!')
                         res.send({
                             "state": 0,
                             "info": `创建失败`,
@@ -119,7 +72,6 @@ module.exports = {
                 "info": '未知错误，创建失败请检查配置与参数',
                 "err": error
             });
-            
         }
     },
 

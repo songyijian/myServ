@@ -1,5 +1,5 @@
-const fs = require('fs-extra');
-const slash = require('slash');
+const fs = require('fs-extra')
+const slash = require('slash')
 const path = require("path")
 
 // 是否存在可读写的路径

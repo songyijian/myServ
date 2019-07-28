@@ -1,5 +1,4 @@
 const path = require("path")
-const queryString = require("querystring")
 const fs = require('fs-extra')
 const slash = require('slash')
 
