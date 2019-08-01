@@ -8,7 +8,7 @@ module.exports = {
     "port" : 80,
 
     // 上传文件配置
-    "uploadFiles": setPath('/uploadfiles'),
+    "uploadFiles": setPath('./uploadfiles'),
     
     // mock数据文件配置
     "mockfiles": setPath('/mockfiles'),
