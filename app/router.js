@@ -26,5 +26,7 @@ router.get('/:urlId/*', handleRouter.warehouse)
 
 // 文件上传
 router.post('/upload', uploadRouter.upload)
+router.get('/upload', uploadRouter.uploadRender)
+
 
 module.exports = router;
