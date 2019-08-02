@@ -6,8 +6,6 @@ const handleRouter = require("./controller/handle.js")
 const func = require("./model/func")
 // var Mock = require('mockjs');
 // var Random = Mock.Random;
-
-
 function isMe(req, res, next){
     if (func.getIPAdress() !== func.getClientIp(req)) {
         res.send({ "state": 0, "info": 'err：该操作只支持本地服务' });

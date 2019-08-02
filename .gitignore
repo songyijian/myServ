@@ -1,4 +1,4 @@
 tignore
 node_modules
 .DS_Store
-app/uploadfiles/*
+uploadfiles/*.*

@@ -26,26 +26,23 @@ module.exports = {
       // 接收文件
       console.log('文件-----')
       console.log(file.path, file.originalFilename)
-
       resData.files.push({
         url: file.path, //保存后的文件地址
         name: file.originalFilename //原始文件名
       })
-      
       // file.originalFilename 原始文件名
       // file.path 保存后的文件地址
     })
-    
+
     form.on('field', (name, value) => {
       // 接收数据参数
       console.log('数据------')
       console.log(name,value)
       resData.txt.push({
-        name, 
-        value
+        key:name,value
       })
     })
-    
+
     form.on('close', () => {
       res.send({
         code: 200,

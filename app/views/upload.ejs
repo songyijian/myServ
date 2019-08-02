@@ -29,7 +29,11 @@
 
 	<script type="text/javascript">
 		$("#btn").click(function (ev) {
-			var file = document.getElementById("file").files[0];
+			var file = document.getElementById("file").files[0]
+
+		console.log(file)
+
+
 			var oData = new FormData();
 					oData.append("file",file)
 					oData.append("name", $("#name").val())
