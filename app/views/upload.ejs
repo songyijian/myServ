@@ -7,7 +7,6 @@
 	<title> myServ </title>
 	<!-- <link rel="stylesheet" href="/css/style.css"> -->
 	<style media="screen">
-
 		div{ width: 700px; margin: 0 auto; border: 1px solid red; min-height: 500px}
 	</style>
 	<script src="/js/jquery.js"></script>
@@ -30,9 +29,7 @@
 	<script type="text/javascript">
 		$("#btn").click(function (ev) {
 			var file = document.getElementById("file").files[0]
-
-		console.log(file)
-
+			console.log(file)
 
 			var oData = new FormData();
 					oData.append("file",file)

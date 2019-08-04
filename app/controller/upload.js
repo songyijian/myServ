@@ -2,7 +2,6 @@ const multiparty = require('multiparty')
 // const fs = require('fs-extra')
 
 module.exports = {
-
   // 上传页面
   "uploadRender": (req, res, next) => {
     res.render("upload");
@@ -16,7 +15,6 @@ module.exports = {
     form.encoding = 'utf-8'
     form.uploadDir = dirsrc
     form.parse(req)
-
     var resData = {
       files: [],
       txt:[]
@@ -44,9 +42,10 @@ module.exports = {
     })
 
     form.on('close', () => {
+      // res.status(500);
       res.send({
         code: 200,
-        msg: '文件上传成功！ ',
+        msg: '文件上传成功！',
         data: resData
       })
     })
