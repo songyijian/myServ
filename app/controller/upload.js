@@ -52,7 +52,7 @@ module.exports = {
     })
 
     form.on('error', function (err) {
-      console.log('Error: ' + err.stack);
+      console.log('文件上传-Error: ' + err.stack);
       res.send({
         code: 0,
         msg: '文件上传失败! ',

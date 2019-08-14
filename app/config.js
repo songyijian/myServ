@@ -1,7 +1,7 @@
 const path = require('path')
 function setPath(params) {
     return path.normalize(__dirname + '/' + params);
-} 
+}
 
 module.exports = {
     /**启动端口号， 不设置默认8080端口 */
@@ -9,9 +9,12 @@ module.exports = {
 
     // 上传文件配置
     "uploadFiles": setPath('/uploadfiles'),
-    
+
     // mock数据文件配置
     "mockfiles": setPath('/mockfiles'),
+
+    // 启动程序时自动在浏览器打开
+    "opn":true,
 
     /**
      * 本地静态项目仓库列表
@@ -22,9 +25,10 @@ module.exports = {
         { "name": "mockData", "id": "mockdatas", "path": "/Users/happyelements/git/mockdatas" },
         { "name": "item", "id": "item", "path": "/Users/happyelements/git/item" },
         { "name": "endcardTemplate", "id": "endcardTemplate", "path": "/Users/happyelements/git/sigmob-fe-endcardTemplate" },
-        { "name": "官网首页", "id": "sigmob_www", "path": "/Users/happyelements/git/www-web/web-ui" }
+        { "name": "github", "id": "sigmob_www", "path": "/Users/happyelements/github" }
+        // { "name": "官网首页", "id": "sigmob_www", "path": "/Users/happyelements/git/www-web/web-ui" }
     ],
-    
+
     /**自动生产项目模版配置
      * 模版id应该唯一
     */
@@ -53,7 +57,7 @@ module.exports = {
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="renderer" content="webkit">
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
-    <title>bula-cns</title>
+    <title></title>
 </head>
 <body>
     <div id="app">jquery/3.3.1</div>
@@ -80,7 +84,7 @@ module.exports = {
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="renderer" content="webkit">
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
-    <title>bula-cns</title>
+    <title></title>
 </head>
 <body>
     <div id="app">jquery/3.3.1</div>

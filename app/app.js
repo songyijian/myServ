@@ -54,4 +54,4 @@ app.listen(port, (err) => {
 })
 
 // 自动打开页面
-// opn(url)
+configData.opn &&  opn(url)
