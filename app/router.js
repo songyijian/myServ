@@ -3,11 +3,7 @@ const router = express.Router();
 const mocRouter = require("./controller/mock.js")
 const handleRouter = require("./controller/handle.js")
 const uploadRouter = require("./controller/upload.js")
-
 const func = require("./model/func")
-
-// const fs = require('fs');
-
 
 function isMe(req, res, next){
     if (func.getIPAdress() !== func.getClientIp(req)) {
