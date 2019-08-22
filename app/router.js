@@ -25,7 +25,7 @@ router.post('/creact_template_api', isMe, handleRouter.creactTemplate)
 router.get('/:urlId/*', handleRouter.warehouse)
 
 // 模拟异步延时等待
+router.get('/upload', uploadRouter.uploadRender)
 router.post('/upload', isMe, uploadRouter.upload)
 // router.get('/mockwait', mocRouter.get) // 模拟异步延时等待
-// router.get('/upload', uploadRouter.uploadRender)
 module.exports = router;
