@@ -14,7 +14,7 @@ module.exports = {
     // "mockfiles": setPath('/mockfiles'),
 
     // 启动程序时自动在浏览器打开
-    "opn":true,
+    // "opn":true,
 
     /**
      * 本地静态项目仓库列表

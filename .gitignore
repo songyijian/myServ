@@ -1,6 +1,6 @@
 tignore
 node_modules
 .DS_Store
-app/uploadfiles/
 !app/uploadfiles
+app/uploadfiles/*
 app/mockfiles/*.*
