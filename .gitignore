@@ -3,4 +3,5 @@ node_modules
 .DS_Store
 !app/uploadfiles
 app/uploadfiles/*
-app/mockfiles/*.*
+!app/mockfiles
+app/mockfiles/*

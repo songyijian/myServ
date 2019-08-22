@@ -7,18 +7,18 @@
 	<title> myServ </title>
 	<link rel="stylesheet" href="/css/style.css">
 	<style media="screen">
-		div{ width: 750px; margin: 0 auto; border: 1px solid red; min-height: 500px}
-		div>p{ padding: 1rem;}
+		/* div{ width: 750px; margin: 0 auto; border: 1px solid red; min-height: 500px} */
+		div>p{ padding:1rem;}
 		p>label{ display: inline-block; width: 100px; text-align: right; margin-right: 1rem}
 		p>input{ display: inline-block; max-width: 250px; }
-		button{  margin-left:100px;}
+		button{  margin-left:110px;}
 	</style>
 	<script src="/js/jquery.js"></script>
 </head>
 
 <body>
 
-	<div>
+	<div class="panel">
 		<p>
 			<label>文字参数:</label>
 			<input type="text" id="name" name="name" />
@@ -27,9 +27,8 @@
 			<label>上传文件:</label>
 			<input type="file" name="file" id="file" required multiple />
 		</p>
-
-		<button id="btn">上传图片</button>
-
+		<button type="button" id="btn" class="sbumit">上传图片</button>
+	
 		<div id="txt"></div>
 	</div>
 

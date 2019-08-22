@@ -7,8 +7,8 @@ a {color: #000;}
 a:hover {color: #42b983;}
 html{font-size: 14px; line-height:26px; }
 
-input[type="button"]{font-size: inherit; line-height: inherit; cursor: pointer;background: #eee;border: 1px solid #d8d8d8;color: #000000;display: inline-block;padding: 0 0.5rem;border-radius: 3px;}
-.sbumit[type="button"] { display: inline-block; background-color: #42b983;border: 1px solid #3ad690;color: #FFFFFF;}
+input[type="button"],button{font-size: inherit; line-height: inherit; cursor: pointer;background: #eee;border: 1px solid #d8d8d8;color: #000000;display: inline-block;padding: 0 0.5rem;border-radius: 3px;}
+.sbumit[type="button"] ,button{ display: inline-block; background-color: #42b983;border: 1px solid #3ad690;color: #FFFFFF;}
 .btn,.now[type="button"] {background-color: #ffff; border: 1px solid #42b983; color:#3ad690 }
 input[type="text"]{ width: 100%; line-height: 2rem; border:1px solid #d8d8d8 }
 .panel,.pane2 {width: 100%; max-width:1024px;box-sizing: border-box; margin:0.5rem auto;padding: 1rem;border: 1px solid #d8d8d8;background-color: #FFFFFF;border-radius: 3px;}
