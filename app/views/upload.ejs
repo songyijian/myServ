@@ -5,10 +5,14 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 	<title> myServ </title>
-	<!-- <link rel="stylesheet" href="/css/style.css"> -->
+	<link rel="stylesheet" href="/css/style.css">
 	<style media="screen">
+		div{ width: 750px; margin: 0 auto; border: 1px solid red; min-height: 500px}
+		div>p{ padding: 1rem;}
+		p>label{ display: inline-block; width: 100px; text-align: right; margin-right: 1rem}
+		p>input{ display: inline-block; max-width: 250px; }
+		button{  margin-left:100px;}
 
-		div{ width: 700px; margin: 0 auto; border: 1px solid red; min-height: 500px}
 	</style>
 	<script src="/js/jquery.js"></script>
 </head>
@@ -24,14 +28,15 @@
 			<label>上传文件:</label>
 			<input type="file" name="file" id="file" required multiple />
 		</p>
+
 		<button id="btn">上传图片</button>
+
+		<div id="txt"></div>
 	</div>
 
 	<script type="text/javascript">
 		$("#btn").click(function (ev) {
 			var file = document.getElementById("file").files[0]
-			console.log(file)
-
 			var oData = new FormData();
 					oData.append("file",file)
 					oData.append("name", $("#name").val())
@@ -40,8 +45,12 @@
 			oReq.open("POST", "/upload", true);
 			oReq.onload = function (oEvent) {
 				if (oReq.status == 200) {
-					alert("Uploaded!")
-					console.log(oEvent)
+					console.log(oEvent.currentTarget)
+					$('#txt').html(
+						JSON.parse(
+							JSON.stringify(oEvent.currentTarget.responseText)
+						)
+					)
 				} else {
 					alert("Error " + oReq.status + " occurred when trying to upload your file.")
 				}

@@ -1,8 +1,6 @@
 const multiparty = require('multiparty')
-// const fs = require('fs-extra')
 
 module.exports = {
-
   // 上传页面
   "uploadRender": (req, res, next) => {
     res.render("upload");
@@ -16,7 +14,6 @@ module.exports = {
     form.encoding = 'utf-8'
     form.uploadDir = dirsrc
     form.parse(req)
-
     var resData = {
       files: [],
       txt:[]
@@ -24,20 +21,16 @@ module.exports = {
 
     form.on('file', (name, file, ...rest) => {
       // 接收文件
-      console.log('文件-----')
-      console.log(file.path, file.originalFilename)
+      // console.log('文件-----')
       resData.files.push({
-        url: file.path, //保存后的文件地址
+        url: file.path,             //保存后的文件地址
         name: file.originalFilename //原始文件名
       })
-      // file.originalFilename 原始文件名
-      // file.path 保存后的文件地址
     })
 
     form.on('field', (name, value) => {
       // 接收数据参数
-      console.log('数据------')
-      console.log(name,value)
+      // console.log('数据------')
       resData.txt.push({
         key:name,value
       })
@@ -52,7 +45,6 @@ module.exports = {
     })
 
     form.on('error', function (err) {
-      console.log('文件上传-Error: ' + err.stack);
       res.send({
         code: 0,
         msg: '文件上传失败! ',
