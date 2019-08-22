@@ -1,5 +1,5 @@
 tignore
 node_modules
 .DS_Store
-uploadfiles/*.*
+/app/uploadfiles/*.*
 mockfiles/*
