@@ -37,9 +37,10 @@ module.exports = {
     })
 
     form.on('close', () => {
+      // res.status(500);
       res.send({
         code: 200,
-        msg: '文件上传成功！ ',
+        msg: '文件上传成功！',
         data: resData
       })
     })
