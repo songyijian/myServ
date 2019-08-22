@@ -1,3 +1,8 @@
 tignore
 node_modules
 .DS_Store
+<<<<<<< HEAD
+=======
+/app/uploadfiles/*
+/app/mockfiles/*
+>>>>>>> master

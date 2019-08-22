@@ -11,7 +11,7 @@ const { port=8080 } = configData
 
 //业务中间件
 app.use(function (req, res, next) {
-  req.__CONFIG__ = configData;    //项目对配置直接带过去
+  req.__CONFIG__ = configData;                  //项目对配置直接带过去
   res.header('Access-Control-Allow-Origin', '*') //CORF处理跨域问题
   next()
 })

@@ -11,7 +11,7 @@ module.exports = {
     "uploadFiles": setPath('/uploadfiles'),
 
     // mock数据文件配置
-    "mockfiles": setPath('/mockfiles'),
+    // "mockfiles": setPath('/mockfiles'),
 
     // 启动程序时自动在浏览器打开
     "opn":true,

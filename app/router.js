@@ -22,9 +22,9 @@ router.post('/creact_template_api', isMe, handleRouter.creactTemplate)
 //ui静态仓库
 router.get('/:urlId/*', handleRouter.warehouse)
 
-// 文件上传
-router.post('/upload', uploadRouter.upload)
-router.get('/upload', uploadRouter.uploadRender)
+// 模拟异步延时等待
+// router.get('/mockwait', mocRouter.get) // 模拟异步延时等待
+router.post('/upload', mocRouter.upload)
 
 
 module.exports = router;
