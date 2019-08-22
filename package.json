@@ -1,6 +1,6 @@
 {
-  "name": "builder",
-  "version": "0.3.3",
+  "name": "my_serv",
+  "version": "0.7.0",
   "description": "",
   "main": "app.js",
   "dependencies": {
