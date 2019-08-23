@@ -2,21 +2,27 @@
 const fs = require('fs-extra')
 const slash = require('slash')
 const path = require("path")
-const {creactArray}  = require("../model/createFile")
-const { isDirCallFn, isFileCallFn, isFileUrl } = require("../model/func")
+const {
+    creactArray
+} = require("../model/createFile")
+const {
+    isDirCallFn,
+} = require("../model/func")
 
 module.exports = {
     // 构建UI
-    "renderIndex" :(req, res, next) => {
+    renderIndex: (req, res, next) => {
         res.render("index", req.__CONFIG__);
     },
-    
-
 
     // 构建项目模版
-    "creactTemplate": (req, res, next) => {
+    creactTemplate: (req, res, next) => {
         try {
-            let { filepath, item_type_id, template_id } = req.body;
+            let {
+                filepath,
+                item_type_id,
+                template_id
+            } = req.body;
 
             if (!template_id || !item_type_id || !filepath) {
                 res.send({
@@ -27,9 +33,9 @@ module.exports = {
             }
             console.log('请求创建信息------\n', req.body)
             //仓库地址
-            let ckPath = req.__CONFIG__.item_type.filter(item => item.id==item_type_id)[0].path;
-            let tmItem = req.__CONFIG__.template.filter(item => item.id==template_id)[0].objs;
-            let newThisPath = slash(path.join(ckPath, filepath)) 
+            let ckPath = req.__CONFIG__.item_type.filter(item => item.id == item_type_id)[0].path;
+            let tmItem = req.__CONFIG__.template.filter(item => item.id == template_id)[0].objs;
+            let newThisPath = slash(path.join(ckPath, filepath))
             //检查仓库的正确性
             isDirCallFn(ckPath, s => {
                 if (!s) {
@@ -50,7 +56,7 @@ module.exports = {
                     }
                     console.log('开始创建...')
                     //创建项目
-                    Promise.all(creactArray(newThisPath,tmItem)).then(function (o) {
+                    Promise.all(creactArray(newThisPath, tmItem)).then(function (o) {
                         console.log('y 项目创建成功!')
                         res.send({
                             "state": 1,
@@ -77,8 +83,11 @@ module.exports = {
 
 
     //静态文件列表UI
-    "warehouse" : (req, res, next) => {
-        let { urlId,...Npath } = req.params;
+    warehouse: (req, res, next) => {
+        let {
+            urlId,
+            ...Npath
+        } = req.params;
         let Npaths = Npath['0'] //剩下的路径
         //这个url是否在库里
         let isCkUrl = req.__CONFIG__.item_type.filter(item => item.id == urlId)
@@ -124,12 +133,9 @@ module.exports = {
     //     var itemJson = fs.readFileSync(`${itemPath}/_.json`, "utf-8")
     //     console.log("\n--------------- 当前项目配置表 ---------------");
     //     console.log(itemPath,itemJson);
-    
+
     //     staticv.vFile(itemPath,itemJson, (datas) => {
     //         res.send(datas)
     //     })
     // }
 }
-
-
-

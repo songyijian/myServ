@@ -1,10 +1,4 @@
-
-
 <!-- https://www.npmjs.com/package/mockserver -->
-
-
-
-
 ```
 /**
  *
@@ -65,5 +59,30 @@ function matchApi(apiPath, apiRule) {
   }
   return pathParams;
 }
+
+```
+
+
+
+
+```
+const path = require('path')
+// function setPath(params) {
+//   return path.normalize(__dirname + '/' + params);
+// }
+
+console.log(
+  path.relative(__dirname,'/Users/happyelements/git/mockdatas/index.js'),
+);
+
+console.log(
+  path.normalize(__dirname + '/Users/happyelements/git/mockdatas/index.js')
+);
+
+console.log(
+  __dirname
+);
+
+
 
 ```

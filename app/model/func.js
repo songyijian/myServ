@@ -1,3 +1,10 @@
+/*
+ * @Description: 公用文件
+ * @Author: yijian.song
+ * @Date: 2019-07-29 10:29:48
+ * @LastEditors: 
+ * @LastEditTime: 2019-08-23 20:07:33
+ */
 const fs = require('fs-extra')
 const slash = require('slash')
 const path = require("path")
@@ -9,7 +16,6 @@ function isDirCallFn(url,fn){
     })
 }
 
-
 // 是否存在合法文件
 function isFileCallFn(url, fn) {
     fs.stat(url, function (err, stat) {
@@ -17,12 +23,10 @@ function isFileCallFn(url, fn) {
     })
 }
 
-
 // 是否存在合法文件
 function isFileUrl(url) {
     return path.extname(slash(url)).length > 1;
 }
-
 
 // 获取用户ip
 function getClientIp(req) {
@@ -54,10 +58,30 @@ function getIPAdress() {
 }
 
 
+//是否Map对象
+function isMap(o) {
+    return Object.prototype.toString.call(o).slice(8, -1) === 'Map'
+}
+//是否对象
+function isObj(o) {
+    return Object.prototype.toString.call(o).slice(8, -1) === 'Object'
+}
+
+//是否数组
+function isArray(o) {
+    return Object.prototype.toString.call(o).slice(8, -1) === 'Array'
+}
+
+//是否函数
+function isFunction(o) {
+    return Object.prototype.toString.call(o).slice(8, -1) === 'Function'
+}
+
 module.exports = {
-    getClientIp:getClientIp,
-    getIPAdress:getIPAdress,
-    isDirCallFn: isDirCallFn,
-    isFileCallFn: isFileCallFn,
-    isFileUrl: isFileUrl
+    getClientIp,
+    getIPAdress,
+    isDirCallFn,
+    isFileCallFn,
+    isFileUrl,
+    isMap, isObj, isArray, isFunction
 }

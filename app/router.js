@@ -1,14 +1,13 @@
-const express = require('express');
-const router = express.Router();
-const mocRouter = require("./controller/mock.js")
+const express = require('express')
+const router = express.Router()
 const handleRouter = require("./controller/handle.js")
 const uploadRouter = require("./controller/upload.js")
-const func = require("./model/func")
+const cMockRouter = require("./controller/cMock.js")
+const { getIPAdress, getClientIp} = require("./model/func")
 
 function isMe(req, res, next){
-    if (func.getIPAdress() !== func.getClientIp(req)) {
-        res.send({ "state": 0, "info": 'err：该操作只支持本地服务' });
-        return
+    if (getIPAdress() !== getClientIp(req)) {
+        res.send({ "state": 0, "info": 'err：该操作只支持本地服务' }); return
     }
     next()
 }
@@ -20,8 +19,11 @@ router.post('/creact_template_api', isMe, handleRouter.creactTemplate)
 //ui静态仓库
 router.get('/:urlId/*', handleRouter.warehouse)
 
-// 模拟异步延时等待
+// 文件上传
 router.get('/upload', uploadRouter.uploadRender)
 router.post('/upload', isMe, uploadRouter.upload)
-// router.get('/mockwait', mocRouter.get) // 模拟异步延时等待
-module.exports = router;
+
+// mock
+router.use('/mock/*', cMockRouter.api) 
+
+module.exports = router

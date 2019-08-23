@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  	<title> myServ </title>
+	<link rel="stylesheet" href="/css/style.css">
+	<script src="/js/jquery.js"></script>
+	<script src="/js/vue.js"></script>
+		<style media="screen">
+		div>p{ padding:1rem;}
+		p>label{ display: inline-block; width: 100px; text-align: right; margin-right: 1rem}
+		p>input{ display: inline-block; max-width: 400px; }
+		button{  margin-left:110px;}
+	</style>
+</head>
+<body>
+<form class="panel" id="form">
+	<h4>项目仓库入口：</h4>
+	<p>
+		<label>htttp/url:</label>
+		<input type="text" name="path" />
+	</p>
+	<button type="button" id="btn" class="sbumit">创建并打开</button>
+</form>
+
+
+<script>
+	$('#btn').click(function(){
+		var path = $('input[name="path"]').val()
+		console.log(path)
+	})
+
+
+
+
+	// new Vue({
+	// 	el:'#form',
+	// 	data:{
+	// 		istemp:true,
+	// 		updata:{
+	// 			item_type_id:'',
+	// 			filepath:'',
+	// 			ctxt:'',	//输入的内容
+	// 			template_id:'',
+	// 		},
+	// 		resInfo:''
+	// 	},
+	// 	methods: {
+	// 		sbumit(){
+	// 			console.log(this.updata)
+	// 			if(this.istemp){
+	// 				if(!this.updata.item_type_id || !this.updata.template_id || !this.updata.filepath ){
+	// 					alert('参数缺失！')
+	// 				}else{
+	// 					var _this = this;
+	// 					var req = { ...this.updata }
+	// 					console.log(req)
+	// 					$.post('/creact_template_api', req , (res) => {
+	// 						_this.resInfo = res.info
+	// 					})
+	// 				}
+	// 			}else{
+	// 				if (!this.updata.item_type_id || !this.updata.filepath || !this.updata.ctxt) {
+	// 					alert('参数缺失！')
+	// 				}else{
+	// 					var _this = this;
+	// 					var req = { ...this.updata }
+	// 					console.log(req)
+
+	// 					$.post('/creact_flite_api', req , (res) => {
+	// 						_this.resInfo = res.info
+	// 					})
+
+	// 				}
+	// 			}
+	// 		}
+	// 	},
+	// })
+</script>
+</body>
+</html>

@@ -1,17 +1,46 @@
+/*
+ * @Description: 服务配置文件
+ * @Author: yijian.song
+ * @Date: 2019-08-22 15:19:30
+ * @LastEditors: 
+ * @LastEditTime: 2019-08-23 19:55:47
+ */
+
+
 const path = require('path')
+
+/**
+ * @Description: 抹平系统差异，把相对路径补齐
+ * @param {string} params 相对路径
+ * @return: {string} 自动补全的路径
+ * @Author: yijian.song
+ * @Version: 0.7.0
+ * @LastEditors: yijian.song
+ * @LastEditTime: 
+ * @Date: 2019-08-23 19:39:11
+ */
 function setPath(params) {
     return path.normalize(__dirname + '/' + params);
 }
 
+
+/**
+ * @Description: 配置列表
+ * @Author: yijian.song
+ * @Version: 0.7.0
+ * @LastEditors: yijian.song
+ * @LastEditTime: 
+ * @Date: 2019-08-23 19:52:17
+ */
 module.exports = {
     /**启动端口号， 不设置默认8080端口 */
     "port" : 80,
 
-    // 上传文件配置
-    "uploadFiles": setPath('/uploadfiles'),
+    // 文件上传存储地址配置
+    "uploadFiles": setPath('../uploadfiles'),
 
-    // mock数据文件配置
-    // "mockfiles": setPath('/mockfiles'),
+    // mock数据入口文件
+    "mockfiles": setPath('../mockfiles/index.js'),
 
     // 启动程序时自动在浏览器打开
     // "opn":true,
