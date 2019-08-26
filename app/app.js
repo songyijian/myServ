@@ -22,13 +22,6 @@ app.set('view engine', 'ejs')
 
 // 目录静态化
 app.use('', express.static(__dirname + '/public'));
-if (configData.uploadFiles) {
-  configData.item_type.push({
-    name: '上传文件',
-    id: 'uploadFiles',
-    path: configData.uploadFiles
-  })
-}
 configData.item_type.forEach((item, i) => {
   app.use(`/${item.id}`, express.static(`${item.path}`, {
     'index': []

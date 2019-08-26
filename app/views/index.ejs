@@ -6,108 +6,127 @@
   	<title> myServ </title>
 	<link rel="stylesheet" href="/css/style.css">
 	<script src="/js/jquery.js"></script>
-	<script src="/js/vue.js"></script>
+	<script src="/js/mian.js"></script>
+	<style>
+		.cbox{ overflow: hidden; }
+		.cbox #submint{ float: right; }
+	</style>
 </head>
 <body>
-<!-- <form action="/creact_go" method="post" class="panel"> -->
 <form class="panel" id="form">
 	<!-- 仓库 -->
 	<div>
 		<h4>项目仓库：</h4>
 		<% for(var i=0; i<item_type.length; i++){%>
 			<label for="<%= item_type[i].id %>">
-				<input type="radio" name="item_type_id" v-model="updata.item_type_id" id="<%= item_type[i].id %>" value="<%= item_type[i].id %>"/>
+				<input type="radio" name="item_type_id" id="<%= item_type[i].id %>" value="<%= item_type[i].id %>"/>
 				<%= item_type[i].name %>
 			</label>
 		<% }%>
 	</div>
 	<hr>
 	<!-- 模版 -->
-	<input type="button" value="模版配置" :class="{'now':istemp}" @click="istemp=true">
-	<input type="button" value="录入内容自定义文件" :class="{'now':!istemp}" @click="istemp=false">
-
-	<div v-show="istemp">
+	<div>
 		<h4>选择模版配置：</h4>
 		<div>
 		<%for(var i=0; i<template.length; i++){%>
 			<label for="<%= template[i].id %>">
-				<input type="radio" name="template_id"  v-model="updata.template_id" id="<%= template[i].id %>" value="<%= template[i].id %>" />
+				<input type="radio" name="template_id" id="<%= template[i].id %>" value="<%= template[i].id %>" />
 				<%= template[i].name %>
 			</label>
 		<%}%>
 		</div>
 	</div>
-	<div v-show="!istemp">
-		<h4>录入内容自定义文件：</h4>
-		<textarea name="" id="ctxt" value=""  v-model="updata.ctxt"></textarea>
-	</div>
 
 	<hr>
-	<!-- 创建位置 -->
 	<div>
-		<h4>{{istemp ? '创建位置：' : '创建位置+文件名'}}</h4>
-		<input type="text" name="filepath"  v-model="updata.filepath" id="path" value="" />
+		<h4>创建位置</h4>
+		<input type="text" name="filepath" id="path" value="" />
 	</div>
+	<div class="cbox">
+		<d id="info"></p>
+		<span class="btn" id="submint">创建项目</span>
+	</div>
+
 	<hr>
-
-	<input type="button" class="sbumit" @click="sbumit" value="创建项目"/> <span id="info">{{resInfo}}</span>
-</form>
-
-<div class="pane2 rk">
 	<h4>项目仓库入口：</h4>
 	<ul>
 		<% for(var i=0; i<item_type.length; i++){%>
 			<li>
-				<em><%= item_type[i].name %> :</em><a href="<%= item_type[i].id %>"> <%= item_type[i].path %></a>
+				<em><%= item_type[i].name %> : </em><a href="<%= item_type[i].id %>"> <%= item_type[i].path %></a>
 			</li>
 		<% }%>
 	</ul>
+</form>
+
+<div class="panel">
+	<h4>文件上传：</h4>
+	<p>
+		<p>
+			<em>post接口地址：</em> http://localhost:80/upload
+		</p>
+		<p>
+			<a href="http://localhost:80/upload" target="_blank" class="btn">打开上传ui页面</a>
+		</p>
+		<p>
+			<a class="tagbtn" target="_blank" href="<%= uploadFiles %>">browser</a>
+			<span class="tagbtn" onclick="ideOpenItem('<%= uploadFiles %>')">IDE</span>
+		</p>
+	</p>
+	<hr>
+
+	<h4>mock入口：</h4>
+	<p>
+		<%= mockfiles %>
+		<span class="tagbtn" onclick="ideOpenItem('<%= mockfiles %>')">IDE</span>
+	</p>
 </div>
+
 <script>
+	"use strict"
 
-	new Vue({
-		el:'#form',
-		data:{
-			istemp:true,
-			updata:{
-				item_type_id:'',
-				filepath:'',
-				ctxt:'',	//输入的内容
-				template_id:'',
-			},
-			resInfo:''
-		},
-		methods: {
-			sbumit(){
-				console.log(this.updata)
-				if(this.istemp){
-					if(!this.updata.item_type_id || !this.updata.template_id || !this.updata.filepath ){
-						alert('参数缺失！')
-					}else{
-						var _this = this;
-						var req = { ...this.updata }
-						console.log(req)
-						$.post('/creact_template_api', req , (res) => {
-							_this.resInfo = res.info
-						})
-					}
-				}else{
-					if (!this.updata.item_type_id || !this.updata.filepath || !this.updata.ctxt) {
-						alert('参数缺失！')
-					}else{
-						var _this = this;
-						var req = { ...this.updata }
-						console.log(req)
+	$('#submint').click(function(){
+		var serializeUrl = $("#form").serialize();
+		let {item_type_id,filepath,template_id} = URLParams(serializeUrl)
+		if(!item_type_id){alert('请选择项目仓库 ！') ;return}
+		if(!template_id){alert('请选择模版 ！') ;return}
+		if(!filepath){alert('请填写创建位置 ！') ;return}
+		$('#info').html('')
+		$.post('/api/creact_template_api', serializeUrl , (res) => {
+			console.log(res)
 
-						$.post('/creact_flite_api', req , (res) => {
-							_this.resInfo = res.info
-						})
-
-					}
-				}
-			}
-		},
+			$('#info').html(
+				res.state == 0 ? 
+					`${res.msg}`
+				:
+					`
+					${res.msg}
+					<a class="tagbtn" target="_blank" href="${res.data.url}">browser</a>
+					<span class="tagbtn" onclick="ideOpenItem('${res.data.itemPath}')">IDE</span>
+					`
+			)
+		})
 	})
+
+	function ideOpenItem(url){
+		if(!url){
+			alert('路径不存在')
+			return 
+		}
+		$.post('/shell/ide_open_item', {url} , (res) => {
+			console.log(res)
+		})
+	}
+
+	// function browserOpenItem(url){
+	// 	if(!url){
+	// 		alert('路径不存在')
+	// 		return 
+	// 	}
+	// 	$.post('/shell/browser_open_item', {url} , (res) => {
+	// 		console.log(res)
+	// 	})
+	// }
 </script>
 </body>
 </html>

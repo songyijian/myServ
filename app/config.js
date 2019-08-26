@@ -3,7 +3,7 @@
  * @Author: yijian.song
  * @Date: 2019-08-22 15:19:30
  * @LastEditors: 
- * @LastEditTime: 2019-08-23 19:55:47
+ * @LastEditTime: 2019-08-26 17:41:31
  */
 
 
@@ -45,6 +45,15 @@ module.exports = {
     // 启动程序时自动在浏览器打开
     // "opn":true,
 
+    // 指定IDE打开命令${}会被替换成打开的地址
+    // 'atom ${}' | 'code ${}'
+    "IDEOpen":'atom ${}',
+
+    // 用什么浏览器打开
+    //'firefox' | 'google chrome'
+    "browserOpen": 'google chrome',    
+
+    
     /**
      * 本地静态项目仓库列表
      * 每个仓储id应该唯一
@@ -53,8 +62,8 @@ module.exports = {
         { "name": "myMac_a", "id": "maymac", "path": "/Users/yjsong/B/test" },
         { "name": "mockData", "id": "mockdatas", "path": "/Users/happyelements/git/mockdatas" },
         { "name": "item", "id": "item", "path": "/Users/happyelements/git/item" },
-        { "name": "endcardTemplate", "id": "endcardTemplate", "path": "/Users/happyelements/git/sigmob-fe-endcardTemplate" },
-        { "name": "github", "id": "sigmob_www", "path": "/Users/happyelements/github" }
+        { "name": "github", "id": "mygithub", "path": "/Users/happyelements/github" }
+        // { "name": "endcardTemplate", "id": "endcardTemplate", "path": "/Users/happyelements/git/sigmob-fe-endcardTemplate" },
         // { "name": "官网首页", "id": "sigmob_www", "path": "/Users/happyelements/git/www-web/web-ui" }
     ],
 
@@ -130,10 +139,10 @@ module.exports = {
                 {
                     "name": "mocks.json",
                     "template": `{
-                                    "msg": "",
-                                    "code": 200,
-                                    "data":{}
-                                }`
+                        "msg": "",
+                        "code": 200,
+                        "data":{}
+                    }`
                 }
             ]
         }
