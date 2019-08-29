@@ -23,6 +23,9 @@ app.set('view engine', 'ejs')
 // 目录静态化
 app.use('', express.static(__dirname + '/public'));
 configData.item_type.forEach((item, i) => {
+  if (item.id == 'mock' || item.id == 'upload'){
+    throw '仓库id存在保留关键字upload|mock'
+  }
   app.use(`/${item.id}`, express.static(`${item.path}`, {
     'index': []
   }))
@@ -39,7 +42,7 @@ app.use((req, res) => { res.status(404).render('err', { err: "404"})})
 let url = `http://${func.getIPAdress()}:${port}`
 app.listen(port, (err) => {
     if (err) {
-      console.log(`本地${port}端口可能被占用`,err)
+      console.error(`本地${port}端口可能被占用`,err)
     }else{
       console.log('> Network ' + url )
       console.log('> Local ' + `http://localhost:${port}`)

@@ -21,45 +21,61 @@
 ---
 
 ### 功能列表
-- 本地仓库（所以文件项目都是基于本地仓库配置的）
+- 本地仓库（仓库内项目可访问和创建）
 - 根据模版创建项目
-- 自定义本地文件
-- 仓库做了CORF跨域处理，可用直接请求仓库下的json文件，mock接口数据
-- get响应延时接口/mockwait?time=3000（毫秒）模拟异步请求使用
-- 文件上传接口/upload，储存目录可配置（文件夹路径）
+- 仓库做了CORF跨域处理，可利用json文件mock接口数据（复杂逻辑可以直接利用内部的mock服务）
+- 文件上传：/upload 用来测试真实的上传场景
+- mock服务：mockfiles/index.js接口为服务入口文件（config.js文件配置），可以利用mockjs模拟数据
 
----
+#### mock服务
+1. 路径http://localhost:80/mock/xxx，/xxx是你要mock的域名
+2. 服务默认加载“mockfiles/”下的index.js文件（路径可以在config.js配置）
+3. 服务使用mockjs实现
+
+inde.js 
+```
+const Mock = require('mockjs') //如果用到mock语法直接引用
+var myMap = new Map()	//输出map类型
+/*
+ * @Description: set结构
+ * @param {string} key 要比配的路由 'a/b/c'
+ * @param {func} val 请求返回值({ body,query,method})
+ * @return: {type} 函数返回值
+*/
+myMap
+  .set(
+    'dsp/targetpack/switch',
+    ({ body, query, method } )=>{
+      //console.log(body, query, method)
+      return Mock.mock(
+        {"msg": "", "code": 200, "data": null}
+      )
+    }
+  )
+
+module.exports = myMap
+```
+
+
 
 ### 目录结构
 ```
-app
+.
+├── README.md
 ├── app
-│   ├── controller	#主要业务
-│   │   ├── mock.js	# 接口mock业务
-│   │   └── handle.js	# 核心业务	
-│   │
-│   ├── model			# 公用方法
-│   ├── public		# 项目静态资源，如css、js等存放的目录
-│   ├── views			# 项目模版文件ejs
-│   ├── app.js		# 应用运行文件
-│   ├── config.js	# 配置信息( 配置自己的项目仓库、自定义模版 )
-│   └── router.js	# 路由文件
-│
-├── files 	#上传文件存储（默认会静态化该文件夹）
-├── node_modules 	# 依赖的模块
-└── package.json 	# node模块的配置文件
-
+│   ├── app.js
+│   ├── config.js		# 项目配置文件
+│   ├── controller 	# 主要业务
+│   ├── model				# 公用方法
+│   ├── public			# 项目静态资源，如css、js等存放的目录
+│   ├── router.js		# 路由文件
+│   └── views				# 项目模版文件ejs
+├── uploadfiles		# 上传文件存放位置，可配
+├── mockfiles			# mock业务，可配
+│   └── index.js
+├── package-lock.json
+└── package.json
 ```
-
----
-
-### config.js 配置文件
-- item_type：静态本地仓库（本地绝对路径）配置
-- template：模版仓库
-- port：本地服务端口，默认：8080
-- uploadFiles：上传文件存储目录
-
----
 
 
 ### 下面的业务已废弃 （请忽略）

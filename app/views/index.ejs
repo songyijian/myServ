@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-  	<title> myServ </title>
+	<link rel="shortcut icon" href="favicon.png">
+	<title> myServ </title>
 	<link rel="stylesheet" href="/css/style.css">
 	<script src="/js/jquery.js"></script>
 	<script src="/js/mian.js"></script>
@@ -44,8 +45,8 @@
 		<input type="text" name="filepath" id="path" value="" />
 	</div>
 	<div class="cbox">
-		<d id="info"></p>
 		<span class="btn" id="submint">创建项目</span>
+		<d id="info"></p>
 	</div>
 
 	<hr>
@@ -62,23 +63,14 @@
 <div class="panel">
 	<h4>文件上传：</h4>
 	<p>
-		<p>
-			<em>post接口地址：</em> http://localhost:80/upload
-		</p>
-		<p>
-			<a href="http://localhost:80/upload" target="_blank" class="btn">打开上传ui页面</a>
-		</p>
-		<p>
-			<a class="tagbtn" target="_blank" href="<%= uploadFiles %>">browser</a>
-			<span class="tagbtn" onclick="ideOpenItem('<%= uploadFiles %>')">IDE</span>
-		</p>
+		<em>测试页：</em> <a href="/upload" target="_blank">http://localhost:80/upload</a>
+		<br>
+		<span>post接口： http://localhost:80/upload</span>
 	</p>
 	<hr>
-
 	<h4>mock入口：</h4>
 	<p>
-		<%= mockfiles %>
-		<span class="tagbtn" onclick="ideOpenItem('<%= mockfiles %>')">IDE</span>
+		<span class="tagbtn" onclick="ideOpenItem('<%= mockfiles %>')">IDE</span><%= mockfiles %>
 	</p>
 </div>
 
@@ -117,16 +109,6 @@
 			console.log(res)
 		})
 	}
-
-	// function browserOpenItem(url){
-	// 	if(!url){
-	// 		alert('路径不存在')
-	// 		return 
-	// 	}
-	// 	$.post('/shell/browser_open_item', {url} , (res) => {
-	// 		console.log(res)
-	// 	})
-	// }
 </script>
 </body>
 </html>

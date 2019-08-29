@@ -2,34 +2,21 @@
  * @Description: 服务配置文件
  * @Author: yijian.song
  * @Date: 2019-08-22 15:19:30
- * @LastEditors: 
- * @LastEditTime: 2019-08-26 17:41:31
+ * @LastEditors:
+ * @LastEditTime: 2019-08-29 16:36:35
  */
-
-
 const path = require('path')
-
-/**
- * @Description: 抹平系统差异，把相对路径补齐
- * @param {string} params 相对路径
- * @return: {string} 自动补全的路径
- * @Author: yijian.song
- * @Version: 0.7.0
- * @LastEditors: yijian.song
- * @LastEditTime: 
- * @Date: 2019-08-23 19:39:11
- */
+// 抹平系统差异，把相对路径补齐
 function setPath(params) {
     return path.normalize(__dirname + '/' + params);
 }
-
 
 /**
  * @Description: 配置列表
  * @Author: yijian.song
  * @Version: 0.7.0
  * @LastEditors: yijian.song
- * @LastEditTime: 
+ * @LastEditTime:
  * @Date: 2019-08-23 19:52:17
  */
 module.exports = {
@@ -40,7 +27,7 @@ module.exports = {
     "uploadFiles": setPath('../uploadfiles'),
 
     // mock数据入口文件
-    "mockfiles": setPath('../mockfiles/index.js'),
+    "mockfiles": setPath('../mockfiles'),
 
     // 启动程序时自动在浏览器打开
     // "opn":true,
@@ -51,13 +38,12 @@ module.exports = {
 
     // 用什么浏览器打开
     //'firefox' | 'google chrome'
-    "browserOpen": 'google chrome',    
+    "browserOpen": 'google chrome',
 
-    
     /**
-     * 本地静态项目仓库列表
-     * 每个仓储id应该唯一
-     * */
+     * 本地静态项目仓库
+     *   id为一：保留关键字 upload，mock
+     */
     "item_type":[
         { "name": "myMac_a", "id": "maymac", "path": "/Users/yjsong/B/test" },
         { "name": "mockData", "id": "mockdatas", "path": "/Users/happyelements/git/mockdatas" },
@@ -67,9 +53,10 @@ module.exports = {
         // { "name": "官网首页", "id": "sigmob_www", "path": "/Users/happyelements/git/www-web/web-ui" }
     ],
 
-    /**自动生产项目模版配置
+    /**
+     * 自动生产项目模版配置
      * 模版id应该唯一
-    */
+     */
     "template": [
         {
             "name": "标准web项目",
