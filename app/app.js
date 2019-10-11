@@ -41,13 +41,13 @@ app.use((req, res) => { res.status(404).render('err', { err: "404"})})
 
 let url = `http://${func.getIPAdress()}:${port}`
 app.listen(port, (err) => {
-    if (err) {
-      console.error(`本地${port}端口可能被占用`,err)
-    }else{
-      console.log('> Network ' + url )
-      console.log('> Local ' + `http://localhost:${port}`)
-    }
+  if (err) {
+    console.error(`本地${port}端口可能被占用`,err)
+  }else{
+    console.log('> Network ' + url )
+    console.log('> Local ' + `http://localhost:${port}`)
+    
+    // 自动打开页面
+    configData.opn && opn(url)
+  }
 })
-
-// 自动打开页面
-configData.opn &&  opn(url)

@@ -54,7 +54,9 @@
 	<ul>
 		<% for(var i=0; i<item_type.length; i++){%>
 			<li>
-				<em><%= item_type[i].name %> : </em><a href="<%= item_type[i].id %>"> <%= item_type[i].path %></a>
+				<em><%= item_type[i].name %> : </em>
+				<span class="tagbtn" onclick="ideOpenItem('<%= item_type[i].path %>')">IDE</span>
+				<a href="<%= item_type[i].id %>"> <%= item_type[i].path %></a>
 			</li>
 		<% }%>
 	</ul>
