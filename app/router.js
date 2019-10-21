@@ -16,7 +16,7 @@ function isMe(req, res, next){
     }
     next()
 }
-  
+
 // 业务功能接口
 router.get('/', handleRouter.renderIndex)
 router.post('/api/creact_template_api', isMe, handleRouter.creactTemplate)
@@ -32,8 +32,10 @@ router.post('/upload', isMe, uploadRouter.upload)
 
 
 // mock
-router.use('/mock/*', cMockRouter.api) 
+router.use('/mock/*', cMockRouter.api)
 // run shell
-router.post('/shell/ide_open_item', isMe, runShellRouter.ideOpenItem) 
+router.post('/shell/ide_open_item', isMe, runShellRouter.ideOpenItem)
+router.post('/shell/webpack_item', isMe, runShellRouter.webpackFn) 
+
 
 module.exports = router
