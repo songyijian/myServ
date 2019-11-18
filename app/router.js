@@ -35,7 +35,7 @@ router.post('/upload', isMe, uploadRouter.upload)
 router.use('/mock/*', cMockRouter.api)
 // run shell
 router.post('/shell/ide_open_item', isMe, runShellRouter.ideOpenItem)
-router.post('/shell/webpack_item', isMe, runShellRouter.webpackFn) 
+// router.post('/shell/webpack_item', isMe, runShellRouter.webpackFn) 
 
 
 module.exports = router
