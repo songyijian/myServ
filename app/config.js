@@ -54,6 +54,11 @@ module.exports = {
             "name": "webFE",
             "id": "githubWebFE",
             "path": "/Users/happyelements/github/webFE"
+        },
+        {
+            "name": "sigmob-fe-endcardTemplate",
+            "id": "sigmob-fe-endcardTemplate",
+            "path": "/Users/happyelements/gitlab/sigmob-fe-endcardTemplate"
         }
     ],
 
@@ -68,10 +73,10 @@ module.exports = {
                 "images",
                 "js/index.js",
                 "css/css.css",
-                {
-                    "name": "_.json",
-                    "template": "{\"js\":{\"entry\":[\"js/1.js\"],\"output\":\"js/js_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/css_min.css\"},\"edition\":[\"./index.html\",\"js/1.js\"],\"v\":\"0.0.1\"}"
-                },
+                // {
+                //     "name": "_.json",
+                //     "template": "{\"js\":{\"entry\":[\"js/1.js\"],\"output\":\"js/js_min.js\"},\"css\":{\"entry\":[\"css/1.sass\",\"css/1.css\"],\"output\":\"css/css_min.css\"},\"edition\":[\"./index.html\",\"js/1.js\"],\"v\":\"0.0.1\"}"
+                // },
                 {
                     "name": "index.html",
                     "template": `
@@ -91,8 +96,7 @@ module.exports = {
   <div id="app">jquery/3.3.1</div>
   <script type="module">import fn from './js/index.mjs'</script>
 </body>
-</html>
-                    `
+</html>`
                 }
             ]
         },
@@ -117,8 +121,7 @@ module.exports = {
 <body>
   <div id="app">jquery/3.3.1</div>
 </body>
-</html>
-`
+</html>`
             }]
         },
         {

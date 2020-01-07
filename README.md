@@ -5,10 +5,10 @@
  * @Description: 本地服务系统
  * @Author: yijian.song
  * @Version: 0.7.0
- * @LastEditTime: 
+ * @LastEditTime:
  * @LastEditors: yijian.song
  * @Date: 2019-08-22 16:37:23
- */ 
+ */
 ```
 
 ---
@@ -32,7 +32,7 @@
 2. 服务默认加载“mockfiles/”下的index.js文件（路径可以在config.js配置）
 3. 服务使用mockjs实现
 
-inde.js 
+inde.js
 ```
 const Mock = require('mockjs') //如果用到mock语法直接引用
 var myMap = new Map()	//输出map类型
@@ -77,21 +77,5 @@ module.exports = myMap
 └── package.json
 ```
 
-
-### 下面的业务已废弃 （请忽略）
-
-```
-{
-	"js":{
-		"entry":["js/1.js","js/2.js"],	//要对哪些js压缩，数组顺序即为压缩后的先后顺序
-		"output":"js/js_min.js"			//把上面的文件压缩到哪个文件里，文件不存正会自动生成
-	},
-	"css":{
-		"entry":["css/1.sass","css/1.css"],	//css压缩文件，sass会被编译后再压缩
-		"output":"css/css_min.css"			//同上
-	},
-	"edition":["./index.html"],		//需要静态文件引入地址后面加版本
-}
-```
 
 <!-- 老版本演示视频: [youku 地址] (http://v.youku.com/v_show/id_XMjg3NDU4NzQ1Mg==.html?spm=a2hzp.8244740.userfeed.5!3~5~5~5!2~A) -->
