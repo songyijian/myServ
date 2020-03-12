@@ -2,7 +2,6 @@
 const exec = require('child_process').exec;
 const path = require("path");
 
-
 module.exports = {
   // ide打开项目
   ideOpenItem: (req, res, next) => {

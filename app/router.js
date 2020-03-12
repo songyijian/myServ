@@ -4,9 +4,6 @@ const handleRouter = require("./controller/handle.js")
 const uploadRouter = require("./controller/upload.js")
 const cMockRouter = require("./controller/cMock.js")
 const devWatchRouter = require("./controller/devWatch.js")
-
-
-
 const runShellRouter = require("./controller/runShell.js")
 const { getIPAdress, getClientIp} = require("./model/func")
 
@@ -29,13 +26,10 @@ devWatchRouter.fWatch()
 router.get('/upload', uploadRouter.uploadRender)
 router.post('/upload', isMe, uploadRouter.upload)
 
-
-
 // mock
 router.use('/mock/*', cMockRouter.api)
 // run shell
 router.post('/shell/ide_open_item', isMe, runShellRouter.ideOpenItem)
 // router.post('/shell/webpack_item', isMe, runShellRouter.webpackFn) 
-
 
 module.exports = router

@@ -1,3 +1,12 @@
+/**
+ * @Author: happyelements
+ * @Date:   2019-08-23T20:11:50+08:00
+ * @Last modified by:   happyelements
+ * @Last modified time: 2020-01-21T13:24:09+08:00
+ */
+
+
+
 const { isObj, isArray, isFunction } = require("../model/func")
 
 module.exports = {
@@ -11,16 +20,14 @@ module.exports = {
     }
     const { body, query, method } = req
     const routers = req.params[0]  //路由
-    let a = {
-      body,   //post携带参数
-      query,  //get携带参数
-      method  //get | post
-    }
-    
     try {
       let item = mjs.get(routers)
       if (isFunction(item)) {
-        res.send(item(a))
+        res.send(item({
+          body,   //post携带参数
+          query,  //get携带参数
+          method  //get | post
+        }))
       } else {
         res.send({
           "state": 0,
