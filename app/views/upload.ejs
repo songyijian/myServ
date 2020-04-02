@@ -31,7 +31,11 @@
 
 	<script type="text/javascript">
 		$("#btn").click(function (ev) {
-			var file = document.getElementById("file").files[0]
+			$('#txt').html('')
+			var fileinput = document.getElementById("file")
+			var file = fileinput.files[0]
+			if(!file){ alert('上传文件不能为空'); return}
+			
 			var oData = new FormData();
 					oData.append("file",file)
 					oData.append("name", $("#name").val())
@@ -46,6 +50,7 @@
 							JSON.stringify(oEvent.currentTarget.responseText)
 						)
 					)
+					fileinput.value = ''
 				} else {
 					alert("Error " + oReq.status + " occurred when trying to upload your file.")
 				}

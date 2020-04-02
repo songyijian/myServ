@@ -2,8 +2,8 @@
  * @Description: 公用文件
  * @Author: yijian.song
  * @Date: 2019-07-29 10:29:48
- * @LastEditors: 
- * @LastEditTime: 2019-08-23 20:07:33
+ * @LastEditors: yijian.song
+ * @LastEditTime: 2020-04-02 14:39:09
  */
 const fs = require('fs-extra')
 const slash = require('slash')
@@ -31,7 +31,7 @@ function isFileUrl(url) {
 // 获取用户ip
 function getClientIp(req) {
     var ipAddress;
-    var forwardedIpsStr = req.header('x-forwarded-for')
+    var forwardedIpsStr = req.header('x-real-ip') || req.header('x-forwarded-for')
     if (forwardedIpsStr) {
         var forwardedIps = forwardedIpsStr.split(',')
         ipAddress = forwardedIps[0];

@@ -2,25 +2,18 @@
  * @Description: 服务配置文件
  * @Author: yijian.song
  * @Date: 2019-08-22 15:19:30
- * @LastEditors:
- * @LastEditTime: 2019-09-06 10:12:38
+ * @LastEditors: yijian.song
+ * @LastEditTime: 2020-04-02 16:18:02
  */
 const path = require('path')
+
 // 抹平系统差异，把相对路径补齐
 function setPath(params) {
     return path.normalize(__dirname + '/' + params);
 }
 
-/**
- * @Description: 配置列表
- * @Author: yijian.song
- * @Version: 0.7.0
- * @LastEditors: yijian.song
- * @LastEditTime:
- * @Date: 2019-08-23 19:52:17
- */
 module.exports = {
-    /**启动端口号， 不设置默认8080端口 */
+    // 启动端口号， 不设置默认8080端口
     "port": 80,
 
     // 文件上传存储地址配置
@@ -30,7 +23,7 @@ module.exports = {
     "mockfiles": setPath('../mockfiles'),
 
     // 启动程序时自动在浏览器打开
-    // "opn":true,
+    // "opn": true,
 
     // 指定IDE打开命令${}会被替换成打开的地址
     // 'atom ${}' | 'code ${}'
@@ -40,10 +33,16 @@ module.exports = {
      * 本地静态项目仓库
      *   id为一：保留关键字 api, upload，mock
      */
-    "item_type": [{
-            "name": "myMac_a",
-            "id": "maymac",
-            "path": "/Users/yjsong/B/test"
+    "item_type": [
+        {
+            "name": "github",
+            "id": "github",
+            "path": "/Users/happyelements/github"
+        },
+        {
+            "name": "githubWebFE",
+            "id": "githubWebFE",
+            "path": "/Users/happyelements/github/webFE"
         },
         {
             "name": "minItem",
@@ -51,21 +50,18 @@ module.exports = {
             "path": "/Users/happyelements/gitlab/item"
         },
         {
-            "name": "webFE",
-            "id": "githubWebFE",
-            "path": "/Users/happyelements/github/webFE"
-        },
-        {
             "name": "sigmob-fe-endcardTemplate",
             "id": "sigmob-fe-endcardTemplate",
             "path": "/Users/happyelements/gitlab/sigmob-fe-endcardTemplate"
+        },
+        {
+            "name": "myMac",
+            "id": "maymac",
+            "path": "/Users/yjsong/B/test"
         }
     ],
 
-    /**
-     * 自动生产项目模版配置
-     * 模版id应该唯一
-     */
+    // 自动生产项目模版配置,模版id应该唯一
     "template": [{
             "name": "标准web项目",
             "id": 100,
@@ -130,10 +126,10 @@ module.exports = {
             "objs": [{
                 "name": "index.json",
                 "template": `{
-                        "msg": "",
-                        "code": 200,
-                        "data":{}
-                    }`
+                    "msg": "",
+                    "code": 200,
+                    "data":{}
+                }`
             }]
         }
     ]

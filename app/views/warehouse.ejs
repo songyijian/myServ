@@ -91,7 +91,6 @@
 		$("#webpck_btn").append(webpackBtnDom);
 		$("#webpck_btn>span").click(function (ev) {
 			$("#webpck_smg").text("")
-
 			var fname = $(this).attr("title");
 			$.post('/shell/webpack_item', {
 				url: `${pathy}/${fname}`

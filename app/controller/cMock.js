@@ -5,9 +5,7 @@
  * @Last modified time: 2020-01-21T13:24:09+08:00
  */
 
-
-
-const { isObj, isArray, isFunction } = require("../model/func")
+const {isFunction } = require("../model/func")
 
 module.exports = {
   // 构建UI

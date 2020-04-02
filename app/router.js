@@ -3,11 +3,15 @@ const router = express.Router()
 const handleRouter = require("./controller/handle.js")
 const uploadRouter = require("./controller/upload.js")
 const cMockRouter = require("./controller/cMock.js")
+const cJsonp = require("./controller/cJsonp.js")
+
 const devWatchRouter = require("./controller/devWatch.js")
 const runShellRouter = require("./controller/runShell.js")
 const { getIPAdress, getClientIp} = require("./model/func")
 
 function isMe(req, res, next){
+    // console.log(getIPAdress() ,getClientIp(req));
+    
     if (getIPAdress() !== getClientIp(req)) {
         res.send({ "state": 0, "info": 'err：该操作只支持本地服务' }); return
     }
@@ -25,6 +29,10 @@ devWatchRouter.fWatch()
 // 文件上传
 router.get('/upload', uploadRouter.uploadRender)
 router.post('/upload', isMe, uploadRouter.upload)
+
+
+// jsonp模拟接口
+router.get('/jsonp', isMe, cJsonp.jsonp)
 
 // mock
 router.use('/mock/*', cMockRouter.api)
