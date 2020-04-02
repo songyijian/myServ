@@ -3,11 +3,10 @@
  * @Author: yijian.song
  * @Version: 3.0.0
  * @Date: 2019-09-11 11:30:54
- * @LastEditors:
- * @LastEditTime: 2019-09-11 14:48:24
+ * @LastEditors: yijian.song
+ * @LastEditTime: 2020-04-02 16:50:00
  */
 "use strict"
-
 const chokidar = require("chokidar")
 const axios = require('axios')
 const fs = require('fs-extra')
@@ -32,8 +31,6 @@ module.exports = {
         })
       })
 
-
-
     // const watcherADconfig = chokidar.watch('/Users/happyelements/github/webFE/mraids/adconfig')
     // watcherADconfig
     //   .on('ready', () => log('config-监听初始化加载完成'))
@@ -52,7 +49,5 @@ module.exports = {
     //     })
     //   })
 
-
   }
-
 }

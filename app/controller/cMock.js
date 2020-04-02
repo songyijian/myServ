@@ -1,8 +1,10 @@
-/**
- * @Author: happyelements
- * @Date:   2019-08-23T20:11:50+08:00
- * @Last modified by:   happyelements
- * @Last modified time: 2020-01-21T13:24:09+08:00
+/*
+ * @Description: 
+ * @Author: yijian.song
+ * @Version: 
+ * @Date: 2020-04-01 10:24:48
+ * @LastEditors: yijian.song
+ * @LastEditTime: 2020-04-02 16:49:37
  */
 
 const {isFunction } = require("../model/func")
