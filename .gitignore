@@ -4,5 +4,5 @@ node_modules
 !mockfiles/index.js
 mockfiles/*
 
-!uploadfiles
+!uploadfiles/
 uploadfiles/*
