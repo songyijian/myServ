@@ -3,5 +3,3 @@ node_modules
 
 !mockfiles/index.js
 mockfiles/*
-
-!uploadfiles/
