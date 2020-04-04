@@ -3,7 +3,7 @@
  * @Author: yijian.song
  * @Date: 2019-08-22 15:19:30
  * @LastEditors: yijian.song
- * @LastEditTime: 2020-04-04 16:51:48
+ * @LastEditTime: 2020-04-04 17:05:06
  */
 
 
@@ -74,10 +74,10 @@ module.exports = {
     "port": 80,
 
     // 文件上传存储地址配置
-    "uploadFiles": setPath('../uploads'),
+    "uploadFiles": setPath('../../uploads'),
 
     // mock数据入口文件
-    "mockfiles": setPath('../mocks'),
+    "mockfiles": setPath('../../mocks'),
 
     // 启动程序时自动在浏览器打开
     // "opn": true,
