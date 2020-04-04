@@ -18,8 +18,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "dev": "nodemon ./app/app",
-    "start": "node ./app/app"
+    "dev": "nodemon ./app/app --host=myMac",
+    "happy": "node ./app/app --host=happyelements",
+    "mymac": "node ./app/app --host=myMac"
   },
   "author": "",
   "license": "ISC"

@@ -1,3 +1,11 @@
+/*
+ * @Description: 根据配置打包文件（已废弃）
+ * @Author: yijian.song
+ * @Version: 2.9.0
+ * @Date: 2020-04-04 12:24:36
+ * @LastEditors: yijian.song
+ * @LastEditTime: 2020-04-04 13:08:23
+ */
 const fs = require("fs");
 const path = require("path");
 const slash = require('slash');

@@ -1,4 +1,7 @@
 "use strict"
+const configData = require("./config")
+const { port=8080 } = configData
+
 const express = require("express")
 const app = express()
 const path = require('path')
@@ -6,8 +9,11 @@ const bodyParser = require('body-parser')
 const opn = require("opn")
 const routers = require("./router")
 const func = require("./model/func")
-const configData = require("./config")
-const { port=8080 } = configData
+
+
+
+
+
 
 //业务中间件
 app.use(function (req, res, next) {

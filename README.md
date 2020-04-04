@@ -79,3 +79,9 @@ module.exports = myMap
 
 
 <!-- 老版本演示视频: [youku 地址] (http://v.youku.com/v_show/id_XMjg3NDU4NzQ1Mg==.html?spm=a2hzp.8244740.userfeed.5!3~5~5~5!2~A) -->
+
+
+```
+!mockfiles/index.js
+mockfiles/*
+```

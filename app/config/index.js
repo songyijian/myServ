@@ -3,16 +3,73 @@
  * @Author: yijian.song
  * @Date: 2019-08-22 15:19:30
  * @LastEditors: yijian.song
- * @LastEditTime: 2020-04-02 16:18:02
+ * @LastEditTime: 2020-04-04 15:04:41
  */
+
+
+/**
+ * @Description: 简单的获取命令参数
+ * @case: 
+ * > node server.js --name=ajanuw --post=14
+ * let a = new Argvs();
+ *     a.argvsAll           // [ { name: 'ajanuw' }, { post: '14' } ]
+ *     a.argvsGet('name')   // ajanuw
+ *     a.argvsGet('post')   // 14
+ *     a.argvsKeys()        // [ 'name', 'post' ]
+ *     a.argvsHas('name')   // true
+ * ---------
+ * @Author: yijian.song
+ * @Date: 2019-04-22 15:24:18z
+ */
+class Argvs {
+    constructor() {
+        this.argvsAll = this.argvsAll();
+    }
+    argvsAll() {
+        return process.argv.slice(2).reduce((acc, item) => {
+            item = item.split(/=/);
+            const [k, v] = [item[0].replace(/-/gi, ''), item[1]];
+            acc.push({
+                [k]: v
+            });
+            return acc;
+        }, [])
+    }
+
+    argvsGet(k) {
+        return this.argvsAll.reduce((acc, item) =>
+            acc ?
+            acc :
+            (k in item) ?
+            acc = item[k] :
+            acc, false)
+    }
+
+    argvsKeys(argvsAll) {
+        if (!argvsAll) argvsAll = this.argvsAll;
+        return argvsAll.reduce((acc, item) => {
+            return [...acc, ...Object.keys(item)]
+        }, [])
+    }
+    argvsHas(k) {
+        return Object.is(this.argvsKeys().indexOf(k), -1) ? false : true;
+    }
+}
+
 const path = require('path')
+const argvs = new Argvs()
+const { itemType } = argvs.argvsGet('host') == 'happyelements' ? require('./happyelements') : require('./myMac')
 
 // 抹平系统差异，把相对路径补齐
 function setPath(params) {
     return path.normalize(__dirname + '/' + params);
 }
 
+
 module.exports = {
+    // 获取命令参数 (> node ./app/app --host=myMac)
+    "argvs": argvs,
+
     // 启动端口号， 不设置默认8080端口
     "port": 80,
 
@@ -25,41 +82,11 @@ module.exports = {
     // 启动程序时自动在浏览器打开
     // "opn": true,
 
-    // 指定IDE打开命令${}会被替换成打开的地址
-    // 'atom ${}' | 'code ${}'
+    // 指定IDE打开命令${}会被替换成打开的地址 （ 'atom ${}' | 'code ${}' ）
     "IDEOpen": 'code ${}',
 
-    /**
-     * 本地静态项目仓库
-     *   id为一：保留关键字 api, upload，mock
-     */
-    "item_type": [
-        {
-            "name": "github",
-            "id": "github",
-            "path": "/Users/happyelements/github"
-        },
-        {
-            "name": "githubWebFE",
-            "id": "githubWebFE",
-            "path": "/Users/happyelements/github/webFE"
-        },
-        {
-            "name": "minItem",
-            "id": "item",
-            "path": "/Users/happyelements/gitlab/item"
-        },
-        {
-            "name": "sigmob-fe-endcardTemplate",
-            "id": "sigmob-fe-endcardTemplate",
-            "path": "/Users/happyelements/gitlab/sigmob-fe-endcardTemplate"
-        },
-        {
-            "name": "myMac",
-            "id": "maymac",
-            "path": "/Users/yjsong/B/test"
-        }
-    ],
+    // 本地静态项目仓库id唯一  (id保留关键字 api, upload，mock)
+    "item_type": itemType,
 
     // 自动生产项目模版配置,模版id应该唯一
     "template": [{
