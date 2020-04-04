@@ -4,5 +4,6 @@ node_modules
 !app/mockfiles/index.js
 app/mockfiles/*
 
-!app/uploadfiles/
+# !app/uploadfiles
 app/uploadfiles/*
+
