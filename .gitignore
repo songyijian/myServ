@@ -1,13 +1,6 @@
 node_modules
 .DS_Store
-
-# mock/*
-# !mock/index.js
-
-# upload1/*
-# !/upload1/
-
 /m/*
 !/m/index.js
 
-# /u的忽略规则在/u/.gitignore下
+# /uploads的忽略规则在/uploads/.gitignore下
