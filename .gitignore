@@ -6,3 +6,11 @@ node_modules
 
 # upload1/*
 # !/upload1/
+
+
+
+/m/*
+!/m/index.js
+
+/u/*
+!/u/
