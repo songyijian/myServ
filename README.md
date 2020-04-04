@@ -4,7 +4,7 @@
 /**
  * @Description: 本地服务系统
  * @Author: yijian.song
- * @Version: 0.7.0
+ * @Version: 1.0.0
  * @LastEditTime:
  * @LastEditors: yijian.song
  * @Date: 2019-08-22 16:37:23
@@ -83,9 +83,3 @@ module.exports = myMap
 
 
 <!-- 老版本演示视频: [youku 地址] (http://v.youku.com/v_show/id_XMjg3NDU4NzQ1Mg==.html?spm=a2hzp.8244740.userfeed.5!3~5~5~5!2~A) -->
-
-
-```
-!mockfiles/index.js
-mockfiles/*
-```
