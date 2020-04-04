@@ -1,8 +1,8 @@
 node_modules
 .DS_Store
 
-!mockfiles/index.js
+!app/mockfiles/index.js
 mockfiles/*
 
-!uploadfiles/
+!app/uploadfiles/
 uploadfiles/*
