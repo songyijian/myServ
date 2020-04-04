@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<title> myServ </title>
+	<link rel="stylesheet" href="/css/style.css">
+	<script src="/js/jquery.js"></script>
+	<style media="screen">
+		div>p{ padding:1rem;}
+		p>label{ display: inline-block; width: 100px; text-align: right; margin-right: 1rem}
+		p>input{ display: inline-block; max-width: 250px; }
+		button{  margin-left:110px;}
+	</style>
+</head>
+
+<body>
+	<div class="panel">
+		<p>
+			<label>文字参数:</label>
+			<input type="text" id="name" name="name" />
+		</p>
+		<p>
+			<label>上传文件:</label>
+			<input type="file" name="file" id="file" required multiple />
+		</p>
+		<button type="button" id="btn" class="btn">上传图片</button>
+	
+		<div id="txt"></div>
+	</div>
+
+	<script type="text/javascript">
+		$("#btn").click(function (ev) {
+			$('#txt').html('')
+			var fileinput = document.getElementById("file")
+			var file = fileinput.files[0]
+			if(!file){ alert('上传文件不能为空'); return}
+			
+			var oData = new FormData();
+					oData.append("file",file)
+					oData.append("name", $("#name").val())
+
+			var oReq = new XMLHttpRequest();
+			oReq.open("POST", "/upload", true);
+			oReq.onload = function (oEvent) {
+				if (oReq.status == 200) {
+					console.log(oEvent.currentTarget)
+					$('#txt').html(
+						JSON.parse(
+							JSON.stringify(oEvent.currentTarget.responseText)
+						)
+					)
+					fileinput.value = ''
+				} else {
+					alert("Error " + oReq.status + " occurred when trying to upload your file.")
+				}
+			};
+			oReq.send(oData);
+			ev.preventDefault();
+		})
+	</script>
+
+</body>
+</html>
