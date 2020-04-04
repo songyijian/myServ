@@ -7,10 +7,7 @@ node_modules
 # upload1/*
 # !/upload1/
 
-
-
 /m/*
 !/m/index.js
 
-/u/*
-!/u/
+# /u的忽略规则在/u/.gitignore下
