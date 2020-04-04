@@ -5,3 +5,4 @@ mockfiles/*
 !mockfiles/index.js
 
 uploadfiles/*.*
+!mockfiles
