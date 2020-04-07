@@ -4,7 +4,6 @@ const handleRouter = require("./controller/handle.js")
 const uploadRouter = require("./controller/upload.js")
 const cMockRouter = require("./controller/cMock.js")
 const cJsonp = require("./controller/cJsonp.js")
-
 const devWatchRouter = require("./controller/devWatch.js")
 const runShellRouter = require("./controller/runShell.js")
 const { getIPAdress, getClientIp} = require("./model/func")
@@ -21,7 +20,6 @@ router.get('/', handleRouter.renderIndex)
 router.post('/api/creact_template_api', isMe, handleRouter.creactTemplate)
 //ui静态仓库
 router.get('/:urlId/*', handleRouter.warehouse)
-// router.post('/fwatch', isMe, devWatchRouter.fWatch)
 devWatchRouter.fWatch()
 
 // 文件上传

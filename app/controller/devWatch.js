@@ -4,7 +4,7 @@
  * @Version: 3.0.0
  * @Date: 2019-09-11 11:30:54
  * @LastEditors: yijian.song
- * @LastEditTime: 2020-04-02 16:50:00
+ * @LastEditTime: 2020-04-03 10:33:23
  */
 "use strict"
 const chokidar = require("chokidar")
@@ -14,22 +14,22 @@ const fs = require('fs-extra')
 //开发时监听文件变化
 module.exports = {
   fWatch: (req, res, next) => {
-    const log = console.log.bind(console);
-    const watcherItem = chokidar.watch('/Users/happyelements/github/webFE/mraids/item')
-    watcherItem
-      .on('ready', () => log('item-监听初始化加载完成'))
-      .on('error', error => log(`item-监听error: ${error}`))
-      .on('change', async (path)=> {
-        const fr = await fs.readFile('/Users/happyelements/github/webFE/mraids/item/index.html', "utf-8");
-        log(`\n 模版change：${path}`)
-        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-        axios.post('http://10.130.151.193:9999/get_ios_html', { html: fr }).then(res=>{
-          log(`ios : ${res.data} - ${ new Date()} ` )
-        })
-        axios.post('http://10.130.151.193:9999/get_an_html', { html: fr }).then(res=>{
-          log(`安卓 : ${res.data} - ${ new Date()}`)
-        })
-      })
+    // const log = console.log.bind(console);
+    // const watcherItem = chokidar.watch('/Users/happyelements/github/webFE/mraids/item')
+    // watcherItem
+    //   .on('ready', () => log('item-监听初始化加载完成'))
+    //   .on('error', error => log(`item-监听error: ${error}`))
+    //   .on('change', async (path)=> {
+    //     const fr = await fs.readFile('/Users/happyelements/github/webFE/mraids/item/index.html', "utf-8");
+    //     log(`\n 模版change：${path}`)
+    //     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    //     axios.post('http://10.130.151.193:9999/get_ios_html', { html: fr }).then(res=>{
+    //       log(`ios : ${res.data} - ${ new Date()} ` )
+    //     })
+    //     axios.post('http://10.130.151.193:9999/get_an_html', { html: fr }).then(res=>{
+    //       log(`安卓 : ${res.data} - ${ new Date()}`)
+    //     })
+    //   })
 
     // const watcherADconfig = chokidar.watch('/Users/happyelements/github/webFE/mraids/adconfig')
     // watcherADconfig
