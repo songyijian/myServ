@@ -1,18 +1,26 @@
 "use strict"
 const configData = require("./config")
 const { port=8080 } = configData
-
 const express = require("express")
 const app = express()
-const path = require('path')
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 const bodyParser = require('body-parser')
+const path = require('path')
 const opn = require("opn")
 const routers = require("./router")
 const func = require("./model/func")
 
-
-
-
+// socket
+io.on('connection', function (socket) {
+  //通知客户端已连接
+  socket.emit('open');  
+  
+  socket.on('message', function (data) {
+      //服务端像所以也没发送数据
+      io.sockets.emit('message', data.message);
+  });
+});
 
 
 //业务中间件
@@ -44,6 +52,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //router
 app.use(routers)
 app.use((req, res) => { res.status(404).render('err', { err: "404"})})
+
 
 let url = `http://${func.getIPAdress()}:${port}`
 app.listen(port, (err) => {

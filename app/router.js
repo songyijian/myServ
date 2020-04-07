@@ -4,14 +4,11 @@ const handleRouter = require("./controller/handle.js")
 const uploadRouter = require("./controller/upload.js")
 const cMockRouter = require("./controller/cMock.js")
 const cJsonp = require("./controller/cJsonp.js")
-
 const devWatchRouter = require("./controller/devWatch.js")
 const runShellRouter = require("./controller/runShell.js")
 const { getIPAdress, getClientIp} = require("./model/func")
 
 function isMe(req, res, next){
-    // console.log(getIPAdress() ,getClientIp(req));
-    
     if (getIPAdress() !== getClientIp(req)) {
         res.send({ "state": 0, "info": 'err：该操作只支持本地服务' }); return
     }
@@ -23,7 +20,6 @@ router.get('/', handleRouter.renderIndex)
 router.post('/api/creact_template_api', isMe, handleRouter.creactTemplate)
 //ui静态仓库
 router.get('/:urlId/*', handleRouter.warehouse)
-// router.post('/fwatch', isMe, devWatchRouter.fWatch)
 devWatchRouter.fWatch()
 
 // 文件上传
