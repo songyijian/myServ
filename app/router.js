@@ -10,8 +10,6 @@ const runShellRouter = require("./controller/runShell.js")
 const { getIPAdress, getClientIp} = require("./model/func")
 
 function isMe(req, res, next){
-    // console.log(getIPAdress() ,getClientIp(req));
-    
     if (getIPAdress() !== getClientIp(req)) {
         res.send({ "state": 0, "info": 'err：该操作只支持本地服务' }); return
     }
