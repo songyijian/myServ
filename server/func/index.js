@@ -3,7 +3,7 @@
  * @Author: yijian.song
  * @Date: 2019-07-29 10:29:48
  * @LastEditors: yijian.song
- * @LastEditTime: 2020-04-04 14:30:48
+ * @LastEditTime: 2020-04-09 11:51:03
  */
 const fs = require('fs-extra')
 const slash = require('slash')
@@ -129,13 +129,16 @@ function isFunction(o) {
 }
 
 
-
-
 module.exports = {
-    getClientIp,
-    getIPAdress,
     isDirCallFn,
     isFileCallFn,
     isFileUrl,
-    isMap, isObj, isArray, isFunction
+    isMap, 
+    isObj, 
+    isArray, 
+    isFunction,
+
+    getClientIp,
+    getIPAdress,
+    Argvs
 }

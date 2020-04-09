@@ -3,62 +3,14 @@
  * @Author: yijian.song
  * @Date: 2019-08-22 15:19:30
  * @LastEditors: yijian.song
- * @LastEditTime: 2020-04-08 11:04:04
+ * @LastEditTime: 2020-04-09 12:27:59
  */
-
-
-/**
- * @Description: 简单的获取命令参数
- * @case: 
- * > node server.js --name=ajanuw --post=14
- * let a = new Argvs();
- *     a.argvsAll           // [ { name: 'ajanuw' }, { post: '14' } ]
- *     a.argvsGet('name')   // ajanuw
- *     a.argvsGet('post')   // 14
- *     a.argvsKeys()        // [ 'name', 'post' ]
- *     a.argvsHas('name')   // true
- * ---------
- * @Author: yijian.song
- * @Date: 2019-04-22 15:24:18z
- */
-class Argvs {
-    constructor() {
-        this.argvsAll = this.argvsAll();
-    }
-    argvsAll() {
-        return process.argv.slice(2).reduce((acc, item) => {
-            item = item.split(/=/);
-            const [k, v] = [item[0].replace(/-/gi, ''), item[1]];
-            acc.push({
-                [k]: v
-            });
-            return acc;
-        }, [])
-    }
-
-    argvsGet(k) {
-        return this.argvsAll.reduce((acc, item) =>
-            acc ?
-            acc :
-            (k in item) ?
-            acc = item[k] :
-            acc, false)
-    }
-
-    argvsKeys(argvsAll) {
-        if (!argvsAll) argvsAll = this.argvsAll;
-        return argvsAll.reduce((acc, item) => {
-            return [...acc, ...Object.keys(item)]
-        }, [])
-    }
-    argvsHas(k) {
-        return Object.is(this.argvsKeys().indexOf(k), -1) ? false : true;
-    }
-}
+'use strict'
 
 const path = require('path')
-const argvs = new Argvs()
-const { itemType } = argvs.argvsGet('host') == 'happyelements' ? require('./happyelements') : require('./myMac')
+const {Argvs} = require('../func/index')
+const getArgvs = new Argvs()
+const { itemType } = getArgvs.argvsGet('host') == 'happyelements' ? require('./happyelements') : require('./myMac')
 
 // 抹平系统差异，把相对路径补齐
 function setPath(params) {
@@ -68,7 +20,7 @@ function setPath(params) {
 
 module.exports = {
     // 获取命令参数 (> node ./app/app --host=myMac)
-    "argvs": argvs,
+    "argvs": getArgvs,
 
     // http启动端口号，默认8080
     "httpPort": 80,
@@ -117,10 +69,12 @@ module.exports = {
   <meta name="renderer" content="webkit">
   <script charset="utf-8" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
   <title></title>
+  <style></style>
 </head>
 <body>
   <div id="app">jquery/3.3.1</div>
   <script type="module">import fn from './js/index.mjs'</script>
+  <script></script>
 </body>
 </html>`
                 }
@@ -143,9 +97,11 @@ module.exports = {
   <meta name="renderer" content="webkit">
   <script charset="utf-8" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
   <title></title>
+  <style></style>
 </head>
 <body>
   <div id="app">jquery/3.3.1</div>
+  <script></script>
 </body>
 </html>`
             }]

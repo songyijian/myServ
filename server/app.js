@@ -11,17 +11,15 @@ const opn = require("opn")
 const routers = require("./router")
 const func = require("./func")
 
-
 //cors中间件
 app.use(function (req, res, next) {
-  req.__CONFIG__ = configData;  //项目对配置直接带过去
-  const origin = req.get('origin'); // http://192.168.0.101
-  res.setHeader('Access-Control-Allow-Origin', origin||'*'); //哪些源发出请求：* 支持多源但不能再返回cookie了 ｜  "http://www.demo.com:80"
-  // GET,HEAD,POST不会触发CORS预检请求,其他必须首先使用OPTIONS方法发起一个预检请求到服务器
-  res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,POST,PUT,DELETE,CONNECT,OPTIONS,TRACE,PATCH'); // 支持那些形式都请求
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); //允许的请求头
-  res.setHeader('Access-Control-Allow-Credentials', 'false'); //是否允许带资源凭证，cookie等
-  if (req.method === 'OPTIONS') { // 如果是个预检请求，就直接发布会成功
+  req.__CONFIG__ = configData;
+  const origin = req.get('origin');
+  res.setHeader('Access-Control-Allow-Origin', origin||'*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,POST,PUT,DELETE,CONNECT,OPTIONS,TRACE,PATCH');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Credentials', 'false');
+  if (req.method === 'OPTIONS') {
     res.send('ok');
     retrun;
   }
@@ -53,12 +51,10 @@ app.use((req, res) => { res.status(404).render('err', { err: "404"})})
 
 // 启动 http服务
 app.listen(httpPort, (err) => { 
-  if (err) {
-    console.error(`本地${httpPort}端口可能被占用`,err); return;
-  }
-    console.log('>http-Network ' + `http://${func.getIPAdress()}:${httpPort}` )
-    console.log('>http-Local ' + `http://localhost:${httpPort}`)
-    configData.opn && opn(url)// 自动打开页面
+  if (err) { console.error(`本地${httpPort}端口可能被占用`,err); return; }
+  console.log('>http-Network ' + `http://${func.getIPAdress()}:${httpPort}` )
+  console.log('>http-Local ' + `http://localhost:${httpPort}`)
+  configData.opn && opn(url)
 })
 
 
@@ -104,4 +100,3 @@ app.listen(httpPort, (err) => {
 //     io.emit('message',data);
 //   });
 // });
-
