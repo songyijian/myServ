@@ -1,6 +1,6 @@
 "use strict"
 const configData = require("./config")
-const { port=8080 } = configData
+const { httpPort=8080, socketPort=9090 } = configData
 const express = require("express")
 const app = express()
 const server = require('http').Server(app);
@@ -9,10 +9,10 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const opn = require("opn")
 const routers = require("./router")
-const func = require("./model/func")
+const func = require("./func")
 
 
-//业务中间件
+//cors中间件
 app.use(function (req, res, next) {
   req.__CONFIG__ = configData;  //项目对配置直接带过去
   const origin = req.get('origin'); // http://192.168.0.101
@@ -51,27 +51,57 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(routers)
 app.use((req, res) => { res.status(404).render('err', { err: "404"})})
 
-server.listen(port, (err) => { //这里为了支持socket
+// 启动 http服务
+app.listen(httpPort, (err) => { 
   if (err) {
-    console.error(`本地${port}端口可能被占用`,err)
-  }else{
-    let url = `http://${func.getIPAdress()}:${port}`
-    console.log('> Network ' + url )
-    console.log('> Local ' + `http://localhost:${port}`)
-    // 自动打开页面
-    configData.opn && opn(url)
+    console.error(`本地${httpPort}端口可能被占用`,err); return;
   }
+    console.log('>http-Network ' + `http://${func.getIPAdress()}:${httpPort}` )
+    console.log('>http-Local ' + `http://localhost:${httpPort}`)
+    configData.opn && opn(url)// 自动打开页面
 })
 
 
 
+// // 启动 socket服务
+// server.listen(socketPort, (err) => {
+//   if (err) {
+//     console.error(`本地${socketPort}端口可能被占用`,err); return
+//   }
+//   console.log('>socket—Network ' + `http://${func.getIPAdress()}:${socketPort}` )
+//   console.log('>socket—Local ' + `http://localhost:${socketPort}`)
+// })
 
-// socket
-io.on('connection', function (socket) {
-  //通知客户端已连接
-  socket.emit('open');
-  socket.on('message', function (data) {
-    //服务端像所以也没发送数据
-    io.sockets.emit('message', data.message);
-  });
-});
+// // socket 需要时再打开吧
+// let userList = []
+// io.on('connection', function (socket) {
+//   // io.emit(foo); //会触发所有客户端用户的foo事件
+//   // socket.emit(foo); //只触发当前客户端用户的foo事件
+//   // socket.broadcast.emit(foo); //触发除了当前客户端用户的其他用户的foo事件
+  
+//   // 监听服务端消息
+//   var name = ''
+//   socket.on('login',(data)=>{
+//     name = data.name
+//     if(name && userList.indexOf(name) < 0){
+//       userList.push(name)
+//       io.emit('loginUser',userList)
+//     }else{
+//       socket.emit('loginError','用户已存在')
+//     }
+//   })
+
+//   socket.on('close',(data)=>{
+//     name = ''
+//     if(name && userList.indexOf(name) < 0){
+//       userList = userList.map(item=>item!==name)
+//       io.emit('loginUser',userList)
+//     }
+//   })
+
+//   //监听客户信息
+//   socket.on('message', function (data) {
+//     io.emit('message',data);
+//   });
+// });
+

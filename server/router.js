@@ -6,7 +6,7 @@ const cMockRouter = require("./controller/cMock.js")
 const cJsonp = require("./controller/cJsonp.js")
 const devWatchRouter = require("./controller/devWatch.js")
 const runShellRouter = require("./controller/runShell.js")
-const { getIPAdress, getClientIp} = require("./model/func")
+const { getIPAdress, getClientIp} = require("./func")
 
 function isMe(req, res, next){
     if (getIPAdress() !== getClientIp(req)) {
@@ -25,7 +25,6 @@ devWatchRouter.fWatch()
 // 文件上传
 router.get('/upload', uploadRouter.uploadRender)
 router.post('/upload', isMe, uploadRouter.upload)
-
 
 // jsonp模拟接口
 router.get('/jsonp', isMe, cJsonp.jsonp)

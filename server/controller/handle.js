@@ -4,10 +4,10 @@ const slash = require('slash')
 const path = require("path")
 const {
     creactArray
-} = require("../model/createFile")
+} = require("../service/createFile")
 const {
     isDirCallFn,
-} = require("../model/func")
+} = require("../func")
 
 module.exports = {
     // 构建UI

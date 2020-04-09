@@ -19,9 +19,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "dev": "nodemon ./app/app --host=myMac",
-    "happy": "node ./app/app --host=happyelements",
-    "mymac": "node ./app/app --host=myMac"
+    "dev": "nodemon ./server/app --host=happyelements",
+    "happy": "node ./server/app --host=happyelements",
+    "mymac": "node ./server/app --host=myMac"
   },
   "author": "",
   "license": "ISC"

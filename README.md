@@ -70,12 +70,13 @@ module.exports = myMap
 │   ├── app.js
 │   ├── config  		# 项目配置文件
 │   ├── controller 	# 主要业务
-│   ├── model				# 公用方法
-│   ├── public			# 项目静态资源，如css、js等存放的目录
+│   ├── service			# 更细化的业务服务
+│   ├── public			# 项目静态资源
 │   ├── router.js		# 路由文件
+│   ├── func    		# 公共函数
 │   └── views				# 项目模版文件ejs
-├── uploadfiles		# 上传文件存放位置，可配
-├── mockfiles			# mock业务，可配
+├── uploadfiles		  # 上传文件存放位置，可配
+├── mockfiles			  # mock业务，可配
 │   └── index.js
 ├── package-lock.json
 └── package.json

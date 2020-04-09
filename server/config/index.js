@@ -3,7 +3,7 @@
  * @Author: yijian.song
  * @Date: 2019-08-22 15:19:30
  * @LastEditors: yijian.song
- * @LastEditTime: 2020-04-04 17:05:06
+ * @LastEditTime: 2020-04-08 11:04:04
  */
 
 
@@ -70,8 +70,11 @@ module.exports = {
     // 获取命令参数 (> node ./app/app --host=myMac)
     "argvs": argvs,
 
-    // 启动端口号， 不设置默认8080端口
-    "port": 80,
+    // http启动端口号，默认8080
+    "httpPort": 80,
+
+    // socket启动端口号，默认9090
+    "socketPort": 90,
 
     // 文件上传存储地址配置
     "uploadFiles": setPath('../../uploads'),

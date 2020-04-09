@@ -4,10 +4,10 @@
  * @Version: 
  * @Date: 2020-04-01 10:24:48
  * @LastEditors: yijian.song
- * @LastEditTime: 2020-04-02 16:49:37
+ * @LastEditTime: 2020-04-09 10:48:13
  */
 
-const {isFunction } = require("../model/func")
+const {isFunction } = require("../func")
 
 module.exports = {
   // 构建UI
