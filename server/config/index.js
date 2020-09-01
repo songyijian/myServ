@@ -3,14 +3,14 @@
  * @Author: yijian.song
  * @Date: 2019-08-22 15:19:30
  * @LastEditors: yijian.song
- * @LastEditTime: 2020-04-09 12:27:59
+ * @LastEditTime: 2020-06-02 11:40:16
  */
 'use strict'
 
 const path = require('path')
 const {Argvs} = require('../func/index')
 const getArgvs = new Argvs()
-const { itemType } = getArgvs.argvsGet('host') == 'happyelements' ? require('./happyelements') : require('./myMac')
+const { itemType } = require(`./${getArgvs.argvsGet('host')}`) 
 
 // 抹平系统差异，把相对路径补齐
 function setPath(params) {

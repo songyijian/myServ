@@ -4,19 +4,20 @@
  * @Version: 2.9.0
  * @Date: 2020-04-04 13:09:44
  * @LastEditors: yijian.song
- * @LastEditTime: 2020-04-04 13:14:30
+ * @LastEditTime: 2020-09-01 17:06:20
  */
 
 module.exports = {
-  itemType: [{
+  itemType: [
+    {
       "name": "github",
       "id": "github",
       "path": "/Users/happyelements/github"
     },
     {
-      "name": "githubWebFE",
-      "id": "githubWebFE",
-      "path": "/Users/happyelements/github/webFE"
+      "name": "gitlab",
+      "id": "gitlab",
+      "path": "/Users/happyelements/gitlab"
     },
     {
       "name": "sigmob-fe-endcardTemplate",
