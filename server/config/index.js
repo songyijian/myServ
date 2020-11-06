@@ -3,7 +3,7 @@
  * @Author: yijian.song
  * @Date: 2019-08-22 15:19:30
  * @LastEditors: yijian.song
- * @LastEditTime: 2020-06-02 11:40:16
+ * @LastEditTime: 2020-11-06 10:48:34
  */
 'use strict'
 
@@ -35,7 +35,7 @@ module.exports = {
     "mockfiles": setPath('../../mocks'),
 
     // 启动程序时自动在浏览器打开
-    // "opn": true,
+    "open": getArgvs.argvsGet('open') === 'true',
 
     // 指定IDE打开命令${}会被替换成打开的地址 （ 'atom ${}' | 'code ${}' ）
     "IDEOpen": 'code ${}',

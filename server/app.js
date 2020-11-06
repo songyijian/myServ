@@ -1,6 +1,6 @@
 "use strict"
 const configData = require("./config")
-const { httpPort=8080, socketPort=9090 } = configData
+const { httpPort = 8080, socketPort = 9090 } = configData
 const express = require("express")
 const app = express()
 const server = require('http').Server(app);
@@ -15,7 +15,7 @@ const func = require("./func")
 app.use(function (req, res, next) {
   req.__CONFIG__ = configData;
   const origin = req.get('origin');
-  res.setHeader('Access-Control-Allow-Origin', origin||'*');
+  res.setHeader('Access-Control-Allow-Origin', origin || '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,POST,PUT,DELETE,CONNECT,OPTIONS,TRACE,PATCH');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Access-Control-Allow-Credentials', 'false');
@@ -33,7 +33,7 @@ app.set('view engine', 'ejs')
 // 目录静态化
 app.use('', express.static(__dirname + '/public'));
 configData.item_type.forEach((item, i) => {
-  if (item.id == 'mock' || item.id == 'upload'){
+  if (item.id == 'mock' || item.id == 'upload') {
     throw '仓库id存在保留关键字upload|mock'
   }
   app.use(`/${item.id}`, express.static(`${item.path}`, {
@@ -43,18 +43,28 @@ configData.item_type.forEach((item, i) => {
 
 //http交互
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 //router
 app.use(routers)
-app.use((req, res) => { res.status(404).render('err', { err: "404"})})
+app.use((req, res) => {
+  res.status(404).render('err', {
+    err: "404"
+  })
+})
 
 // 启动 http服务
-app.listen(httpPort, (err) => { 
-  if (err) { console.error(`本地${httpPort}端口可能被占用`,err); return; }
-  console.log('>http-Network ' + `http://${func.getIPAdress()}:${httpPort}` )
+app.listen(httpPort, (err) => {
+  if (err) {
+    console.error(`本地${httpPort}端口可能被占用`, err);
+    return;
+  }
+  var url = `http://${func.getIPAdress()}:${httpPort}`
+  console.log('>http-Network ' + url)
   console.log('>http-Local ' + `http://localhost:${httpPort}`)
-  configData.opn && opn(url)
+  configData.open && opn(url)
 })
 
 
@@ -74,7 +84,7 @@ app.listen(httpPort, (err) => {
 //   // io.emit(foo); //会触发所有客户端用户的foo事件
 //   // socket.emit(foo); //只触发当前客户端用户的foo事件
 //   // socket.broadcast.emit(foo); //触发除了当前客户端用户的其他用户的foo事件
-  
+
 //   // 监听服务端消息
 //   var name = ''
 //   socket.on('login',(data)=>{

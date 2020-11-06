@@ -19,7 +19,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "dev": "nodemon ./server/app --host=sig",
+    "dev": "nodemon ./server/app --host=sig --open=true",
     "sig": "node ./server/app --host=sig",
     "mymac": "node ./server/app --host=myMac"
   },
