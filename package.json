@@ -19,7 +19,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "dev": "nodemon ./server/app --host=sig --open=true",
+    "dev": "nodemon ./server/app --host=opay --open=true",
+    "opay": "node ./server/app --host=opay",
     "sig": "node ./server/app --host=sig",
     "mymac": "node ./server/app --host=myMac"
   },
