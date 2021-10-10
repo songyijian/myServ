@@ -6,21 +6,25 @@ const cMockRouter = require("./controller/cMock.js")
 const cJsonp = require("./controller/cJsonp.js")
 const devWatchRouter = require("./controller/devWatch.js")
 const runShellRouter = require("./controller/runShell.js")
-const { getIPAdress, getClientIp} = require("./func")
+const { getIPAdress, getClientIp } = require("./func")
 
-function isMe(req, res, next){
-    if (getIPAdress() !== getClientIp(req)) {
-        res.send({ "state": 0, "info": 'err：该操作只支持本地服务' }); return
-    }
-    next()
+function isMe (req, res, next) {
+  if (getIPAdress() !== getClientIp(req)) {
+    res.send({ "state": 0, "info": 'err：该操作只支持本地服务' }); return
+  }
+  next()
 }
 
 // 业务功能接口
 router.get('/', handleRouter.renderIndex)
 router.post('/api/creact_template_api', isMe, handleRouter.creactTemplate)
 //ui静态仓库
-router.get('/:urlId/*', handleRouter.warehouse)
+router.get('/:urlId/*', handleRouter.warehouse, handleRouter.funnel)
 devWatchRouter.fWatch()
+
+
+// vue-histry 模式
+router.get('/histry/*', histryRouter.index)
 
 // 文件上传
 router.get('/upload', uploadRouter.uploadRender)
