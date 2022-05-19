@@ -1,0 +1,4 @@
+# 忽略下面所有文件
+# ignore all except .gitignore file 
+*
+!.gitignore
